@@ -1,10 +1,9 @@
 package commands;
 
 import dataBase.GlobalObj;
-
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Command processing class
@@ -15,19 +14,19 @@ public class CommandHandler {
     /**
      * Field to store all commands
      */
-    private static Map<String, BaseCommand> map;
+    private static TreeMap<String, BaseCommand> map;
     /**
      * Field for storing executed commands
      */
     private static ArrayList<BaseCommand> history;
 
     /**
-     *
      The map initialization block, if you add a command, you must add it to the map
      */
     static {
-        map = new LinkedHashMap<>();
+        map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         history = new ArrayList<>();
+
         map.put("add", new AddToCollection());
         map.put("info", new Info());
         map.put("show", new Show());

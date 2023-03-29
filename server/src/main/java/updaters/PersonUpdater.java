@@ -1,9 +1,13 @@
 package updaters;
 
-import defaultClasses.*;
-import generators.*;
-import helpFun.*;
-import validators.*;
+import defaultClasses.Person;
+import generators.ColorGenerator;
+import generators.CoordinatesGenerator;
+import generators.Generate;
+import generators.LocationGenerator;
+import helpFun.Reflection;
+import helpFun.StringToDateParser;
+import validators.PersonValidator;
 
 import java.util.*;
 

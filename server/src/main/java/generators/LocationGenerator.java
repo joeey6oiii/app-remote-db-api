@@ -2,7 +2,6 @@ package generators;
 
 import defaultClasses.Location;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 /**

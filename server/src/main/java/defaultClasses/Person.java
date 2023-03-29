@@ -1,5 +1,7 @@
 package defaultClasses;
 
+import dataBase.DataBase;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,7 +10,7 @@ import java.util.Objects;
  * <p>
  * Some fields have restrictions.
  *
- * @see dataBase.DataBase
+ * @see DataBase
  */
 
 public class Person implements Generated, IsUpdateable, Comparable<Person> {

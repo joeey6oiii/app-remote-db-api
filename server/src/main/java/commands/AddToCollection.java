@@ -1,6 +1,8 @@
 package commands;
 
-import dataBase.*;
+import dataBase.DataBase;
+import dataBase.GlobalObj;
+import dataBase.Loader;
 import defaultClasses.Person;
 import generators.PersonGenerator;
 

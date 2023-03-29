@@ -3,7 +3,7 @@ package yamlsTools;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import commands.*;
+import commands.Exit;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;

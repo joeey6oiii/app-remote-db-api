@@ -2,7 +2,7 @@ package commands;
 
 import dataBase.DataBase;
 import yamlsTools.GlobalPath;
-import yamlsTools.YamlWriter;
+import yamlsTools.YAMLWriter;
 
 import java.io.IOException;
 
@@ -18,9 +18,9 @@ public class Save extends BaseCommand {
      * @param obj - link to the database containing the collection
      */
     public void execute(DataBase obj) {
-        YamlWriter yamlWriter = new YamlWriter();
+        YAMLWriter yamlWriter = new YAMLWriter();
         try {
-            yamlWriter.writeYaml(obj.getCollection(), "orderOutput.yaml");
+            yamlWriter.writeYAML(obj.getCollection(), "orderOutput.yaml");
         } catch (IOException e) {
             System.out.println("Something went wrong, the file was not created, please, try again");
         }
