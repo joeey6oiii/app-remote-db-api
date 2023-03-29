@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Exit extends BaseCommand {
     /**
      * Method that interrupts the program without saving to a file
-     *
      */
     public void execute() {
         System.out.println("Are you sure you want to end the program?");

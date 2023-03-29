@@ -12,7 +12,6 @@ import java.util.Iterator;
 public class Clear extends BaseCommand {
     /**
      * Executes the Clear command, which clears the entire database
-     *
      */
     public void execute() {
         Iterator i = GlobalObj.dataBase.getCollection().iterator();

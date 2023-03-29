@@ -17,7 +17,6 @@ public class RemoveLower extends BaseCommand {
     /**
      * Method that removes Person elements from the DataBase whose height field is less than the height field of the created object
      *
-     * @param obj - link to the database containing the collection
      * @throws IOException
      */
     public void execute() throws IOException {
