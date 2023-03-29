@@ -5,7 +5,7 @@ import defaultClasses.Person;
 /**
  * A class that implements full validation of the {@link Person} object.
  *
- * @see validators.ValidateAble
+ * @see ValidateAble
  * @see NameValidator
  * @see HairColorValidator
  * @see CoordinatesValidator

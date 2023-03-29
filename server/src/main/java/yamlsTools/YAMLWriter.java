@@ -12,7 +12,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
  *
  * @author Dmitrii Chebanenko
  */
-public class YamlWriter {
+public class YAMLWriter {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory()).findAndRegisterModules();
     /**
      * Method that saves collection to a file in the specified path.
@@ -20,7 +20,7 @@ public class YamlWriter {
      * @param object - object that is saved to a file
      * @throws IOException - the method throws an exception if the input of the object parameter fails
      */
-    public void writeYaml(Object object, String file) throws IOException {
+    public void writeYAML(Object object, String file) throws IOException {
         File newFile = new File(GlobalPath.getPath() + file);
         newFile.createNewFile();
         this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
