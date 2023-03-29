@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 import defaultClasses.Person;
 
 import java.io.IOException;
@@ -19,10 +19,10 @@ public class RemoveById extends BaseCommand {
      * @param obj - link to the database containing the collection
      * @throws IOException
      */
-    public void execute(DataBase obj) throws IOException {
+    public void execute() throws IOException {
         try {
             Integer a = Integer.parseInt(super.getParameter());
-            var array = obj.getCollection();
+            var array = GlobalObj.dataBase.getCollection();
             Iterator<Person> it = array.iterator();
             while (it.hasNext()) {
                 if (it.next().getId().equals(a)) {

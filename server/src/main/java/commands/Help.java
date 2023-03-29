@@ -1,7 +1,5 @@
 package commands;
 
-import dataBase.DataBase;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -16,12 +14,11 @@ public class Help extends BaseCommand {
      * builds and prints an empty string with the length of the difference between the longest command name and current
      * command name plus four, then calls {@link BaseCommand#describe()} method of the current command in the collection.
      *
-     * @param obj link to the database which contains the collection
      * @throws IOException
      */
 
     @Override
-    public void execute(DataBase obj) throws IOException {
+    public void execute() throws IOException {
         String command = "";
         for (Map.Entry<String, BaseCommand> entry : CommandHandler.getMap().entrySet()) {
             if (entry.getKey().length() > command.length()) {

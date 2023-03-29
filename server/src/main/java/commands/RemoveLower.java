@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 import dataBase.HeightComparator;
 import defaultClasses.Person;
 import generators.PersonGenerator;
@@ -20,10 +20,10 @@ public class RemoveLower extends BaseCommand {
      * @param obj - link to the database containing the collection
      * @throws IOException
      */
-    public void execute(DataBase obj) throws IOException {
+    public void execute() throws IOException {
         PersonGenerator personGenerator = new PersonGenerator();
         Person person = personGenerator.generate();
-        Iterator<Person> it = obj.getCollection().iterator();
+        Iterator<Person> it = GlobalObj.dataBase.getCollection().iterator();
         HeightComparator heightComparator = new HeightComparator();
         while (it.hasNext()) {
             if (heightComparator.compare(it.next(), person) < 0) {

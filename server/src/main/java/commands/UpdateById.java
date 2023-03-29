@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 import defaultClasses.Person;
 import updaters.PersonUpdater;
 
@@ -17,14 +17,13 @@ public class UpdateById extends BaseCommand {
      * outputs <code>String</code>, otherwise calls the {@link PersonUpdater#update(Person)} method on the found person.
      * @see PersonUpdater
      *
-     * @param obj link to the database which contains the collection
      * @throws IOException
      */
 
     @Override
-    public void execute(DataBase obj) throws IOException {
+    public void execute() throws IOException {
         boolean found = false;
-        for (Person person : obj.getCollection()) {
+        for (Person person : GlobalObj.dataBase.getCollection()) {
             if (person.getId() == Long.parseLong(super.getParameter())) {
                 found = true;
                 new PersonUpdater().update(person);

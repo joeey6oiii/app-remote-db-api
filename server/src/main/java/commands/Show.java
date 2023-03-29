@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 
 /**
  * The class that implements the show command - displays all elements from the DataBase
@@ -11,12 +11,11 @@ public class Show extends BaseCommand {
     /**
      * Method that allows the user to see the contents of the collection
      *
-     * @param obj - link to the database containing the collection
      */
-    public void execute(DataBase obj) {
-        if (obj.getCollection().size() == 0)
+    public void execute() {
+        if (GlobalObj.dataBase.getCollection().size() == 0)
             System.out.println("Collection is empty");
-        for (var a : obj.getCollection()) {
+        for (var a : GlobalObj.dataBase.getCollection()) {
             System.out.println(a.toString());
         }
     }
