@@ -24,7 +24,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>Client.Client</mainClass>
+                            <mainClass>Main.Main</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
@@ -37,7 +37,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Client.Client</mainClass>
+                            <mainClass>Main.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

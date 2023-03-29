@@ -16,6 +16,7 @@ import java.util.Iterator;
 public class RemoveGreater extends BaseCommand {
     /**
      * Method that removes Person elements from the DataBase whose height field is greater than the height field of the created object
+     *
      * @throws IOException
      */
     public void execute() throws IOException {
