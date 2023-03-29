@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 
 /**
  * Class for implementing the Info command - displays information about the database
@@ -9,12 +9,11 @@ import dataBase.DataBase;
 public class Info extends BaseCommand {
     /**
      * Method displays information about the database (Type, Length, Initialization Time)
-     * @param obj - link to the database containing the collection
      */
-    public void execute(DataBase obj) {
-        System.out.println("Type: " + obj.getTypeOfTheCollection());
-        System.out.println("Length: " + obj.getSizeOfTheCollection());
-        System.out.println("Initialization Time: " + obj.getInitializationTime());
+    public void execute() {
+        System.out.println("Type: " + GlobalObj.dataBase.getTypeOfTheCollection());
+        System.out.println("Length: " + GlobalObj.dataBase.getSizeOfTheCollection());
+        System.out.println("Initialization Time: " + GlobalObj.dataBase.getInitializationTime());
     }
     /**
      * Method that displays the description of the command

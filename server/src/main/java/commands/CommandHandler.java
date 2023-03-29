@@ -1,9 +1,8 @@
 package commands;
 
-import dataBase.GlobalObj;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Command processing class
@@ -14,19 +13,19 @@ public class CommandHandler {
     /**
      * Field to store all commands
      */
-    private static TreeMap<String, BaseCommand> map;
+    private static Map<String, BaseCommand> map;
     /**
      * Field for storing executed commands
      */
     private static ArrayList<BaseCommand> history;
 
     /**
+     *
      The map initialization block, if you add a command, you must add it to the map
      */
     static {
-        map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        map = new LinkedHashMap<>();
         history = new ArrayList<>();
-
         map.put("add", new AddToCollection());
         map.put("info", new Info());
         map.put("show", new Show());
@@ -57,7 +56,7 @@ public class CommandHandler {
             if (a.length > 1) {
                 map.get(a[0]).setParameter(a[1]);
             }
-            map.get(a[0]).execute(GlobalObj.dataBase);
+            map.get(a[0]).execute();
             history.add(map.get(a[0]));
         } catch (Exception e) {
             System.out.println("Invalid command. Type \"help\" to see a list of available commands and their description");

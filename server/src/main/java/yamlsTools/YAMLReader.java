@@ -64,7 +64,7 @@ public class YAMLReader {
                     path = scanner.nextLine();
                     if (path.equalsIgnoreCase("EXIT")) {
                         System.out.print("\n");
-                        new Exit().execute(null);
+                        new Exit().execute();
                     } else {
                         System.out.print("\n");
                         GlobalPath.setPath(path);

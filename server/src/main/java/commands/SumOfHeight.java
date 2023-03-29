@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 import defaultClasses.Person;
 
 import java.io.IOException;
@@ -15,13 +15,12 @@ public class SumOfHeight extends BaseCommand {
     /**
      * When called, sums the height field values of all {@link Person} objects in the collection, then outputs the resulting sum.
      *
-     * @param obj link to the database which contains the collection
      * @throws IOException
      */
 
     @Override
-    public void execute(DataBase obj) throws IOException {
-        Iterator<Person> it = obj.getCollection().iterator();
+    public void execute() throws IOException {
+        Iterator<Person> it = GlobalObj.dataBase.getCollection().iterator();
         int sum = 0;
         while (it.hasNext()){
             Person person = it.next();

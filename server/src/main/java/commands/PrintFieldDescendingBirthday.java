@@ -1,6 +1,6 @@
 package commands;
 
-import dataBase.DataBase;
+import dataBase.GlobalObj;
 import defaultClasses.Person;
 
 import java.io.IOException;
@@ -18,14 +18,13 @@ public class PrintFieldDescendingBirthday extends BaseCommand {
      * When called, creates an <code>ArrayList</code> and adds the values of the birthday field of all the {@link Person}
      * objects in the collection to it. Then, sorts, reverses and outputs the resulting list.
      *
-     * @param obj link to the database which contains the collection
      * @throws IOException
      */
 
     @Override
-    public void execute(DataBase obj) throws IOException {
-        ArrayList<Date> list = new ArrayList<>(obj.getCollection().size());
-        for (Person person : obj.getCollection()) {
+    public void execute() throws IOException {
+        ArrayList<Date> list = new ArrayList<>(GlobalObj.dataBase.getCollection().size());
+        for (Person person : GlobalObj.dataBase.getCollection()) {
             list.add(person.getBirthday());
         }
         Collections.sort(list);

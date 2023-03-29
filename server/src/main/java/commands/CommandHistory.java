@@ -1,7 +1,5 @@
 package commands;
 
-import dataBase.DataBase;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -19,12 +17,11 @@ public class CommandHistory extends BaseCommand {
      * if size is between zero and nine, outputs the whole history <code>ArrayList</code>, otherwise removes the first values in
      * the history <code>ArrayList</code> until its size is nine, and then outputs the history <code>ArrayList</code>.
      *
-     * @param obj link to the database which contains the collection
      * @throws IOException
      */
 
     @Override
-    public void execute(DataBase obj) throws IOException {
+    public void execute() throws IOException {
         if (CommandHandler.getHistory().size() == 0) {
             System.out.println("No command history yet");
             return;
