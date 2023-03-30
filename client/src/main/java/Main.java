@@ -18,33 +18,18 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        DatagramChannel cl = null;
+        int port = 9999;
 
         try {
-            cl = DatagramChannel.open();
-            cl.bind(null);
+            DatagramChannel datagramChannel = new ChannelConfigurator().init();
+            datagramChannel.configureBlocking(false);
+            ConnectionModule connectionModule = new ConnectionModule(datagramChannel,
+                    new InetSocketAddress(InetAddress.getLocalHost(), port));
+            connectionModule.connect();
 
-            InetSocketAddress se = new InetSocketAddress(InetAddress.getLocalHost(), 9999);
-            cl.connect(se);
+            // code
 
-            String msg = "";
-            while (!msg.equals("exit")) {
-                System.out.print("Type anything or exit: ");
-                msg = new Scanner(System.in).nextLine();
-                if (!Objects.equals(msg, "")) {
-                    ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes());
-                    cl.send(buffer, se);
-                    buffer.clear();
-                }
-
-                ByteBuffer bbf = ByteBuffer.allocate(1024);
-                cl.receive(bbf);
-                bbf.flip();
-                byte[] bytes = new byte[bbf.remaining()];
-                bbf.get(bytes);
-                System.out.println(new String(bytes));
-            }
-            cl.close();
-        } catch (IOException ignored) {}
+            connectionModule.disconnect();
+        } catch (UnknownHostException ignored) {} catch (IOException e) {} // не трогать (даже если очень чешутся руки нажать collapse)
     }
 }
