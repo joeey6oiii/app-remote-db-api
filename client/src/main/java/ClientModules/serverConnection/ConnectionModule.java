@@ -1,10 +1,12 @@
+package ClientModules.serverConnection;
+
 import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
 public class ConnectionModule implements ConnectAble {
-    DatagramChannel datagramChannel;
-    SocketAddress socketAddress;
+    private final DatagramChannel datagramChannel;
+    private final SocketAddress socketAddress;
 
     public ConnectionModule(DatagramChannel datagramChannel, SocketAddress socketAddress) {
         this.datagramChannel = datagramChannel;
@@ -31,6 +33,4 @@ public class ConnectionModule implements ConnectAble {
             }
         }
     }
-
-
 }

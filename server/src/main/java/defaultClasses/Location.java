@@ -1,5 +1,6 @@
 package defaultClasses;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * Some fields have restrictions.
  */
 
-public class Location implements Generated {
+public class Location implements Generated, Serializable {
     private Float x;
     private Integer y;
     private String name;

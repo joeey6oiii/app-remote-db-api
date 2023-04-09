@@ -1,4 +1,4 @@
-package dataBase;
+package comparators;
 
 import defaultClasses.Person;
 
