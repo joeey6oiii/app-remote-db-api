@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum Color implements Generated {
+public enum Color implements Generated, Serializable {
     RED("red"),
     ORANGE("orange"),
     WHITE("white");

@@ -2,6 +2,7 @@ package defaultClasses;
 
 import dataBase.DataBase;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @see DataBase
  */
 
-public class Person implements Generated, IsUpdateable, Comparable<Person> {
+public class Person implements Generated, IsUpdateable, Comparable<Person>, Serializable {
     private static Integer identifier = 0;
     private final Integer id;
     private String name;

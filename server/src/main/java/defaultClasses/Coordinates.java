@@ -1,5 +1,6 @@
 package defaultClasses;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * Fields have no restrictions.
  */
 
-public class Coordinates implements Generated {
+public class Coordinates implements Generated, Serializable {
     private long x;
     private int y;
 
