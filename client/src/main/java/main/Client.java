@@ -1,7 +1,7 @@
 package main;
 
-import ClientModules.serverConnection.ChannelConfigurator;
-import ClientModules.serverConnection.ConnectionModule;
+import clientModules.initializer.ChannelInitializer;
+import clientModules.connection.ConnectionModule;
 
 import java.io.*;
 import java.net.*;
@@ -21,13 +21,14 @@ public class Client {
     public static void main(String[] args) {
 
         try {
-            ConnectionModule connectionModule = new ConnectionModule(new ChannelConfigurator().init(),
+            ConnectionModule connectionModule = new ConnectionModule(new ChannelInitializer().init(),
                     new InetSocketAddress(InetAddress.getLocalHost(), PORT));
             connectionModule.connect();
 
 
-
             connectionModule.disconnect();
-        } catch (UnknownHostException ignored) {} catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

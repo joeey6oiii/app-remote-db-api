@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Abstraction class for all commands.
@@ -8,7 +9,7 @@ import java.io.IOException;
  * @author Dmitrii Chebanenko
  */
 
-public abstract class BaseCommand {
+public abstract class BaseCommand implements Serializable {
     /**
      * Abstract command call method.
      *
