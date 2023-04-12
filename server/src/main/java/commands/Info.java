@@ -2,11 +2,16 @@ package commands;
 
 import dataBase.GlobalObj;
 
+import java.io.Serial;
+
 /**
  * Class for implementing the Info command - displays information about the database
  * @author Dmitrii Chebanenko
  */
 public class Info extends BaseCommand {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     /**
      * Method displays information about the database (Type, Length, Initialization Time)
      */
