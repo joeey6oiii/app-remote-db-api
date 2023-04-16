@@ -1,27 +1,17 @@
 package clientModules.response.reader;
 
 import responses.Response;
+import serializer.ObjectSerializer;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.nio.ByteBuffer;
 
 public class ResponseReader implements ResponseReadAble<Response> {
 
     @Override
-    public Response readResponse(ByteBuffer buffer) {
-        buffer.flip();
-        byte[] data = new byte[buffer.remaining()];
-        ByteArrayInputStream bais = new ByteArrayInputStream(data);
-        ObjectInputStream ois;
-        buffer.get(data);
+    public Response readResponse(byte[] data) {
+        ObjectSerializer os = new ObjectSerializer();
         try {
-            ois = new ObjectInputStream(bais);
-            Response response = (Response) ois.readObject();
-            ois.close();
-            bais.close();
-            return response;
+            return (Response) os.deserialize(data);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

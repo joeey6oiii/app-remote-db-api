@@ -1,23 +1,17 @@
 package serverModules.request.reader;
 
 import requests.Request;
+import serializer.ObjectSerializer;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 
 public class RequestReader implements RequestReadAble<Request> {
 
     @Override
     public Request readRequest(DatagramPacket packet) {
-        ByteArrayInputStream bis = new ByteArrayInputStream(packet.getData());
-        ObjectInputStream ois;
+        ObjectSerializer os = new ObjectSerializer();
         try {
-            ois = new ObjectInputStream(bis);
-            Request request = (Request) ois.readObject();
-            ois.close();
-            bis.close();
-            return request;
+            return (Request) os.deserialize(packet.getData());
         } catch (Exception e) {
             e.printStackTrace();
         }
