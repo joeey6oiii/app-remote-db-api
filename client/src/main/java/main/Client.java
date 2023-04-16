@@ -2,6 +2,8 @@ package main;
 
 import clientModules.initializer.ChannelInitializer;
 import clientModules.connection.ConnectionModule;
+import clientModules.request.sender.CommandDescriptionsRequestSender;
+import requests.CommandDescriptionsRequest;
 
 import java.io.*;
 import java.net.*;
@@ -12,6 +14,7 @@ import java.net.*;
 
 public class Client {
     private final static int PORT = 9999;
+
     /**
      * Program entry point.
      *
@@ -25,6 +28,8 @@ public class Client {
                     new InetSocketAddress(InetAddress.getLocalHost(), PORT));
             connectionModule.connect();
 
+            System.out.println(new CommandDescriptionsRequestSender().sendRequest(connectionModule,
+                    new CommandDescriptionsRequest())); // test
 
             connectionModule.disconnect();
         } catch (IOException e) {
