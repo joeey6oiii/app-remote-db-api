@@ -2,9 +2,10 @@ package clientModules.connection;
 
 import java.io.IOException;
 import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
-public class ConnectionModule implements ConnectionManageAble {
+public class ConnectionModule implements ConnectionManageAble, SendDataAble {
     private final DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 
@@ -27,7 +28,7 @@ public class ConnectionModule implements ConnectionManageAble {
             try {
                 datagramChannel.connect(socketAddress);
             } catch (IOException e) {
-                // todo
+                // todo: реализовать логирование тута
             }
         }
     }
@@ -39,8 +40,20 @@ public class ConnectionModule implements ConnectionManageAble {
                 datagramChannel.disconnect();
                 datagramChannel.close();
             } catch (IOException e) {
-                // todo
+                // todo: реализовать логирование здесь
             }
+        }
+    }
+
+    @Override
+    public void sendData(byte[] data) {
+        ByteBuffer buffer = ByteBuffer.allocate(data.length);
+        buffer.put(data);
+        buffer.flip();
+        try {
+            datagramChannel.send(buffer, socketAddress);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

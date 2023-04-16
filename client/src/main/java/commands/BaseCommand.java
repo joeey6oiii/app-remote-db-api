@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Dmitrii Chebanenko
  */
 
-public abstract class BaseCommand implements Serializable {
+public abstract class BaseCommand {
     /**
      * Abstract command call method.
      *
