@@ -16,7 +16,8 @@ public class RequestSender implements RequestAble<Response, Request> {
         try {
             module.sendData(os.serialize(request));
 
-            return new ResponseReader().readResponse(module.receiveData());
+//            return new ResponseReader().readResponse(module.receiveData());
+            return new ResponseReader().readResponse(module.nonBlockingReceiveData());
         } catch (IOException e) {
             e.printStackTrace();
         }

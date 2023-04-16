@@ -29,7 +29,7 @@ public class Client {
             connectionModule.connect();
 
             System.out.println(new CommandDescriptionsRequestSender().sendRequest(connectionModule,
-                    new CommandDescriptionsRequest())); // test
+                    new CommandDescriptionsRequest()));
 
             connectionModule.disconnect();
         } catch (IOException e) {
