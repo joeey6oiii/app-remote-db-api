@@ -5,7 +5,8 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
-public class ConnectionModule implements ConnectionManageAble, SendDataAble {
+public class ConnectionModule implements ConnectionManageAble, SendDataAble, ReceiveDataAble<byte[]> {
+    private final int BUFFER_SIZE = 4096;
     private final DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 
@@ -55,5 +56,20 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public byte[] receiveData() {
+        ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        try {
+            this.datagramChannel.receive(buffer);
+            buffer.flip();
+            byte[] data = new byte[buffer.remaining()];
+            buffer.get(data);
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

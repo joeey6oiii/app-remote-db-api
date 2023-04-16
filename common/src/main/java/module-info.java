@@ -4,4 +4,5 @@ module common {
     exports responses;
     exports requests;
     exports commands;
+    exports serializer;
 }
