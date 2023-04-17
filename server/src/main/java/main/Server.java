@@ -15,9 +15,9 @@ public class Server {
             ConnectionModule module = new ConnectionModule(PORT);
 
             while (true) {
-                System.out.println(new RequestReader().readRequest(module.receiveData()));
-                new ResponseSender().sendResponse(module, module.getCallerBack().getAddress(), module.getCallerBack().getPort(),
-                        new CommandDescriptionsResponse(new ArrayList<>()));
+                new RequestReader().readRequest(module.receiveData());
+                new ResponseSender().sendResponse(module, module.getCallerBack().getAddress(),
+                        module.getCallerBack().getPort(), new CommandDescriptionsResponse(new ArrayList<>()));
             }
         } catch (Exception e) {
             e.printStackTrace();

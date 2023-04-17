@@ -12,9 +12,12 @@ import java.io.IOException;
  * @author Dmitrii Chebanenko
  */
 public class Save extends BaseCommand {
+    private final String name = "save";
+
     /**
      * Method that saves Person elements from the DataBase to the "orderOutput.yaml" file along the specified path
      */
+
     public void execute() {
         YAMLWriter yamlWriter = new YAMLWriter();
         try {
@@ -28,6 +31,7 @@ public class Save extends BaseCommand {
     /**
      * Method that returns the description of the command.
      */
+
     public String describe() {
         return "Saves the collection to a file";
     }

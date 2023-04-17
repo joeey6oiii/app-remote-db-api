@@ -11,6 +11,7 @@ import java.util.Iterator;
  */
 
 public class AverageOfHeight extends BaseCommand {
+    private final String name = "average_of_height";
 
     /**
      * When called, sums the height field values of all {@link Person} objects and counts the amount of objects in the

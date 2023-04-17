@@ -13,11 +13,14 @@ import java.util.Iterator;
  * @author Dmitrii Chebanenko
  */
 public class RemoveById extends BaseCommand {
+    private final String name = "remove_by_id";
+
     /**
      * Method that removes an element from the DataBase by id
      *
      * @throws IOException
      */
+
     public void execute() throws IOException {
         try {
             Integer a = Integer.parseInt(super.getParameter());
@@ -40,6 +43,7 @@ public class RemoveById extends BaseCommand {
     /**
      * Method that returns the description of the command.
      */
+
     @Override
     public String describe() {
         return "Removes an element from the database by id";

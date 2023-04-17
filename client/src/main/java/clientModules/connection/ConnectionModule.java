@@ -126,7 +126,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
             int readyChannels = 0;
             try {
                 assert selector != null;
-                readyChannels = selector.select();
+                readyChannels = selector.select(); // .selectNow() ?
             } catch (IOException e) {
                 e.printStackTrace();
             }

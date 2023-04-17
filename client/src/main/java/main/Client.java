@@ -28,8 +28,7 @@ public class Client {
                     new InetSocketAddress(InetAddress.getLocalHost(), PORT));
             connectionModule.connect();
 
-            System.out.println(new CommandDescriptionsRequestSender().sendRequest(connectionModule,
-                    new CommandDescriptionsRequest()));
+            new CommandDescriptionsRequestSender().sendRequest(connectionModule, new CommandDescriptionsRequest());
 
             connectionModule.disconnect();
         } catch (IOException e) {
