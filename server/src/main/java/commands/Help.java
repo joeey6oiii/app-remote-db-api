@@ -8,6 +8,7 @@ import java.util.Map;
  */
 
 public class Help extends BaseCommand {
+    private final String name = "help";
 
     /**
      * When called, counts the length of each command name to find the longest one, then iterates through the collection of commands:

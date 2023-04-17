@@ -14,11 +14,14 @@ import java.util.Iterator;
  * @author Dmitrii Chebanenko
  */
 public class RemoveLower extends BaseCommand {
+    private final String name = "remove_lower";
+
     /**
      * Method that removes Person elements from the DataBase whose height field is less than the height field of the created object
      *
      * @throws IOException
      */
+
     public void execute() throws IOException {
         PersonGenerator personGenerator = new PersonGenerator();
         Person person = personGenerator.generate();

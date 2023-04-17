@@ -15,9 +15,12 @@ import java.util.LinkedList;
  * @author Dmitrii Chebanenko
  */
 public class ExecuteScript extends BaseCommand {
+    private final String name = "execute_script";
+
     /**
      * A field for storing scripts that can cause a loop when executing a command
      */
+
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
     /**
@@ -25,6 +28,7 @@ public class ExecuteScript extends BaseCommand {
      *
      * @throws IOException
      */
+
     public void execute() throws IOException {
         if (historyOfDangerScript.contains(super.getParameter())) {
             System.out.println("Loop in script");
@@ -49,6 +53,7 @@ public class ExecuteScript extends BaseCommand {
     /**
      * Method that returns the description of the command.
      */
+
     public String describe() {
         return "Reads and executes a script from the specified file";
     }

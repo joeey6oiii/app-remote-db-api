@@ -9,6 +9,7 @@ import java.util.Map;
  */
 
 public class CommandHistory extends BaseCommand {
+    private final String name = "history";
 
     /**
      * When called, gets the history from the {@link CommandHandler} and checks the size of the history list. If size

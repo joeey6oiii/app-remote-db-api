@@ -14,7 +14,6 @@ public class ResponseSender implements ResponseAble<Response> {
         ObjectSerializer os = new ObjectSerializer();
         try {
             byte[] data = os.serialize(response);
-
             DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
             module.getSocket().send(packet);
         } catch (Exception e) {

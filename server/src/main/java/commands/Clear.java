@@ -10,6 +10,7 @@ import java.util.Iterator;
  * @author Dmitrii Chebanenko
  */
 public class Clear extends BaseCommand {
+    private final String name = "clear";
     /**
      * Executes the Clear command, which clears the entire database
      *

@@ -13,6 +13,7 @@ import java.util.Date;
  */
 
 public class PrintFieldDescendingBirthday extends BaseCommand {
+    private final String name = "print_field_descending_birthday";
 
     /**
      * When called, creates an <code>ArrayList</code> and adds the values of the birthday field of all the {@link Person}

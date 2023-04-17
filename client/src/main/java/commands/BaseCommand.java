@@ -1,7 +1,6 @@
 package commands;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Abstraction class for all commands.
@@ -10,21 +9,22 @@ import java.io.Serializable;
  */
 
 public abstract class BaseCommand {
-    /**
-     * Abstract command call method.
-     *
-     * @throws IOException
-     */
-    public abstract void execute() throws IOException;
+    private String name;
+
+    private String getName() {
+        return this.name;
+    }
 
     /**
      * Parameter holding the command argument (if any).
      */
+
     private String parameter;
 
     /**
      * Base constructor, sets the argument to null.
      */
+
     public BaseCommand() {
         parameter = null;
     }
@@ -34,14 +34,10 @@ public abstract class BaseCommand {
      *
      * @param obj - аргумент для команды
      */
+
     public BaseCommand(String obj) {
         parameter = obj;
     }
-
-    /**
-     * Abstract method, when overridden returns a description of the command.
-     */
-    public abstract String describe();
 
     /**
      * Method for getting value {@link BaseCommand#parameter}.
@@ -58,7 +54,22 @@ public abstract class BaseCommand {
      *
      * @param parameter - command argument
      */
+
     public void setParameter(String parameter) {
         this.parameter = parameter;
     }
+
+    /**
+     * Abstract command call method.
+     *
+     * @throws IOException
+     */
+
+    public abstract void execute() throws IOException;
+
+    /**
+     * Abstract method, when overridden returns a description of the command.
+     */
+
+    public abstract String describe();
 }

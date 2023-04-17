@@ -1,14 +1,11 @@
 package serverModules.processors;
 
-import commands.BaseCommand;
+import requests.Request;
 
-import java.io.IOException;
-
-public class CommandProcessor implements ProcessAble<BaseCommand> {
+public class CommandProcessor implements Processor {
 
     @Override
-    public BaseCommand process(BaseCommand command) throws IOException {
-        // Perform some processing on the command
-        return command;
+    public void proceed(Request request) {
+        // code
     }
 }

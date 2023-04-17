@@ -8,10 +8,13 @@ import dataBase.GlobalObj;
  * @author Dmitrii Chebanenko
  */
 public class Show extends BaseCommand {
+    private final String name = "show";
+
     /**
      * Method that allows the user to see the contents of the collection
      *
      */
+
     public void execute() {
         if (GlobalObj.dataBase.getCollection().size() == 0)
             System.out.println("Collection is empty");
@@ -23,6 +26,7 @@ public class Show extends BaseCommand {
     /**
      * Method that returns the description of the command.
      */
+
     public String describe() {
         return "Prints to standard output all elements of the collection in string representation";
     }

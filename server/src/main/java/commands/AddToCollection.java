@@ -14,6 +14,7 @@ import java.util.List;
  * @author Dmitrii Chebanenko
  */
 public class AddToCollection extends BaseCommand {
+    private final String name = "add";
     /**
      * The base method for the BaseCommand class {@see BaseCommand#execute()}, when called, allows
      *  the user to create an object of the Person class and add it to the collection via loader.

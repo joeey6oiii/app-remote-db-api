@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 
 public class UpdateById extends BaseCommand {
+    private final String name = "update_by_id";
 
     /**
      * When called, iterates through the collection to find the {@link Person} object with the specified id. If not found,

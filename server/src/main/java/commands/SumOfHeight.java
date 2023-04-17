@@ -11,6 +11,7 @@ import java.util.Iterator;
  */
 
 public class SumOfHeight extends BaseCommand {
+    private final String name = "sum_of_height";
 
     /**
      * When called, sums the height field values of all {@link Person} objects in the collection, then outputs the resulting sum.
