@@ -13,9 +13,7 @@ public class ResponseSender implements ResponseAble<Response> {
     public void sendResponse(ConnectionModule module, InetAddress address, int port, Response response) {
         ObjectSerializer os = new ObjectSerializer();
         try {
-            byte[] data = os.serialize(response);
-            DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
-            module.getSocket().send(packet);
+            module.sendData(os.serialize(response), address, port);
         } catch (Exception e) {
             e.printStackTrace();
         }

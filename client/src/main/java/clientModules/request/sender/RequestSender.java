@@ -21,9 +21,7 @@ public class RequestSender implements RequestAble<Response, Request> {
                 return new ResponseReader().readResponse(module.blockingReceiveData());
             }
             return new ResponseReader().readResponse(module.nonBlockingReceiveData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LockStateException e) {
+        } catch (IOException | LockStateException e) {
             e.printStackTrace();
         }
         return null;

@@ -3,13 +3,13 @@ package commands;
 import java.util.List;
 
 public class CommandDescriptionsContainer {
-    private List<CommandDescription> commandDescriptions; // хз делать static или нет
+    private static List<CommandDescription> commandDescriptions;
 
-    public void setCommandDescriptions(List<CommandDescription> commandDescriptions) {
-        this.commandDescriptions = commandDescriptions;
+    public static void setCommandDescriptions(List<CommandDescription> commandDescriptions) {
+        CommandDescriptionsContainer.commandDescriptions = commandDescriptions;
     }
 
-    public List<CommandDescription> getCommandDescriptions() {
-        return this.commandDescriptions;
+    public static List<CommandDescription> getCommandDescriptions() {
+        return commandDescriptions;
     }
 }

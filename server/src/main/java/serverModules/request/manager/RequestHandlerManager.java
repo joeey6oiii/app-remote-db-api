@@ -21,13 +21,12 @@ public class RequestHandlerManager {
         handlers.put(CommandExecutionResultRequest.class, new CommandExecutionRCH());
     }
 
-    public Object manageRequest(Request request) {
+    public void manageRequest(Request request) {
         try {
-            return Optional.ofNullable(handlers.get(request.getClass())).orElseThrow(() ->
+            Optional.ofNullable(handlers.get(request.getClass())).orElseThrow(() ->
                     new IllegalManagerArgumentException("Request Handler Manager contains illegal argument")).handleRequestContent(request);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

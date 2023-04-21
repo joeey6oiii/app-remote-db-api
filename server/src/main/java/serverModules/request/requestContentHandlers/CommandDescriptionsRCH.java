@@ -5,8 +5,7 @@ import requests.Request;
 public class CommandDescriptionsRCH implements RequestContentHandler {
 
     @Override
-    public Object handleRequestContent(Request request) {
+    public void handleRequestContent(Request request) {
         // code
-        return null;
     }
 }
