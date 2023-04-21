@@ -11,6 +11,7 @@ public class Server {
     private final static int PORT = 9999;
 
     public static void main(String[] args) {
+
         try {
             ConnectionModule module = new ConnectionModule(PORT);
 
@@ -22,5 +23,6 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

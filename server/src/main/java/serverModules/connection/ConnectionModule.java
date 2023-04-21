@@ -7,10 +7,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
-public class ConnectionModule implements ReceiveConnectionAble, ReceiveDataAble<byte[]> {
+public class ConnectionModule implements ReceiveDataAble<byte[]> {
     private final int BYTE_SIZE = 1024;
     private final DatagramSocket socket;
-    private CallerBack callerBack;
+    private CallerBack callerBack; // не уверен, что ему нужно здесь находиться
 
     public ConnectionModule(int port) throws SocketException {
         this.socket = new DatagramSocket(port);

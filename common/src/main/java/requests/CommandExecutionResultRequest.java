@@ -4,10 +4,10 @@ import commands.CommandDescription;
 
 import java.io.Serializable;
 
-public class ExecutionResultRequest implements Request, Serializable {
+public class CommandExecutionResultRequest implements Request, Serializable {
     private final CommandDescription command;
 
-    public ExecutionResultRequest(CommandDescription command) {
+    public CommandExecutionResultRequest(CommandDescription command) {
         this.command = command;
     }
 

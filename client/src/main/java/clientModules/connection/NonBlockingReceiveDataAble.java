@@ -1,7 +1,7 @@
 package clientModules.connection;
 
-import java.io.IOException;
+import exceptions.LockStateException;
 
 public interface NonBlockingReceiveDataAble<T> {
-    T nonBlockingReceiveData() throws IOException;
+    T nonBlockingReceiveData() throws LockStateException;
 }
