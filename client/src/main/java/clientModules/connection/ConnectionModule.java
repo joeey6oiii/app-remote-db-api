@@ -1,5 +1,7 @@
 package clientModules.connection;
 
+import exceptions.LockStateException;
+
 import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
@@ -11,7 +13,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class ConnectionModule implements ConnectionManageAble, SendDataAble,
-        ReceiveDataAble<byte[]>, NonBlockingReceiveDataAble<byte[]> {
+        BlockingReceiveDataAble<byte[]>, NonBlockingReceiveDataAble<byte[]> {
     private static final int MAX_PACKET_SIZE = (int) (Math.pow(2, 16) - 1);
     private final int BUFFER_SIZE = 4096;
     private final DatagramChannel datagramChannel;
@@ -53,6 +55,10 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         }
     }
 
+    public boolean isBlocking() {
+        return this.datagramChannel.isBlocking();
+    }
+
     @Override
     public void sendData(byte[] data) {
         ByteBuffer buffer = ByteBuffer.allocate(data.length);
@@ -65,26 +71,15 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         }
     }
 
-    // Пока идет тестирование неблокирующего receive этот метод будет оставаться тут. Если неблокирующий receive
-    // успешно пройдет все тесты, то этот метод будет удален из кода, а канал будет по умолчанию non blocking
     @Override
-    public byte[] receiveData() {
-        boolean isBlocking = datagramChannel.isBlocking();
-        boolean set = false;
-        if (!isBlocking) {
-            try {
-                datagramChannel.configureBlocking(true);
-                set = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public byte[] blockingReceiveData() throws LockStateException {
+        if (!datagramChannel.isBlocking()) {
+            throw new LockStateException("Datagram channel is non-blocking");
         }
+
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
         try {
             this.datagramChannel.receive(buffer);
-            if (set) {
-                datagramChannel.configureBlocking(isBlocking);
-            }
             buffer.flip();
             byte[] data = new byte[buffer.remaining()];
             buffer.get(data);
@@ -95,20 +90,13 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         return null;
     }
 
-    // В данный момент тестируется. Возможна замена блокирующего метода на неблокирующий
     @Override
-    public byte[] nonBlockingReceiveData() {
-        ByteBuffer buffer = ByteBuffer.allocate(MAX_PACKET_SIZE);
-        boolean isBlocking = datagramChannel.isBlocking();
-        boolean set = false;
-        if (isBlocking) {
-            try {
-                datagramChannel.configureBlocking(false);
-                set = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public byte[] nonBlockingReceiveData() throws LockStateException {
+        if (datagramChannel.isBlocking()) {
+            throw new LockStateException("Datagram channel is blocking");
         }
+
+        ByteBuffer buffer = ByteBuffer.allocate(MAX_PACKET_SIZE);
 
         Selector selector = null;
         try {
@@ -156,14 +144,6 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
                         e.printStackTrace();
                     }
                     return data;
-                }
-
-                if (set) {
-                    try {
-                        datagramChannel.configureBlocking(isBlocking);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
 
                 keyIterator.remove();

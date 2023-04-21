@@ -1,6 +1,6 @@
 package main;
 
-import clientModules.initializer.ChannelInitializer;
+import clientModules.channelConfiguration.DatagramChannelConfigurator;
 import clientModules.connection.ConnectionModule;
 import clientModules.request.sender.CommandDescriptionsRequestSender;
 import requests.CommandDescriptionsRequest;
@@ -13,6 +13,7 @@ import java.net.*;
  */
 
 public class Client {
+
     private final static int PORT = 9999;
 
     /**
@@ -24,8 +25,8 @@ public class Client {
     public static void main(String[] args) {
 
         try {
-            ConnectionModule connectionModule = new ConnectionModule(new ChannelInitializer().init(),
-                    new InetSocketAddress(InetAddress.getLocalHost(), PORT));
+            ConnectionModule connectionModule = new ConnectionModule(new DatagramChannelConfigurator()
+                    .initConfigureBlocking(false), new InetSocketAddress(InetAddress.getLocalHost(), PORT));
             connectionModule.connect();
 
             new CommandDescriptionsRequestSender().sendRequest(connectionModule, new CommandDescriptionsRequest());
