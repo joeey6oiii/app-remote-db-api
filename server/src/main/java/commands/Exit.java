@@ -8,8 +8,6 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 public class Exit extends BaseCommand {
-    private final String name = "exit";
-
     /**
      * Method that interrupts the program without saving to a file
      *

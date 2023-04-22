@@ -21,7 +21,7 @@ public class ResponseHandlerManager {
         handlers.put(CommandExecutionResultResponse.class, new ResponseOutputHandler());
     }
 
-    public void manageResponse(Response response) { // void ?
+    public void manageResponse(Response response) {
         try {
             Optional.ofNullable(handlers.get(response.getClass())).orElseThrow(() ->
                     new IllegalManagerArgumentException("Response Handler Manager contains illegal argument")).handleResponseContent(response);

@@ -1,12 +1,11 @@
 package serverModules.request.requestContentHandlers;
 
-import requests.Request;
+import serverModules.context.ServerContext;
 
 public class CommandExecutionRCH implements RequestContentHandler {
 
     @Override
-    public Object handleRequestContent(Request request) {
+    public void handleRequestContent(ServerContext context) {
         // code
-        return null;
     }
 }

@@ -3,7 +3,6 @@ package yamlsTools;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import commands.Exit;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -50,33 +49,11 @@ public class YAMLReader {
             arrayClass = (Class<T[]>) Class.forName("[L" + type.getName() + ";");
         } catch (ClassNotFoundException ignored) {}
         try {
-            System.out.print("\n");
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(path));
             objects = objectMapper.readValue(inputStreamReader, arrayClass);
             inputStreamReader.close();
         } catch (Exception e) {
-            boolean isPath = false;
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Invalid path or the file is damaged: \u001B[31m" + e.getMessage() + "\u001B[0m\n");
-            do {
-                try {
-                    System.out.print("\nEnter path to continue program execution or \"exit\" to terminate the program\n$ ");
-                    path = scanner.nextLine();
-                    if (path.equalsIgnoreCase("EXIT")) {
-                        System.out.print("\n");
-                        new Exit().execute();
-                    } else {
-                        System.out.print("\n");
-                        GlobalPath.setPath(path);
-                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(path));
-                        objects = objectMapper.readValue(inputStreamReader, arrayClass);
-                        inputStreamReader.close();
-                        isPath = true;
-                    }
-                } catch (Exception exception) {
-                    System.out.print("Invalid path or the file is damaged: \u001B[31m" + exception.getMessage() + "\u001B[0m\n");
-                }
-            } while (!isPath);
+            e.printStackTrace();
         }
         return Arrays.asList(objects);
     }

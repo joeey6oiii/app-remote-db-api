@@ -4,6 +4,7 @@ import exceptions.IllegalManagerArgumentException;
 import requests.CommandDescriptionsRequest;
 import requests.CommandExecutionResultRequest;
 import requests.Request;
+import serverModules.context.ServerContext;
 import serverModules.request.requestContentHandlers.CommandDescriptionsRCH;
 import serverModules.request.requestContentHandlers.CommandExecutionRCH;
 import serverModules.request.requestContentHandlers.RequestContentHandler;
@@ -21,13 +22,12 @@ public class RequestHandlerManager {
         handlers.put(CommandExecutionResultRequest.class, new CommandExecutionRCH());
     }
 
-    public Object manageRequest(Request request) {
+    public void manageRequest(ServerContext context) {
         try {
-            return Optional.ofNullable(handlers.get(request.getClass())).orElseThrow(() ->
-                    new IllegalManagerArgumentException("Request Handler Manager contains illegal argument")).handleRequestContent(request);
+            Optional.ofNullable(handlers.get(context.getRequest().getClass())).orElseThrow(() ->
+                    new IllegalManagerArgumentException("Request Handler Manager contains illegal argument")).handleRequestContent(context);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

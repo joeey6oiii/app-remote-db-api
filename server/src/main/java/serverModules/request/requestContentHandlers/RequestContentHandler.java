@@ -1,7 +1,7 @@
 package serverModules.request.requestContentHandlers;
 
-import requests.Request;
+import serverModules.context.ServerContext;
 
 public interface RequestContentHandler {
-    Object handleRequestContent(Request request);
+    void handleRequestContent(ServerContext context);
 }
