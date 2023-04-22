@@ -1,27 +1,34 @@
 package serverModules.connection;
 
+import requests.Request;
+import serverModules.callerBack.CallerBack;
+import serverModules.request.data.RequestData;
+import serverModules.request.reader.RequestReader;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-public class ConnectionModule implements ReceiveDataAble<byte[]>, SendDataAble {
+public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataAble {
     private final int BYTE_SIZE = 1024;
     private final DatagramSocket socket;
 
-    public ConnectionModule(int port) throws SocketException {
+    protected ConnectionModule(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
     }
 
     @Override
-    public byte[] receiveData() {
+    public RequestData receiveData() {
         byte[] bytes = new byte[BYTE_SIZE];
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         try {
             socket.receive(packet);
-            // сюда надо калербэка воткнуть, но не прямо в конекшн модуль, нужен отдельный класс👍
-            return packet.getData();
+
+            CallerBack callerBack = new CallerBack(packet.getAddress(), packet.getPort()); // RequestData && RequestDataInitializer ?. status 0 or 1, if 0 -> continue ?
+            Request request = new RequestReader().readRequest(packet.getData());
+            return new RequestData(callerBack, request);
         } catch (IOException e) {
             e.printStackTrace();
         }

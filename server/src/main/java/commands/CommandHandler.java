@@ -13,23 +13,24 @@ public class CommandHandler {
     /**
      * Field to store all commands.
      */
-    private static Map<String, BaseCommand> map;
+    private static final Map<String, BaseCommand> map;
     /**
      * Field for storing executed commands.
      */
-    private static ArrayList<BaseCommand> history;
+    private static final ArrayList<BaseCommand> history;
 
     static {
         map = new LinkedHashMap<>();
         history = new ArrayList<>();
+
         map.put("add", new AddToCollection());
         map.put("info", new Info());
         map.put("show", new Show());
         map.put("clear", new Clear());
         map.put("save", new Save());
-        map.put("exit", new Exit());
         map.put("remove_by_id", new RemoveById());
         map.put("help", new Help());
+        map.put("exit", new Exit());
         map.put("update", new UpdateById());
         map.put("history", new CommandHistory());
         map.put("sum_of_height", new SumOfHeight());
@@ -38,6 +39,10 @@ public class CommandHandler {
         map.put("execute_script", new ExecuteScript());
         map.put("remove_greater", new RemoveGreater());
         map.put("remove_lower", new RemoveLower());
+    }
+
+    public static BaseCommand getByName(CommandDescription description)  {
+        return map.get(description.getCommandName());
     }
 
     /**

@@ -1,12 +1,11 @@
 package main;
 
-import clientModules.channelConfiguration.DatagramChannelConfigurator;
 import clientModules.connection.ConnectionModule;
-import clientModules.request.sender.CommandDescriptionsRequestSender;
-import requests.CommandDescriptionsRequest;
+import clientModules.connection.ConnectionModuleConfigurator;
 
 import java.io.*;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 /**
  * Program entry point class. Contains <code>main()</code> method.
@@ -25,13 +24,8 @@ public class Client {
     public static void main(String[] args) {
 
         try {
-            ConnectionModule connectionModule = new ConnectionModule(new DatagramChannelConfigurator()
-                    .initConfigureBlocking(false), new InetSocketAddress(InetAddress.getLocalHost(), PORT));
-            connectionModule.connect();
-
-            new CommandDescriptionsRequestSender().sendRequest(connectionModule, new CommandDescriptionsRequest());
-
-            connectionModule.disconnect();
+            ConnectionModule module = new ConnectionModuleConfigurator()
+                    .initConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
         } catch (IOException e) {
             e.printStackTrace();
         }

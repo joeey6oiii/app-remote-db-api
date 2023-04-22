@@ -1,16 +1,15 @@
-package clientModules.channelConfiguration;
-
-import clientModules.connection.ConnectionModule;
+package clientModules.connection;
 
 import java.io.IOException;
+import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
-public class DatagramChannelConfigurator implements InitializeDatagramChannelAble, ConfigureDatagramChannelAble {
+public class ConnectionModuleConfigurator implements InitializeConnectionModuleAble, ConfigureConnectionModuleAble {
 
     @Override
-    public DatagramChannel init() {
+    public ConnectionModule init(SocketAddress address) {
         try {
-            return DatagramChannel.open();
+            return new ConnectionModule(DatagramChannel.open(), address);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -18,11 +17,11 @@ public class DatagramChannelConfigurator implements InitializeDatagramChannelAbl
     }
 
     @Override
-    public DatagramChannel initConfigureBlocking(boolean isBlocking) {
+    public ConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking) {
         try {
             DatagramChannel datagramChannel = DatagramChannel.open();
             datagramChannel.configureBlocking(isBlocking);
-            return datagramChannel;
+            return new ConnectionModule(datagramChannel, address);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
