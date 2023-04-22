@@ -1,4 +1,4 @@
-package clientModules.response.responseContentHandlers;
+package clientModules.response.receivers;
 
 import commands.CommandDescription;
 import commands.CommandDescriptionsContainer;
@@ -7,7 +7,7 @@ import responses.Response;
 
 import java.util.List;
 
-public class CommandDescriptionsRCH implements ResponseContentHandler {
+public class CommandDescriptionsReceiver implements ResponseContentHandler {
 
     @Override
     public void handleResponseContent(Response response) {
