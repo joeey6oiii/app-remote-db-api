@@ -24,7 +24,7 @@ public class ResponseHandlerManager {
     public void manageResponse(Response response) {
         try {
             Optional.ofNullable(handlers.get(response.getClass())).orElseThrow(() ->
-                    new IllegalManagerArgumentException("Response Handler Manager contains illegal argument")).handleResponseContent(response);
+                    new IllegalManagerArgumentException("ResponseHandlerManager contains illegal argument")).handleResponseContent(response);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }
