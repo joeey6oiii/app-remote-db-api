@@ -14,8 +14,8 @@ import java.util.Set;
 
 public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         BlockingReceiveDataAble<byte[]>, NonBlockingReceiveDataAble<byte[]> {
-    private final int MAX_PACKET_SIZE = (int) (Math.pow(2, 16) - 1);
-    private final int BUFFER_SIZE = (int) Math.pow(2, 12);
+    private final int MAX_PACKET_SIZE = 65536;
+    private final int BUFFER_SIZE = 4096;
     private final DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 
@@ -114,7 +114,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
             int readyChannels = 0;
             try {
                 assert selector != null;
-                readyChannels = selector.select(); // .selectNow() ?
+                readyChannels = selector.select();
             } catch (IOException e) {
                 e.printStackTrace();
             }

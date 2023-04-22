@@ -3,7 +3,7 @@ package main;
 import clientModules.connection.ConnectionModule;
 import clientModules.connection.ConnectionModuleConfigurator;
 import clientModules.request.sender.RequestSender;
-import clientModules.response.manager.ResponseHandlerManager;
+import clientModules.response.receivers.CommandDescriptionsReceiver;
 import commands.CommandDescriptionsContainer;
 import requests.CommandDescriptionsRequest;
 
@@ -27,14 +27,13 @@ public class Client {
 
     public static void main(String[] args) {
 
-        ResponseHandlerManager manager = new ResponseHandlerManager();
-
         try {
             ConnectionModule module = new ConnectionModuleConfigurator()
                     .newInstanceConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
             module.connect();
 
-            manager.manageResponse(new RequestSender().sendRequest(module, new CommandDescriptionsRequest()));
+            new CommandDescriptionsReceiver().handleResponseContent(new RequestSender().sendRequest(module, new CommandDescriptionsRequest()));
+            System.out.println(CommandDescriptionsContainer.getCommandDescriptions());
 
             module.disconnect();
         } catch (IOException e) {

@@ -15,9 +15,6 @@ public class HairColorValidator implements ValidateAble<Color> {
 
     @Override
     public boolean validate(Color color) {
-        if (color == null) {
-            return true;
-        }
-        return Color.listValues().contains(color);
+        return color == null ? true : Color.listValues().contains(color);
     }
 }
