@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
-public class ConnectionModuleConfigurator implements InitializeConnectionModuleAble, ConfigureConnectionModuleAble {
+public class ConnectionModuleConfigurator implements InstancingConnectionModuleAble, ConfigureConnectionModuleAble {
 
     @Override
-    public ConnectionModule init(SocketAddress address) {
+    public ConnectionModule newInstance(SocketAddress address) {
         try {
             return new ConnectionModule(DatagramChannel.open(), address);
         } catch (IOException e) {
@@ -17,7 +17,7 @@ public class ConnectionModuleConfigurator implements InitializeConnectionModuleA
     }
 
     @Override
-    public ConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking) {
+    public ConnectionModule newInstanceConfigureBlocking(SocketAddress address, boolean isBlocking) {
         try {
             DatagramChannel datagramChannel = DatagramChannel.open();
             datagramChannel.configureBlocking(isBlocking);

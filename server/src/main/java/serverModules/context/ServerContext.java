@@ -5,9 +5,9 @@ import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
 public class ServerContext {
-    private final Request request;
     private final ConnectionModule connectionModule;
     private final CallerBack callerBack;
+    private final Request request;
 
     public ServerContext(ConnectionModule connectionModule, CallerBack callerBack, Request request) {
         this.connectionModule = connectionModule;

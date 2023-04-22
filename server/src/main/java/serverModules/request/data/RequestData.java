@@ -1,22 +1,29 @@
 package serverModules.request.data;
 
-import requests.Request;
 import serverModules.callerBack.CallerBack;
 
 public class RequestData {
-    private final CallerBack callerBack;
-    private final Request request;
+    private byte[] data;
+    private CallerBack callerBack;
 
-    public RequestData(CallerBack callerBack, Request request) {
+    public RequestData(byte[] data, CallerBack callerBack) {
+        this.data = data;
         this.callerBack = callerBack;
-        this.request = request;
+    }
+
+    public byte[] getByteArray() {
+        return data;
+    }
+
+    public void setByteArray(byte[] data) {
+        this.data = data;
     }
 
     public CallerBack getCallerBack() {
         return callerBack;
     }
 
-    public Request getRequest() {
-        return request;
+    public void setCallerBack(CallerBack callerBack) {
+        this.callerBack = callerBack;
     }
 }

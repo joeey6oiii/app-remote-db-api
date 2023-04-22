@@ -1,4 +1,4 @@
-package serverModules.request.requestContentHandlers;
+package serverModules.request.contentHandlers;
 
 import commands.CommandDescription;
 import commands.CommandDescriptionsContainer;

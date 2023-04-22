@@ -1,9 +1,7 @@
 package serverModules.connection;
 
-import requests.Request;
 import serverModules.callerBack.CallerBack;
 import serverModules.request.data.RequestData;
-import serverModules.request.reader.RequestReader;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -12,7 +10,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataAble {
-    private final int BYTE_SIZE = 1024;
+    private final int BYTE_SIZE = (int) Math.pow(2, 10);
     private final DatagramSocket socket;
 
     protected ConnectionModule(int port) throws SocketException {
@@ -26,9 +24,7 @@ public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataA
         try {
             socket.receive(packet);
 
-            CallerBack callerBack = new CallerBack(packet.getAddress(), packet.getPort()); // RequestData && RequestDataInitializer ?. status 0 or 1, if 0 -> continue ?
-            Request request = new RequestReader().readRequest(packet.getData());
-            return new RequestData(callerBack, request);
+            return new RequestData(packet.getData(), new CallerBack(packet.getAddress(), packet.getPort()));
         } catch (IOException e) {
             e.printStackTrace();
         }
