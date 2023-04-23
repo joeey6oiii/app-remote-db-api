@@ -1,4 +1,6 @@
-package commands;
+package commandsModule.master;
+
+import commandsModule.master.CommandHandler;
 
 import java.util.Scanner;
 
@@ -8,16 +10,19 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 public class CommandManager {
-    /**
-     * Method to Start CommandManager
-     */
+    private final CommandHandler handler;
+
+    public CommandManager(CommandHandler handler) {
+        this.handler = handler;
+    }
+
     public void startWorking() {
         System.out.println("CommandManager started");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("$ ");
             String str = scanner.nextLine();
-            CommandHandler.handleCommand(str);
+            handler.handleCommand(str);
         }
     }
 

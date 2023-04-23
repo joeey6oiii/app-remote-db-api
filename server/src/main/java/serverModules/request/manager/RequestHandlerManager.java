@@ -7,13 +7,13 @@ import requests.Request;
 import serverModules.context.ServerContext;
 import serverModules.request.contentHandlers.CommandDescriptionsRCH;
 import serverModules.request.contentHandlers.CommandExecutionRCH;
-import serverModules.request.contentHandlers.RequestContentHandler;
+import serverModules.request.contentHandlers.RequestContentHandleAble;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
 public class RequestHandlerManager {
-    private final LinkedHashMap<Class<? extends Request>, RequestContentHandler> handlers;
+    private final LinkedHashMap<Class<? extends Request>, RequestContentHandleAble> handlers;
 
     {
         handlers = new LinkedHashMap<>();
