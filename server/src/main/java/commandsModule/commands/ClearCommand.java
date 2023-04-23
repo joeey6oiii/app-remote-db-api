@@ -1,13 +1,13 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 public class ClearCommand implements BaseCommand {
     private final String name = "clear";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public ClearCommand(DataBase dataBase) {
+    public ClearCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 

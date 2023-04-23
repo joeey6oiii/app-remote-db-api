@@ -2,16 +2,16 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import commandsModule.master.CommandContext;
-import dataBase.DataBase;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class HistoryCommand implements BaseCommand {
     private final String name = "history";
-    private final DataBase dataBase;
+    private final Database dataBase;
     private final CommandContext context;
 
-    public HistoryCommand(DataBase dataBase, CommandContext context) {
+    public HistoryCommand(Database dataBase, CommandContext context) {
         this.dataBase = dataBase;
         this.context = context;
     }

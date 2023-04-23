@@ -3,7 +3,6 @@ package dataBase;
 import commandsModule.commands.BaseCommand;
 import comparators.HeightComparator;
 import defaultClasses.Person;
-import generators.PersonGenerator;
 import yamlsTools.GlobalPath;
 import yamlsTools.YAMLWriter;
 
@@ -12,13 +11,13 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DataBase {
+public class Database {
 
     private HashSet<Person> dataBase = new HashSet<>();
 
     private final LocalDateTime initializationTime;
 
-    public DataBase() {
+    public Database() {
         initializationTime = LocalDateTime.now();
     }
 
@@ -40,6 +39,7 @@ public class DataBase {
 
     public void add(Person person) {
         this.dataBase.add(person);
+        this.sortCollection();
     }
 
     public void averageOfHeight() {
@@ -82,16 +82,14 @@ public class DataBase {
         System.out.println(history);
     }
 
-
-    public void update(Integer id) {
+    public void update(Integer id, Person person) {
         boolean found = false;
         for (Person p : this.dataBase) {
             if (Objects.equals(p.getId(), id)) {
                 found = true;
                 this.dataBase.remove(p);
-                Person person = new PersonGenerator().generate();
                 person.setId(id);
-                new Loader().load(this, Collections.singletonList(person));
+                this.add(person);
             }
         }
         if (!found) {

@@ -1,16 +1,15 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
-import generators.PersonGenerator;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class RemoveLowerCommand implements BaseCommand {
     private final String name = "remove_lower";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public RemoveLowerCommand(DataBase dataBase) {
+    public RemoveLowerCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 
@@ -31,7 +30,7 @@ public class RemoveLowerCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.removeLower(new PersonGenerator().generate());
+//        dataBase.removeLower(person);
     }
 
 }

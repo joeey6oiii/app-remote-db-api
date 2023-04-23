@@ -1,16 +1,15 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
-import generators.PersonGenerator;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class RemoveGreaterCommand implements BaseCommand {
     private final String name = "remove_greater";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public RemoveGreaterCommand(DataBase dataBase) {
+    public RemoveGreaterCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 
@@ -31,7 +30,7 @@ public class RemoveGreaterCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.removeGreater(new PersonGenerator().generate());
+//        dataBase.removeGreater(person);
     }
 
 }

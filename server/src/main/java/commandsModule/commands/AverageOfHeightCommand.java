@@ -1,15 +1,15 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class AverageOfHeightCommand implements BaseCommand {
     private final String name = "average_of_height";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public AverageOfHeightCommand(DataBase dataBase) {
+    public AverageOfHeightCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 
