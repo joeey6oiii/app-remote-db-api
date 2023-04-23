@@ -1,13 +1,13 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 public class ShowCommand implements BaseCommand {
     private final String name = "show";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public ShowCommand(DataBase dataBase) {
+    public ShowCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 

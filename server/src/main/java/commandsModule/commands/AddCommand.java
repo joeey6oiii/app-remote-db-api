@@ -1,17 +1,13 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
-import dataBase.Loader;
-import generators.PersonGenerator;
-
-import java.util.Collections;
+import dataBase.Database;
 
 public class AddCommand implements BaseCommand {
     private final String name = "add";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public AddCommand(DataBase dataBase) {
+    public AddCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 
@@ -32,7 +28,7 @@ public class AddCommand implements BaseCommand {
 
     @Override
     public void execute() {
-        new Loader().load(dataBase, Collections.singletonList(new PersonGenerator().generate()));
+//        dataBase.add(person);
     }
 
 }

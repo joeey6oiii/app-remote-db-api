@@ -2,7 +2,7 @@ package commandsModule.master;
 
 import commands.CommandDescription;
 import commandsModule.commands.*;
-import dataBase.DataBase;
+import dataBase.Database;
 import exceptions.UnsupportedNumberOfArgumentsException;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CommandHandler implements CommandContext {
     private final Map<String, BaseCommand> commands;
     private final ArrayList<BaseCommand> history;
 
-    public CommandHandler(DataBase dataBase) {
+    public CommandHandler(Database dataBase) {
 
         commands = new LinkedHashMap<>();
         history = new ArrayList<>();

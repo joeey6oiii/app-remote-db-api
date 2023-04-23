@@ -2,16 +2,16 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import commandsModule.master.CommandContext;
-import dataBase.DataBase;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class HelpCommand implements BaseCommand {
     private final String name = "help";
-    private final DataBase dataBase;
+    private final Database dataBase;
     private final CommandContext context;
 
-    public HelpCommand(DataBase dataBase, CommandContext context) {
+    public HelpCommand(Database dataBase, CommandContext context) {
         this.dataBase = dataBase;
         this.context = context;
     }

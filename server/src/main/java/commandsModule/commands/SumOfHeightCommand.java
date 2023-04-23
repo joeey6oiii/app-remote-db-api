@@ -1,15 +1,15 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class SumOfHeightCommand implements BaseCommand {
     private final String name = "sum_of_height";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public SumOfHeightCommand(DataBase dataBase) {
+    public SumOfHeightCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 

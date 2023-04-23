@@ -1,13 +1,13 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 public class InfoCommand implements BaseCommand {
     private final String name = "info";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public InfoCommand(DataBase dataBase) {
+    public InfoCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 

@@ -1,16 +1,16 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 import java.io.IOException;
 
 public class RemoveByIdCommand implements BaseCommand, ParameterizedCommand {
     private final String name = "remove_by_id";
     private String[] args;
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public RemoveByIdCommand(DataBase dataBase) {
+    public RemoveByIdCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 

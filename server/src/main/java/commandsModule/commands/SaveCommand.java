@@ -1,13 +1,13 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.DataBase;
+import dataBase.Database;
 
 public class SaveCommand implements BaseCommand {
     private final String name = "save";
-    private final DataBase dataBase;
+    private final Database dataBase;
 
-    public SaveCommand(DataBase dataBase) {
+    public SaveCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
 
