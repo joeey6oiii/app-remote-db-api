@@ -3,10 +3,8 @@ package commandsModule.commands;
 import commands.CommandDescription;
 import dataBase.DataBase;
 import dataBase.Loader;
-import defaultClasses.Person;
 import generators.PersonGenerator;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class AddCommand implements BaseCommand {

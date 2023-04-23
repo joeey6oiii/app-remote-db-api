@@ -6,6 +6,7 @@ import dataBase.DataBase;
 import exceptions.UnsupportedNumberOfArgumentsException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -55,20 +56,20 @@ public class CommandHandler implements CommandContext {
     }
 
     public void handleCommand(String str) {
-        var a = str.split(" ");
+        var inputArray = str.split(" ");
         try {
-            if (a.length > 1) {
-                if (commands.get(a[0]) instanceof ParameterizedCommand command) {
-                    command.setParameter(a[1]);
+            if (inputArray.length > 1) {
+                if (commands.get(inputArray[0]) instanceof ParameterizedCommand command) {
+                    command.setArguments(Arrays.copyOfRange(inputArray, 1, inputArray.length));
                     command.execute();
                 } else {
-                    throw new UnsupportedNumberOfArgumentsException(commands.get(a[0]) +
+                    throw new UnsupportedNumberOfArgumentsException(commands.get(inputArray[0]) +
                             " does not support the entered number of arguments");
                 }
             } else {
-                commands.get(a[0]).execute();
+                commands.get(inputArray[0]).execute();
             }
-            history.add(commands.get(a[0]));
+            history.add(commands.get(inputArray[0]));
         } catch (Exception e) {
             System.out.println("Invalid command. Type \"help\" to see a list of available commands and their description");
         }
