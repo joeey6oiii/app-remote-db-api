@@ -1,7 +1,6 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import commandsModule.commands.BaseCommand;
 import dataBase.DataBase;
 
 import java.io.IOException;

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class RemoveByIdCommand implements BaseCommand, ParameterizedCommand {
     private final String name = "remove_by_id";
-    private String parameter;
+    private String[] args;
     private final DataBase dataBase;
 
     public RemoveByIdCommand(DataBase dataBase) {
@@ -19,12 +19,14 @@ public class RemoveByIdCommand implements BaseCommand, ParameterizedCommand {
         return this.name;
     }
 
-    public String getParameter() {
-        return this.parameter;
+    @Override
+    public String[] getArguments() {
+        return this.args;
     }
 
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
+    @Override
+    public void setArguments(String[] args) {
+        this.args = args;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class RemoveByIdCommand implements BaseCommand, ParameterizedCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.remove(Integer.parseInt(parameter));
+        dataBase.remove(Integer.parseInt(args[0]));
     }
 
 }

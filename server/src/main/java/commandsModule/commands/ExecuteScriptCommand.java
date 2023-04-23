@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
     private final String name = "execute_script";
     private final CommandHandler handler;
-    private String parameter;
+    private String[] args;
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
     public ExecuteScriptCommand(CommandHandler handler) {
@@ -26,12 +26,14 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
         return this.name;
     }
 
-    public String getParameter() {
-        return this.parameter;
+    @Override
+    public String[] getArguments() {
+        return this.args;
     }
 
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
+    @Override
+    public void setArguments(String[] args) {
+        this.args = args;
     }
 
     @Override
@@ -46,17 +48,17 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
 
     @Override
     public void execute() throws IOException {
-        if (historyOfDangerScript.contains(parameter)) {
+        if (historyOfDangerScript.contains(args[0])) {
             System.out.println("Script in loop");
             return;
         }
-        File file = new File(parameter);
+        File file = new File(args[0]);
         try (InputStream in = new FileInputStream(file)) {
             String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
             var a = contents.split("\n");
             for (var t : a) {
                 if (t.split(" ")[0].equals("execute_script")) {
-                    historyOfDangerScript.add(parameter);
+                    historyOfDangerScript.add(args[0]);
                 }
                 handler.handleCommand(t);
             }
