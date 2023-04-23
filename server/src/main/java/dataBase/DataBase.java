@@ -3,7 +3,7 @@ package dataBase;
 import commandsModule.commands.BaseCommand;
 import comparators.HeightComparator;
 import defaultClasses.Person;
-import updaters.PersonUpdater;
+import generators.PersonGenerator;
 import yamlsTools.GlobalPath;
 import yamlsTools.YAMLWriter;
 
@@ -64,31 +64,34 @@ public class DataBase {
     }
 
     public void history(Map<String, BaseCommand> map, ArrayList<BaseCommand> list) {
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             System.out.println("No command history yet");
             return;
         }
-        ArrayList<String> history = new ArrayList<>();
-        for (BaseCommand command : list) {
-            for (Map.Entry<String, BaseCommand> entry : map.entrySet()) {
-                if (command.equals(entry.getValue())) {
-                    history.add(entry.getKey());
-                }
-            }
-        }
+        List<String> history = list.stream()
+                .map(command -> map.entrySet().stream()
+                        .filter(entry -> command.equals(entry.getValue()))
+                        .map(Map.Entry::getKey)
+                        .findFirst().orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         int i = 9;
-        while (history.size() > i) {
-            history.remove(history.size() - 1 - i);
+        if (history.size() > i) {
+            history = history.subList(history.size() - i, history.size());
         }
         System.out.println(history);
     }
 
+
     public void update(Integer id) {
         boolean found = false;
-        for (Person person : this.dataBase) {
-            if (Objects.equals(person.getId(), id)) {
+        for (Person p : this.dataBase) {
+            if (Objects.equals(p.getId(), id)) {
                 found = true;
-                new PersonUpdater().update(person);
+                this.dataBase.remove(p);
+                Person person = new PersonGenerator().generate();
+                person.setId(id);
+                new Loader().load(this, Collections.singletonList(person));
             }
         }
         if (!found) {

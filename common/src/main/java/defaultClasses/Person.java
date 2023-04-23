@@ -10,9 +10,9 @@ import java.util.Objects;
  * Some fields have restrictions.
  */
 
-public class Person implements Generated, IsUpdateable, Comparable<Person>, Serializable {
+public class Person implements Generated, Comparable<Person>, Serializable {
     private static Integer identifier = 0;
-    private final Integer id;
+    private Integer id;
     private String name;
     private Coordinates coordinates;
     private final Date creationDate;
@@ -67,6 +67,17 @@ public class Person implements Generated, IsUpdateable, Comparable<Person>, Seri
     public Integer getId() {
         return id;
     }
+
+    /**
+     * Sets the specified value to the field id.
+     * <p>
+     * Restrictions: field can not be null, value of the field must be greater than zero, value of the field must be unique,
+     * value of the field must be generated automatically.
+     *
+     * @param id the new value of the field id
+     */
+
+    public void setId(Integer id) { this.id = id; }
 
     /**
      * Restrictions: field can not be null, string can not be empty

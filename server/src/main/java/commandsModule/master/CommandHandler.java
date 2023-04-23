@@ -43,10 +43,12 @@ public class CommandHandler implements CommandContext {
         commands.put("remove_lower", new RemoveLowerCommand(dataBase));
     }
 
+    @Override
     public Map<String, BaseCommand> getCommands() {
         return commands;
     }
 
+    @Override
     public ArrayList<BaseCommand> getHistory() {
         return history;
     }
@@ -62,6 +64,7 @@ public class CommandHandler implements CommandContext {
                 if (commands.get(inputArray[0]) instanceof ParameterizedCommand command) {
                     command.setArguments(Arrays.copyOfRange(inputArray, 1, inputArray.length));
                     command.execute();
+                    command.clearArguments();
                 } else {
                     throw new UnsupportedNumberOfArgumentsException(commands.get(inputArray[0]) +
                             " does not support the entered number of arguments");

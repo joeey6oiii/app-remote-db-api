@@ -37,6 +37,11 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
     }
 
     @Override
+    public void clearArguments() {
+        this.args = new String[]{};
+    }
+
+    @Override
     public CommandDescription getCommandDescriptionObj() {
         return new CommandDescription(name);
     }
