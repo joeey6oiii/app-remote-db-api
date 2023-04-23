@@ -7,7 +7,7 @@ import responses.Response;
 
 import java.util.List;
 
-public class CommandDescriptionsReceiver implements ResponseContentHandler {
+public class CommandDescriptionsReceiver implements ResponseContentHandleAble {
 
     @Override
     public void handleResponseContent(Response response) {

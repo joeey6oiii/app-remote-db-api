@@ -1,17 +1,30 @@
-package commands;
+package commandsModule.commands;
+
+import commands.CommandDescription;
 
 import java.util.Scanner;
 
-/**
- * Class for implementing the exit command - exits the program without saving to a file
- *
- * @author Dmitrii Chebanenko
- */
-public class Exit extends BaseCommand {
-    /**
-     * Method that interrupts the program without saving to a file
-     *
-     */
+public class ExitCommand implements BaseCommand {
+    private final String name = "exit";
+
+    public ExitCommand() {}
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public CommandDescription getCommandDescriptionObj() {
+        return new CommandDescription(name);
+    }
+
+    @Override
+    public String describe() {
+        return "Closes the program without saving";
+    }
+
+    @Override
     public void execute() {
         System.out.println("Are you sure you want to end the program?");
         System.out.println("Enter [Y/N]");
@@ -32,10 +45,4 @@ public class Exit extends BaseCommand {
         }
     }
 
-    /**
-     * Method that returns the description of the command
-     */
-    public String describe() {
-        return "Closes the program without saving";
-    }
 }

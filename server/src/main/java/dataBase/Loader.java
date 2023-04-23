@@ -32,8 +32,8 @@ public class Loader {
 //        ArrayList<Person> invalidObjList = new ArrayList<>();
         for (Person person : people) {
             if (new PersonValidator().validate(person)) {
-                dataBase.getCollection().add(person);
-                dataBase.SortCollection();
+                dataBase.add(person);
+                dataBase.sortCollection();
 //            } else {
 //                invalidObjList.add(person);
 //            }

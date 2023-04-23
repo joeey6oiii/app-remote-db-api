@@ -1,4 +1,6 @@
-package commands;
+package commandsModule;
+
+import commands.CommandDescription;
 
 import java.util.ArrayList;
 import java.util.List;
