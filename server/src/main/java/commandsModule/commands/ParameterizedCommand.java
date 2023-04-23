@@ -6,4 +6,6 @@ public interface ParameterizedCommand extends BaseCommand {
 
     String[] getArguments();
 
+    void clearArguments();
+
 }
