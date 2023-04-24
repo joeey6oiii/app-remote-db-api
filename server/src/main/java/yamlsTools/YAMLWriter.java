@@ -21,7 +21,7 @@ public class YAMLWriter {
      * @throws IOException - the method throws an exception if the input of the object parameter fails
      */
     public void writeYAML(Object object, String file) throws IOException {
-        File newFile = new File(GlobalPath.getPath() + file);
+        File newFile = new File(file); // resources
         newFile.createNewFile();
         this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         this.mapper.writeValue(newFile, object);

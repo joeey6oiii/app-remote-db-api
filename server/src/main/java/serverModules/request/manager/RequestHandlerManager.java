@@ -1,13 +1,9 @@
 package serverModules.request.manager;
 
 import exceptions.IllegalManagerArgumentException;
-import requests.CommandDescriptionsRequest;
-import requests.CommandExecutionResultRequest;
-import requests.Request;
+import requests.*;
 import serverModules.context.ServerContext;
-import serverModules.request.contentHandlers.CommandDescriptionsRCH;
-import serverModules.request.contentHandlers.CommandExecutionRCH;
-import serverModules.request.contentHandlers.RequestContentHandleAble;
+import serverModules.request.contentHandlers.*;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -19,7 +15,10 @@ public class RequestHandlerManager {
         handlers = new LinkedHashMap<>();
 
         handlers.put(CommandDescriptionsRequest.class, new CommandDescriptionsRCH());
-        handlers.put(CommandExecutionResultRequest.class, new CommandExecutionRCH());
+        handlers.put(CommandExecutionRequest.class, new CommandExecutionRCH());
+        handlers.put(ArgumentCommandExecutionRequest.class, new ArgumentCommandExecutionRCH());
+        handlers.put(ExitCommandExecutionRequest.class, new ExitCommandExecutionRCH());
+        // script execution command ??
     }
 
     public void manageRequest(ServerContext context) {

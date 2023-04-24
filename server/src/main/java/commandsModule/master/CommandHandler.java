@@ -2,7 +2,7 @@ package commandsModule.master;
 
 import commands.CommandDescription;
 import commandsModule.commands.*;
-import dataBase.Database;
+import database.Database;
 import exceptions.UnsupportedNumberOfArgumentsException;
 
 import java.util.ArrayList;

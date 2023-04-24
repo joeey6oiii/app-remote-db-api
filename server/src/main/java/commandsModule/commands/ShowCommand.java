@@ -1,7 +1,7 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import dataBase.Database;
+import database.Database;
 
 public class ShowCommand implements BaseCommand {
     private final String name = "show";

@@ -2,7 +2,7 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import commandsModule.master.CommandContext;
-import dataBase.Database;
+import database.Database;
 
 import java.io.IOException;
 
