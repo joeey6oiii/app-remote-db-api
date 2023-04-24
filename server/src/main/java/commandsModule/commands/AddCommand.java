@@ -2,9 +2,11 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import database.Database;
+import defaultClasses.Person;
 
 public class AddCommand implements BaseCommand {
     private final String name = "add";
+    private Person argument;
     private final Database dataBase;
 
     public AddCommand(Database dataBase) {
@@ -28,7 +30,7 @@ public class AddCommand implements BaseCommand {
 
     @Override
     public void execute() {
-//        dataBase.add(person);
+        dataBase.add(argument);
     }
 
 }

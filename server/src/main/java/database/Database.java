@@ -187,7 +187,6 @@ public class Database {
                 new CommandExecutionResultResponse(result));
     }
 
-
     public void info() {
         StringBuilder builder = new StringBuilder();
         builder.append("Type: ").append(this.dataBase.getClass()).append("\nLength: ")

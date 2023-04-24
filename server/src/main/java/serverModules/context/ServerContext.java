@@ -15,14 +15,17 @@ public class ServerContext implements ServerContextContainAble {
         this.request = request;
     }
 
+    @Override
     public ConnectionModule getConnectionModule() {
         return connectionModule;
     }
 
+    @Override
     public CallerBack getCallerBack() {
         return callerBack;
     }
 
+    @Override
     public Request getRequest() {
         return request;
     }

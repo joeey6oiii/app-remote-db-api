@@ -2,12 +2,14 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import database.Database;
+import defaultClasses.Person;
 
 import java.io.IOException;
 
 public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand {
     private final String name = "update_by_id";
     private String[] args;
+    private Person argument;
     private final Database dataBase;
 
     public UpdateByIdCommand(Database dataBase) {
@@ -46,7 +48,7 @@ public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand {
 
     @Override
     public void execute() throws IOException {
-//        dataBase.update(Integer.parseInt(args[0]), person);
+        dataBase.update(Integer.parseInt(args[0]), argument);
     }
 
 }
