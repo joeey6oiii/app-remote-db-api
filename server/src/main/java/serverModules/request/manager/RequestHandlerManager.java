@@ -3,6 +3,7 @@ package serverModules.request.manager;
 import exceptions.IllegalManagerArgumentException;
 import requests.*;
 import serverModules.context.ServerContext;
+import serverModules.context.ServerContextContainAble;
 import serverModules.request.contentHandlers.*;
 
 import java.util.LinkedHashMap;
@@ -21,7 +22,7 @@ public class RequestHandlerManager {
         // script execution command ??
     }
 
-    public void manageRequest(ServerContext context) {
+    public void manageRequest(ServerContextContainAble context) {
         try {
             Optional.ofNullable(handlers.get(context.getRequest().getClass())).orElseThrow(() ->
                     new IllegalManagerArgumentException("RequestHandlerManager contains illegal argument")).handleRequestContent(context);

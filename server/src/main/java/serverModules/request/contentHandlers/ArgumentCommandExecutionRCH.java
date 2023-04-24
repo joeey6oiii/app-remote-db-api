@@ -1,11 +1,11 @@
 package serverModules.request.contentHandlers;
 
-import serverModules.context.ServerContext;
+import serverModules.context.ServerContextContainAble;
 
 public class ArgumentCommandExecutionRCH implements RequestContentHandleAble {
 
     @Override
-    public void handleRequestContent(ServerContext context) {
+    public void handleRequestContent(ServerContextContainAble context) {
         // code
     }
 }

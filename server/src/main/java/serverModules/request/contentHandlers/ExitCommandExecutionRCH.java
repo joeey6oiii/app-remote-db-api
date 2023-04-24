@@ -1,11 +1,11 @@
 package serverModules.request.contentHandlers;
 
-import serverModules.context.ServerContext;
+import serverModules.context.ServerContextContainAble;
 
 public class ExitCommandExecutionRCH implements RequestContentHandleAble {
 
     @Override
-    public void handleRequestContent(ServerContext context) {
-        // cooooode
+    public void handleRequestContent(ServerContextContainAble context) {
+        // code
     }
 }
