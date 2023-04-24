@@ -4,7 +4,7 @@ import requests.Request;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
-public class ServerContext {
+public class ServerContext implements ServerContextContainAble {
     private final ConnectionModule connectionModule;
     private final CallerBack callerBack;
     private final Request request;
