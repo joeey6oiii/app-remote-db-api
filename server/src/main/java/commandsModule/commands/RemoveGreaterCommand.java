@@ -2,11 +2,13 @@ package commandsModule.commands;
 
 import commands.CommandDescription;
 import database.Database;
+import defaultClasses.Person;
 
 import java.io.IOException;
 
 public class RemoveGreaterCommand implements BaseCommand {
     private final String name = "remove_greater";
+    private Person argument;
     private final Database dataBase;
 
     public RemoveGreaterCommand(Database dataBase) {
@@ -30,7 +32,7 @@ public class RemoveGreaterCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-//        dataBase.removeGreater(person);
+        dataBase.removeGreater(argument);
     }
 
 }

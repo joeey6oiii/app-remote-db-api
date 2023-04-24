@@ -54,7 +54,7 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
     @Override
     public void execute() throws IOException {
         if (historyOfDangerScript.contains(args[0])) {
-            System.out.println("Script in loop");
+            System.out.println("Script in loop"); // need fix
             return;
         }
         File file = new File(args[0]);
@@ -68,7 +68,7 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
                 handler.handleCommand(t);
             }
         } catch (IOException e) {
-            System.out.println("Incorrect script");
+            System.out.println("Incorrect script"); // need fix
         }
         historyOfDangerScript.clear();
     }
