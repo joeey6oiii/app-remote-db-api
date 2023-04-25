@@ -6,7 +6,7 @@ import defaultClasses.Person;
 
 import java.io.IOException;
 
-public class RemoveGreaterCommand implements BaseCommand {
+public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<Person> {
     private final String name = "remove_greater";
     private Person argument;
     private final Database dataBase;
@@ -23,6 +23,16 @@ public class RemoveGreaterCommand implements BaseCommand {
     @Override
     public CommandDescription getCommandDescriptionObj() {
         return new CommandDescription(name);
+    }
+
+    @Override
+    public Person getSingleArgument() {
+        return this.argument;
+    }
+
+    @Override
+    public void setSingleArgument(Person argument) {
+        this.argument = argument;
     }
 
     @Override

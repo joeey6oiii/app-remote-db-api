@@ -2,11 +2,11 @@ package commands;
 
 import java.util.List;
 
-public class CommandDescriptionsContainer {
+public class CommandDescriptionsKeeper {
     private static List<CommandDescription> commands;
 
     public static void setCommandDescriptions(List<CommandDescription> commands) {
-        CommandDescriptionsContainer.commands = commands;
+        CommandDescriptionsKeeper.commands = commands;
     }
 
     public static List<CommandDescription> getCommandDescriptions() {
