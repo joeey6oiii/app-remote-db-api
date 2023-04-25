@@ -1,5 +1,6 @@
 package main;
 
+import commandsModule.handler.CommandHandler;
 import database.Database;
 import requests.Request;
 import serverModules.connection.ConnectionModuleConfigurator;
@@ -17,6 +18,7 @@ public class Server {
 
         ConnectionModule module = new ConnectionModuleConfigurator().newInstance(PORT);
         Database database = new Database();
+        CommandHandler handler = new CommandHandler(database);
 
         try {
             while (true) {
@@ -24,7 +26,7 @@ public class Server {
                 Request request = new RequestReader().readRequest(requestData.getByteArray());
                 ServerContext context = new ServerContext(module, requestData.getCallerBack(), request);
                 database.setServerContext(context);
-                new RequestHandlerManager().manageRequest(context);
+                new RequestHandlerManager().manageRequest(context, handler);
             }
         } catch (Exception e) {
             e.printStackTrace();

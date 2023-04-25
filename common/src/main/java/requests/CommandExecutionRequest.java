@@ -13,7 +13,7 @@ public class CommandExecutionRequest implements Request, Serializable {
         this.args = args;
     }
 
-    public CommandDescription getCommand() {
+    public CommandDescription getDescriptionCommand() {
         return this.command;
     }
 

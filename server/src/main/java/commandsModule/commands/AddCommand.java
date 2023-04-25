@@ -4,7 +4,7 @@ import commands.CommandDescription;
 import database.Database;
 import defaultClasses.Person;
 
-public class AddCommand implements BaseCommand {
+public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     private final String name = "add";
     private Person argument;
     private final Database dataBase;
@@ -21,6 +21,16 @@ public class AddCommand implements BaseCommand {
     @Override
     public CommandDescription getCommandDescriptionObj() {
         return new CommandDescription(name);
+    }
+
+    @Override
+    public Person getSingleArgument() {
+        return this.argument;
+    }
+
+    @Override
+    public void setSingleArgument(Person argument) {
+        this.argument = argument;
     }
 
     @Override

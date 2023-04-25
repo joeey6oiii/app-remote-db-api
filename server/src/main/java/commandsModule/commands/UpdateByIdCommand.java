@@ -6,7 +6,8 @@ import defaultClasses.Person;
 
 import java.io.IOException;
 
-public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand {
+public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand,
+        SingleArgumentCommand<Person> {
     private final String name = "update_by_id";
     private String[] args;
     private Person argument;
@@ -34,6 +35,16 @@ public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand {
     @Override
     public void clearArguments() {
         this.args = new String[]{};
+    }
+
+    @Override
+    public Person getSingleArgument() {
+        return this.argument;
+    }
+
+    @Override
+    public void setSingleArgument(Person argument) {
+        this.argument = argument;
     }
 
     @Override

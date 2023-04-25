@@ -1,11 +1,15 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
+import database.Database;
 
 public class ExitCommand implements BaseCommand {
     private final String name = "exit";
+    private final Database database;
 
-    public ExitCommand() {}
+    public ExitCommand(Database database) {
+        this.database = database;
+    }
 
     @Override
     public String getName() {
@@ -24,7 +28,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public void execute() {
-        // new logic
+        this.database.exit();
     }
 
 }

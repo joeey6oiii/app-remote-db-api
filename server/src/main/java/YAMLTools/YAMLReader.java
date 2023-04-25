@@ -1,4 +1,4 @@
-package yamlsTools;
+package YAMLTools;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * A class for reading YAML files.
@@ -44,7 +44,7 @@ public class YAMLReader {
 
     public <T> List<T> read(String path, Class<T> type) {
         Class<T[]> arrayClass = null;
-        T[] objects = null;
+        T[] objects;
         try {
             arrayClass = (Class<T[]>) Class.forName("[L" + type.getName() + ";");
         } catch (ClassNotFoundException ignored) {}
@@ -52,9 +52,10 @@ public class YAMLReader {
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(path));
             objects = objectMapper.readValue(inputStreamReader, arrayClass);
             inputStreamReader.close();
+            return Arrays.asList(objects);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Arrays.asList(objects);
+        return new ArrayList<>();
     }
 }

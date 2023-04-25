@@ -1,7 +1,8 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
-import commandsModule.master.CommandHandler;
+import commandsModule.handler.CommandHandleAble;
+import commandsModule.handler.CommandHandler;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 
 public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
     private final String name = "execute_script";
-    private final CommandHandler handler;
+    private final CommandHandleAble handler;
     private String[] args;
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
@@ -65,7 +66,7 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
                 if (t.split(" ")[0].equals("execute_script")) {
                     historyOfDangerScript.add(args[0]);
                 }
-                handler.handleCommand(t);
+//                handler.execute(t); тут ваще [INSERT_BAD_WORD]. надо переписывать конкретно, тк теперь CommandHandler принимает Request
             }
         } catch (IOException e) {
             System.out.println("Incorrect script"); // need fix

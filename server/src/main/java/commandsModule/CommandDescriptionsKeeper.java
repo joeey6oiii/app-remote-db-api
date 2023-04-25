@@ -5,7 +5,7 @@ import commands.CommandDescription;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandDescriptionsContainer {
+public class CommandDescriptionsKeeper {
     private static final List<CommandDescription> commands;
 
     static {
@@ -15,7 +15,6 @@ public class CommandDescriptionsContainer {
         commands.add(new CommandDescription("info"));
         commands.add(new CommandDescription("show"));
         commands.add(new CommandDescription("clear"));
-        commands.add(new CommandDescription("save"));
         commands.add(new CommandDescription("remove_by_id"));
         commands.add(new CommandDescription("help"));
         commands.add(new CommandDescription("exit"));

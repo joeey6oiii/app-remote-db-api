@@ -3,8 +3,8 @@ package main;
 import clientModules.connection.ConnectionModule;
 import clientModules.connection.ConnectionModuleConfigurator;
 import clientModules.request.sender.RequestSender;
-import clientModules.response.receivers.CommandDescriptionsReceiver;
-import commands.CommandDescriptionsContainer;
+import clientModules.response.contentHandlers.CommandDescriptionsContentHandler;
+import commands.CommandDescriptionsKeeper;
 import requests.CommandDescriptionsRequest;
 
 import java.io.*;
@@ -32,8 +32,8 @@ public class Client {
                     .newInstanceConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
             module.connect();
 
-            new CommandDescriptionsReceiver().handleResponseContent(new RequestSender().sendRequest(module, new CommandDescriptionsRequest()));
-            System.out.println(CommandDescriptionsContainer.getCommandDescriptions());
+            new CommandDescriptionsContentHandler().handleResponseContent(new RequestSender().sendRequest(module, new CommandDescriptionsRequest()));
+            System.out.println(CommandDescriptionsKeeper.getCommandDescriptions());
 
             module.disconnect();
         } catch (IOException e) {

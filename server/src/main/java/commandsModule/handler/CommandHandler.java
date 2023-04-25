@@ -1,12 +1,12 @@
-package commandsModule.master;
+package commandsModule.handler;
 
 import commands.CommandDescription;
 import commandsModule.commands.*;
 import database.Database;
-import exceptions.UnsupportedNumberOfArgumentsException;
+import requests.CommandExecutionRequest;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import java.util.Map;
  * @authors Dmitrii Chebanenko and Alexey Kseikoff
  */
 
-public class CommandHandler implements CommandContext {
+public class CommandHandler implements CommandHandleAble, CommandContext {
     private final Map<String, BaseCommand> commands;
     private final ArrayList<BaseCommand> history;
 
@@ -32,7 +32,7 @@ public class CommandHandler implements CommandContext {
         commands.put("save", new SaveCommand(dataBase));
         commands.put("remove_by_id", new RemoveByIdCommand(dataBase));
         commands.put("help", new HelpCommand(dataBase, this));
-        commands.put("exit", new ExitCommand());
+        commands.put("exit", new ExitCommand(dataBase));
         commands.put("update", new UpdateByIdCommand(dataBase));
         commands.put("history", new HistoryCommand(dataBase, this));
         commands.put("sum_of_height", new SumOfHeightCommand(dataBase));
@@ -53,28 +53,24 @@ public class CommandHandler implements CommandContext {
         return history;
     }
 
-    public BaseCommand getByName(CommandDescription description)  {
+    @Override
+    public BaseCommand getCommandByDescription(CommandDescription description)  {
         return commands.get(description.getCommandName());
     }
 
-    public void handleCommand(String str) {
-        var inputArray = str.split(" ");
+    @Override
+    public void execute(CommandExecutionRequest request) {
         try {
-            if (inputArray.length > 1) {
-                if (commands.get(inputArray[0]) instanceof ParameterizedCommand command) {
-                    command.setArguments(Arrays.copyOfRange(inputArray, 1, inputArray.length));
-                    command.execute();
-                    command.clearArguments();
-                } else {
-                    throw new UnsupportedNumberOfArgumentsException(commands.get(inputArray[0]) +
-                            " does not support the entered number of arguments");
-                }
-            } else {
-                commands.get(inputArray[0]).execute();
+            BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand()); // mb add check null
+            if (command instanceof ParameterizedCommand parameterizedCommand) {
+                parameterizedCommand.setArguments(request.getArgs());
+                parameterizedCommand.execute();
+                parameterizedCommand.clearArguments();
+                return;
             }
-            history.add(commands.get(inputArray[0]));
-        } catch (Exception e) {
-            System.out.println("Invalid command. Type \"help\" to see a list of available commands and their description");
+            command.execute();
+        } catch (IOException e) {
+            // logic
         }
     }
 

@@ -2,10 +2,10 @@ package requests;
 
 import commands.CommandDescription;
 
-public class ArgumentCommandExecutionRequest<T> extends CommandExecutionRequest {
+public class SingleArgumentCommandExecutionRequest<T> extends CommandExecutionRequest {
     private final T arg;
 
-    public ArgumentCommandExecutionRequest(CommandDescription command, String[] args, T arg) {
+    public SingleArgumentCommandExecutionRequest(CommandDescription command, String[] args, T arg) {
         super(command, args);
         this.arg = arg;
     }

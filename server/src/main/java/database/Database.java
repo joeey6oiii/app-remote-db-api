@@ -1,12 +1,13 @@
 package database;
 
 import commandsModule.commands.BaseCommand;
+import commandsModule.commands.SaveCommand;
 import comparators.HeightComparator;
 import defaultClasses.Person;
 import responses.CommandExecutionResultResponse;
 import serverModules.context.ServerContextContainAble;
 import serverModules.response.sender.CommandExecutionResultResponseSender;
-import yamlsTools.YAMLWriter;
+import YAMLTools.YAMLWriter;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,19 +18,20 @@ public class Database {
 
     private HashSet<Person> dataBase;
 
-    private final CommandExecutionResultResponseSender responseSender;
-
     private final LocalDateTime initializationTime;
 
     private ServerContextContainAble context;
 
+    private final CommandExecutionResultResponseSender responseSender;
+
     public Database() {
-        initializationTime = LocalDateTime.now();
         dataBase = new HashSet<>();
+        initializationTime = LocalDateTime.now();
         responseSender = new CommandExecutionResultResponseSender();
     }
 
-    public void setServerContext(ServerContextContainAble context) { // надо придумать че делать если не присвоили =)) NullPtr не хочеца
+    // надо придумать че делать если не присвоили =)) NullPtr не хочеца
+    public void setServerContext(ServerContextContainAble context) {
         this.context = context;
     }
 
@@ -222,6 +224,8 @@ public class Database {
         }
     }
 
-    // хз чеу делать с exit
+    public void exit() {
+        new SaveCommand(this).execute(); // чота типа такого
+    }
 
 }
