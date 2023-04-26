@@ -47,6 +47,11 @@ public class Database {
     }
 
     public void averageOfHeight() {
+        if (dataBase.isEmpty()) {
+            responseSender.sendResponse(context.getConnectionModule(), context.getCallerBack(),
+                    new CommandExecutionResultResponse("Database is empty, can not execute average_of_height"));
+            return;
+        }
         Iterator<Person> it = this.dataBase.iterator();
         int sum = 0;
         int count = 0;
@@ -97,7 +102,7 @@ public class Database {
                 found = true;
                 this.dataBase.remove(p);
                 person.setId(id);
-                this.add(person);
+                this.dataBase.add(person);
                 responseSender.sendResponse(context.getConnectionModule(), context.getCallerBack(),
                         new CommandExecutionResultResponse("Updated element with id " + id));
             }

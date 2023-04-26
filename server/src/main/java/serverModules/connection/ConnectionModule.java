@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataAble {
-    private final int BYTE_SIZE = 1024;
+    private final int BYTE_SIZE = 4096;
     private final DatagramSocket socket;
 
     protected ConnectionModule(int port) throws SocketException {

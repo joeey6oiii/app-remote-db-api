@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         BlockingReceiveDataAble<byte[]>, NonBlockingReceiveDataAble<byte[]> {
-    private final int MAX_PACKET_SIZE = 65536;
+    private final int PACKET_SIZE = 4096;
     private final int BUFFER_SIZE = 4096;
     private final DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
@@ -96,7 +96,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
             throw new LockStateException("DatagramChannel is blocking");
         }
 
-        ByteBuffer buffer = ByteBuffer.allocate(MAX_PACKET_SIZE);
+        ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
 
         Selector selector = null;
         try {

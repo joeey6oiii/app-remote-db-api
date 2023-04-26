@@ -1,6 +1,7 @@
 package commandsModule;
 
 import commands.CommandDescription;
+import commands.CommandType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +12,21 @@ public class CommandDescriptionsKeeper {
     static {
         commands = new ArrayList<>();
 
-        commands.add(new CommandDescription("add"));
-        commands.add(new CommandDescription("info"));
-        commands.add(new CommandDescription("show"));
-        commands.add(new CommandDescription("clear"));
-        commands.add(new CommandDescription("remove_by_id"));
-        commands.add(new CommandDescription("help"));
-        commands.add(new CommandDescription("exit"));
-        commands.add(new CommandDescription("update"));
-        commands.add(new CommandDescription("history"));
-        commands.add(new CommandDescription("sum_of_height"));
-        commands.add(new CommandDescription("average_of_height"));
-        commands.add(new CommandDescription("print_field_descending_birthday"));
-        commands.add(new CommandDescription("execute_script"));
-        commands.add(new CommandDescription("remove_greater"));
-        commands.add(new CommandDescription("remove_lower"));
+        commands.add(new CommandDescription("add", CommandType.PERSON_SINGLE_ARGUMENT));
+        commands.add(new CommandDescription("info", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("show", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("clear", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("remove_by_id", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("help", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("exit", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("update", CommandType.PERSON_SINGLE_ARGUMENT));
+        commands.add(new CommandDescription("history", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("sum_of_height", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("average_of_height", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("print_field_descending_birthday", CommandType.ARGUMENTLESS));
+//        commands.add(new CommandDescription("execute_script", CommandType.));
+        commands.add(new CommandDescription("remove_greater", CommandType.PERSON_SINGLE_ARGUMENT));
+        commands.add(new CommandDescription("remove_lower", CommandType.PERSON_SINGLE_ARGUMENT));
     }
 
     public static List<CommandDescription> getCommands() {

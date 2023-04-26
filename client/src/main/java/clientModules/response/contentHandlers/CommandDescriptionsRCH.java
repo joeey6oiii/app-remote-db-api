@@ -1,13 +1,13 @@
 package clientModules.response.contentHandlers;
 
 import commands.CommandDescription;
-import commands.CommandDescriptionsKeeper;
+import commandsModule.commands.CommandDescriptionsKeeper;
 import responses.CommandDescriptionsResponse;
 import responses.Response;
 
 import java.util.List;
 
-public class CommandDescriptionsContentHandler implements ResponseContentHandleAble {
+public class CommandDescriptionsRCH implements ResponseContentHandleAble {
 
     @Override
     public void handleResponseContent(Response response) {

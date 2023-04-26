@@ -1,6 +1,5 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import database.Database;
 import defaultClasses.Person;
 
@@ -18,11 +17,6 @@ public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Pe
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override
