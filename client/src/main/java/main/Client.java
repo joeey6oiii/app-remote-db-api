@@ -2,14 +2,15 @@ package main;
 
 import clientModules.connection.ConnectionModule;
 import clientModules.connection.ConnectionModuleConfigurator;
-import clientModules.request.sender.RequestSender;
-import clientModules.response.contentHandlers.CommandDescriptionsContentHandler;
-import commands.CommandDescriptionsKeeper;
-import requests.CommandDescriptionsRequest;
+import clientModules.response.receivers.CommandDescriptionsReceiver;
+import commandsModule.commands.CommandDescriptionsKeeper;
+import commandsModule.master.CommandHandler;
+import commandsModule.master.CommandManager;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Scanner;
 
 /**
  * Program entry point class. Contains <code>main()</code> method.
@@ -17,7 +18,7 @@ import java.net.InetSocketAddress;
 
 public class Client {
 
-    private final static int PORT = 9999;
+    private final static int PORT = 64999;
 
     /**
      * Program entry point.
@@ -29,11 +30,14 @@ public class Client {
 
         try {
             ConnectionModule module = new ConnectionModuleConfigurator()
-                    .newInstanceConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
+                    .newInstanceConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), true);
             module.connect();
 
-            new CommandDescriptionsContentHandler().handleResponseContent(new RequestSender().sendRequest(module, new CommandDescriptionsRequest()));
-            System.out.println(CommandDescriptionsKeeper.getCommandDescriptions());
+            new CommandDescriptionsReceiver().temp(module);
+
+            CommandHandler handler = new CommandHandler(CommandDescriptionsKeeper.getCommandDescriptions(), new Scanner(System.in));
+
+            handler.run(new CommandManager(), module);
 
             module.disconnect();
         } catch (IOException e) {

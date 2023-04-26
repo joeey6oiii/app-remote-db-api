@@ -12,7 +12,7 @@ import serverModules.request.reader.RequestReader;
 
 public class Server {
 
-    private final static int PORT = 9999;
+    private final static int PORT = 64999;
 
     public static void main(String[] args) {
 

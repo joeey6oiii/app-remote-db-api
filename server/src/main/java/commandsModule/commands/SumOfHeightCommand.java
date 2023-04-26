@@ -1,6 +1,5 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import database.Database;
 
 import java.io.IOException;
@@ -16,11 +15,6 @@ public class SumOfHeightCommand implements BaseCommand {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override

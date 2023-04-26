@@ -1,6 +1,7 @@
 package commandsModule.commands;
 
 import commands.CommandDescription;
+import commands.CommandType;
 import database.Database;
 import defaultClasses.Person;
 
@@ -16,11 +17,6 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override

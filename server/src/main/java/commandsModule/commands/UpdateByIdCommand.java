@@ -1,13 +1,11 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import database.Database;
 import defaultClasses.Person;
 
 import java.io.IOException;
 
-public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand,
-        SingleArgumentCommand<Person> {
+public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCommand<Person> {
     private final String name = "update_by_id";
     private String[] args;
     private Person argument;
@@ -48,18 +46,13 @@ public class UpdateByIdCommand implements BaseCommand, ParameterizedCommand,
     }
 
     @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
-    }
-
-    @Override
     public String describe() {
         return "Allows to reassign values to objects in the database";
     }
 
     @Override
     public void execute() throws IOException {
-        dataBase.update(Integer.parseInt(args[0]), argument);
+        dataBase.update(Integer.parseInt(args[1]), argument);
     }
 
 }

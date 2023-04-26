@@ -1,6 +1,5 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import commandsModule.handler.CommandHandleAble;
 import commandsModule.handler.CommandHandler;
 import org.apache.commons.io.IOUtils;
@@ -40,11 +39,6 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
     @Override
     public void clearArguments() {
         this.args = new String[]{};
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override

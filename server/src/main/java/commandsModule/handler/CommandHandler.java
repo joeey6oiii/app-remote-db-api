@@ -66,11 +66,13 @@ public class CommandHandler implements CommandHandleAble, CommandContext {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();
                 parameterizedCommand.clearArguments();
+                history.add(parameterizedCommand);
                 return;
             }
             command.execute();
+            history.add(command);
         } catch (IOException e) {
-            // logic
+            e.printStackTrace();
         }
     }
 

@@ -1,4 +1,4 @@
-package commands;
+package commandsModule.commands;
 
 import java.util.Scanner;
 
@@ -10,11 +10,6 @@ public class ExitCommand implements BaseCommand {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override

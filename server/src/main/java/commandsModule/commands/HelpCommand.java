@@ -1,6 +1,5 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import commandsModule.handler.CommandContext;
 import database.Database;
 
@@ -19,11 +18,6 @@ public class HelpCommand implements BaseCommand {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     @Override

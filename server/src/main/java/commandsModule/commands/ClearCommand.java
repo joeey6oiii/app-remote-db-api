@@ -1,6 +1,5 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
 import database.Database;
 
 public class ClearCommand implements BaseCommand {
@@ -14,11 +13,6 @@ public class ClearCommand implements BaseCommand {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public CommandDescription getCommandDescriptionObj() {
-        return new CommandDescription(name);
     }
 
     public String describe() {
