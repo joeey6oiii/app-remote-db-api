@@ -6,21 +6,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
 
 public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCommand<Person> {
+
     private static final Logger logger = LogManager.getLogger("logger.UpdateByIdCommand");
-    private final String name = "update_by_id";
+
+    private String response;
     private String[] args;
     private Person argument;
-    private final Database dataBase;
-
-    public UpdateByIdCommand(Database dataBase) {
-        this.dataBase = dataBase;
-    }
 
     @Override
     public String getName() {
-        return this.name;
+        return "update_by_id";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -31,11 +35,6 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
     @Override
     public void setArguments(String[] args) {
         this.args = args;
-    }
-
-    @Override
-    public void clearArguments() {
-        this.args = new String[]{};
     }
 
     @Override
@@ -55,15 +54,24 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
 
     @Override
     public void execute() throws IOException {
+        Database database = Database.getInstance();
         try {
-            dataBase.update(Integer.parseInt(args[1]), argument);
+            int id = Integer.parseInt(args[1]);
+            Optional<Person> optionalPerson = database.getCollection()
+                    .stream().filter(p -> Objects.equals(p.getId(), id)).findFirst();
+            if (optionalPerson.isPresent()) {
+                Person existingPerson = optionalPerson.get();
+                database.getCollection().remove(existingPerson);
+                argument.setId(id);
+                database.add(argument);
+                this.response ="Updated element with id " + id;
+            } else {
+                this.response = "No element matches id " + id;
+            }
+            logger.info("Executed UpdateByIdCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during update_by_id {id} {element} command execution...");
+            this.response = "Something went wrong during update_by_id {id} {element} command execution...";
             logger.warn("UpdateByIdCommand was not executed");
-            return;
         }
-        logger.info("Executed UpdateByIdCommand");
-
     }
-
 }

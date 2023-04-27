@@ -1,27 +1,34 @@
 package commandsModule.commands;
 
-import commandsModule.handler.CommandContext;
-import database.Database;
+import commandsModule.handler.CommandHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class HistoryCommand implements BaseCommand {
+
     private static final Logger logger = LogManager.getLogger("logger.HistoryCommand");
 
-    private final String name = "history";
-    private final Database dataBase;
-    private final CommandContext context;
+    private String response;
+    private final Map<String, BaseCommand> commands;
 
-    public HistoryCommand(Database dataBase, CommandContext context) {
-        this.dataBase = dataBase;
-        this.context = context;
+    public HistoryCommand(Map<String, BaseCommand> commands) {
+        this.commands = commands;
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return "history";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -31,14 +38,28 @@ public class HistoryCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
+        List<BaseCommand> list = CommandHandler.getHistory();
         try {
-            dataBase.history(context.getCommands(), context.getHistory());
+            if (list.isEmpty()) {
+                this.response = "No command history yet";
+            } else {
+                List<String> history = list.stream()
+                        .map(command -> commands.entrySet().stream()
+                                .filter(entry -> command.equals(entry.getValue()))
+                                .map(Map.Entry::getKey)
+                                .findFirst().orElse(null))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+                int i = 9;
+                if (history.size() > i) {
+                    history = history.subList(history.size() - i, history.size());
+                }
+                this.response = history.toString();
+            }
+            logger.info("Executed HistoryCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during history command execution...");
+            this.response = "Something went wrong during history command execution...";
             logger.warn("HistoryCommand was not executed");
-            return;
         }
-        logger.info("Executed HistoryCommand");
     }
-
 }

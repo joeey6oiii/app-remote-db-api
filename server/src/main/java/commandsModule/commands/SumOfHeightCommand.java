@@ -1,23 +1,26 @@
 package commandsModule.commands;
 
 import database.Database;
+import defaultClasses.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class SumOfHeightCommand implements BaseCommand {
-    private static final Logger logger = LogManager.getLogger("logger.SumOfHeightCommand");
-    private final String name = "sum_of_height";
-    private final Database dataBase;
 
-    public SumOfHeightCommand(Database dataBase) {
-        this.dataBase = dataBase;
-    }
+    private static final Logger logger = LogManager.getLogger("logger.SumOfHeightCommand");
+
+    private String response;
 
     @Override
     public String getName() {
-        return this.name;
+        return "sum_of_height";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -27,15 +30,18 @@ public class SumOfHeightCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
+        Database database = Database.getInstance();
         try {
-            dataBase.sumOfHeight();
+            if (database.getCollection().isEmpty()) {
+                this.response = "Collection is empty, can not execute sum_of_height";
+            } else {
+                int sum = database.getCollection().stream().mapToInt(Person::getHeight).sum();
+                this.response = "Sum of \"height\" values is " + sum;
+            }
+            logger.info("Executed SumOfHeightCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during sum_of_height command execution...");
+            this.response = "Something went wrong during sum_of_height command execution...";
             logger.warn("SumOfHeightCommand was not executed");
-            return;
         }
-        logger.info("Executed SumOfHeightCommand");
-
     }
-
 }

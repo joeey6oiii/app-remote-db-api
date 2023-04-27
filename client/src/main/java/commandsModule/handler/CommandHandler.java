@@ -20,7 +20,7 @@ public class CommandHandler {
         this.scanner = scanner;
     }
 
-    public void run(ConnectionModule module) {
+    public void start(ConnectionModule module) {
         String input;
         while(true) {
             System.out.print("$ ");

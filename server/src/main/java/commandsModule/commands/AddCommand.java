@@ -9,18 +9,20 @@ import java.io.IOException;
 
 
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
-    private static final Logger logger = LogManager.getLogger("logger.add");
-    private final String name = "add";
-    private Person argument;
-    private final Database dataBase;
 
-    public AddCommand(Database dataBase) {
-        this.dataBase = dataBase;
-    }
+    private static final Logger logger = LogManager.getLogger("logger.add");
+
+    private String response;
+    private Person argument;
 
     @Override
     public String getName() {
-        return this.name;
+        return "add";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -41,13 +43,12 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     @Override
     public void execute() throws IOException {
         try {
-            dataBase.add(argument);
+            Database.getInstance().add(argument);
+            this.response = "Element was added";
+            logger.info("Executed AddCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during add {element} command execution...");
+            this.response = "Something went wrong during add {element} command execution...";
             logger.warn("AddCommand was not executed");
-            return;
         }
-        logger.info("Executed AddCommand");
     }
-
 }
