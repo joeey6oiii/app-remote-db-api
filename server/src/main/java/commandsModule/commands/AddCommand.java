@@ -1,12 +1,11 @@
 package commandsModule.commands;
 
-import commands.CommandDescription;
-import commands.CommandType;
 import database.Database;
 import defaultClasses.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 
 
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
@@ -40,9 +39,15 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     }
 
     @Override
-    public void execute() {
-        dataBase.add(argument);
-        logger.info("AddCommand is executed");
+    public void execute() throws IOException {
+        try {
+            dataBase.add(argument);
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during add {element} command execution...");
+            logger.warn("AddCommand was not executed");
+            return;
+        }
+        logger.info("Executed AddCommand");
     }
 
 }

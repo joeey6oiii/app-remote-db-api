@@ -9,7 +9,7 @@ import generators.PersonGenerator;
 import requests.SingleArgumentCommandExecutionRequest;
 import responses.CommandExecutionResultResponse;
 
-public class ArgumentCommandResultReceiver<T> implements CommandReceiver {
+public class PersonArgumentCommandResultReceiver implements CommandReceiver {
 
     @Override
     public void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {

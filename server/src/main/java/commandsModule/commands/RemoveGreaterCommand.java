@@ -39,8 +39,14 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
 
     @Override
     public void execute() throws IOException {
-        dataBase.removeGreater(argument);
-        logger.info("RemoveGreaterCommand is executed");
+        try {
+            dataBase.removeGreater(argument);
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during remove_greater {element} execution...");
+            logger.warn("RemoveGreaterCommand was not executed");
+            return;
+        }
+        logger.info("Executed RemoveGreaterCommand");
     }
 
 }

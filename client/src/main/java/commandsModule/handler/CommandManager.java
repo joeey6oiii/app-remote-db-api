@@ -1,12 +1,11 @@
 package commandsModule.handler;
 
 import clientModules.connection.ConnectionModule;
-import clientModules.response.receivers.ArgumentCommandResultReceiver;
+import clientModules.response.receivers.PersonArgumentCommandResultReceiver;
 import clientModules.response.receivers.CommandReceiver;
 import clientModules.response.receivers.CommandResultReceiver;
 import commands.CommandDescription;
 import commands.CommandType;
-import defaultClasses.Person;
 import exceptions.IllegalManagerArgumentException;
 
 import java.util.HashMap;
@@ -19,7 +18,7 @@ public class CommandManager {
         this.map = new HashMap<>();
 
         map.put(CommandType.ARGUMENTLESS, new CommandResultReceiver());
-        map.put(CommandType.PERSON_SINGLE_ARGUMENT, new ArgumentCommandResultReceiver<Person>());
+        map.put(CommandType.PERSON_SINGLE_ARGUMENT, new PersonArgumentCommandResultReceiver());
     }
 
     public void manageCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {

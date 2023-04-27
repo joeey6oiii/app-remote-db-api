@@ -31,8 +31,14 @@ public class HistoryCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.history(context.getCommands(), context.getHistory());
-        logger.info("HistoryCommand is executed");
+        try {
+            dataBase.history(context.getCommands(), context.getHistory());
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during history command execution...");
+            logger.warn("HistoryCommand was not executed");
+            return;
+        }
+        logger.info("Executed HistoryCommand");
     }
 
 }

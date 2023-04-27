@@ -4,6 +4,8 @@ import database.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+
 public class SaveCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
     private final String name = "save";
@@ -24,9 +26,14 @@ public class SaveCommand implements BaseCommand {
     }
 
     @Override
-    public void execute() {
-        dataBase.save();
-        logger.info("SaveCommand is executed");
+    public void execute() throws IOException {
+        try {
+            dataBase.save();
+        } catch (Exception e) {
+            logger.warn("SaveCommand was not executed");
+            return;
+        }
+        logger.info("Executed SaveCommand");
     }
 
 }

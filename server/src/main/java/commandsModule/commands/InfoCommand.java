@@ -27,8 +27,14 @@ public class InfoCommand implements BaseCommand {
 
     @Override
     public void execute() {
-        dataBase.info();
-        logger.info("InfoCommand is executed");
+        try {
+            dataBase.info();
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during info command execution...");
+            logger.warn("InfoCommand was not executed");
+            return;
+        }
+        logger.info("Executed InfoCommand");
     }
 
 }
