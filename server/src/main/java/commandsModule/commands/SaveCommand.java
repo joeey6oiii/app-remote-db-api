@@ -1,5 +1,6 @@
 package commandsModule.commands;
 
+import YAMLTools.YAMLWriter;
 import database.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,17 +8,19 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class SaveCommand implements BaseCommand {
-    private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
-    private final String name = "save";
-    private final Database dataBase;
 
-    public SaveCommand(Database dataBase) {
-        this.dataBase = dataBase;
-    }
+    private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
+
+    private String response;
 
     @Override
     public String getName() {
-        return this.name;
+        return "save";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -27,13 +30,15 @@ public class SaveCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
+        Database database = Database.getInstance();
         try {
-            dataBase.save();
+            YAMLWriter yamlWriter = new YAMLWriter();
+            yamlWriter.writeYAML(database, "Person.yaml");
+            this.response = "Saved collection";
+            logger.info("Executed SaveCommand");
         } catch (Exception e) {
+            this.response = "Failed to save collection";
             logger.warn("SaveCommand was not executed");
-            return;
         }
-        logger.info("Executed SaveCommand");
     }
-
 }

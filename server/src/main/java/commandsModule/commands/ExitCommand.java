@@ -1,20 +1,19 @@
 package commandsModule.commands;
 
-import database.Database;
-
 import java.io.IOException;
 
+// currently out of order
 public class ExitCommand implements BaseCommand {
-    private final String name = "exit";
-    private final Database database;
-
-    public ExitCommand(Database database) {
-        this.database = database;
-    }
+    private String response;
 
     @Override
     public String getName() {
-        return this.name;
+        return "exit";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -24,7 +23,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        this.database.exit();
+        new SaveCommand().execute();
     }
 
 }

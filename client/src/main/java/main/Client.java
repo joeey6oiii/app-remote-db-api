@@ -36,7 +36,8 @@ public class Client {
 
             CommandHandler handler = new CommandHandler(CommandDescriptionsKeeper.getCommandDescriptions(), new Scanner(System.in));
 
-            handler.run(module);
+            System.out.println("Console input allowed");
+            handler.start(module);
 
             module.disconnect();
         } catch (IOException e) {

@@ -1,27 +1,31 @@
 package commandsModule.commands;
 
-import commandsModule.handler.CommandContext;
-import database.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HelpCommand implements BaseCommand {
+
     private static final Logger logger = LogManager.getLogger("logger.HelpCommand");
 
-    private final String name = "help";
-    private final Database dataBase;
-    private final CommandContext context;
+    private String response;
+    private final Map<String, BaseCommand> commands;
 
-    public HelpCommand(Database dataBase, CommandContext context) {
-        this.dataBase = dataBase;
-        this.context = context;
+    public HelpCommand(Map<String, BaseCommand> commands) {
+        this.commands = commands;
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return "help";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -32,13 +36,18 @@ public class HelpCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         try {
-            dataBase.help(context.getCommands());
+            int commandLength = commands.keySet().stream().mapToInt(String::length).max().orElse(0);
+            String formatString = "%-" + (commandLength + 4) + "s%s\n";
+            StringBuilder builder;
+            builder = new StringBuilder(commands.entrySet().stream()
+                    .map(entry -> String.format(formatString, entry.getKey() + " ", entry.getValue().describe()))
+                    .collect(Collectors.joining()));
+            this.response = builder.substring(0, builder.length() - 1);
+            logger.info("Executed HelpCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during help command execution...");
+            this.response = "Something went wrong during help command execution...";
             logger.warn("HelpCommand was not executed");
-            return;
         }
-        logger.info("Executed HelpCommand");
     }
 
 }

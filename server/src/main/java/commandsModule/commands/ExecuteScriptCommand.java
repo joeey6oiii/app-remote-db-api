@@ -1,7 +1,5 @@
 package commandsModule.commands;
 
-import commandsModule.handler.CommandHandleAble;
-import commandsModule.handler.CommandHandler;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -11,19 +9,20 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
+// currently out of order
 public class ExecuteScriptCommand implements ParameterizedCommand {
-    private final String name = "execute_script";
-    private final CommandHandleAble handler;
+    private String response;
     private String[] args;
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
-    public ExecuteScriptCommand(CommandHandler handler) {
-        this.handler = handler;
+    @Override
+    public String getName() {
+        return "execute_script";
     }
 
     @Override
-    public String getName() {
-        return this.name;
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -37,15 +36,11 @@ public class ExecuteScriptCommand implements ParameterizedCommand {
     }
 
     @Override
-    public void clearArguments() {
-        this.args = new String[]{};
-    }
-
-    @Override
     public String describe() {
         return "Reads and executes a script from the specified file";
     }
 
+    // реализация на клиенте
     @Override
     public void execute() throws IOException {
         if (historyOfDangerScript.contains(args[0])) {
@@ -60,10 +55,10 @@ public class ExecuteScriptCommand implements ParameterizedCommand {
                 if (t.split(" ")[0].equals("execute_script")) {
                     historyOfDangerScript.add(args[0]);
                 }
-//                handler.execute(t); тут ваще [INSERT_BAD_WORD]. надо переписывать конкретно, тк теперь CommandHandler принимает Request
+//                handler.execute(t);
             }
         } catch (IOException e) {
-//            System.out.println("Incorrect script"); // need fix
+//            System.out.println("Incorrect script");
         }
         historyOfDangerScript.clear();
     }

@@ -1,5 +1,6 @@
 package commandsModule.commands;
 
+import comparators.HeightComparator;
 import database.Database;
 import defaultClasses.Person;
 import org.apache.logging.log4j.LogManager;
@@ -8,18 +9,20 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<Person> {
-    private static final Logger logger = LogManager.getLogger("logger.RemoveGreaterCommand");
-    private final String name = "remove_greater";
-    private Person argument;
-    private final Database dataBase;
 
-    public RemoveGreaterCommand(Database dataBase) {
-        this.dataBase = dataBase;
-    }
+    private static final Logger logger = LogManager.getLogger("logger.RemoveGreaterCommand");
+
+    private String response;
+    private Person argument;
 
     @Override
     public String getName() {
-        return this.name;
+        return "remove_greater";
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 
     @Override
@@ -39,14 +42,19 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
 
     @Override
     public void execute() throws IOException {
+        Database database = Database.getInstance();
         try {
-            dataBase.removeGreater(argument);
+            if (database.getCollection().isEmpty()) {
+                this.response = "Collection is empty, there is nothing to remove";
+            } else {
+                database.getCollection().removeIf(p -> new HeightComparator().compare(p, argument) > 0);
+                this.response = "Removed elements whose height parameter is greater than " + argument.getHeight();
+            }
+            logger.info("Executed RemoveGreaterCommand");
         } catch (Exception e) {
-            dataBase.notifyCallerBack("Something went wrong during remove_greater {element} execution...");
+            this.response = "Something went wrong during remove_greater {element} execution...";
             logger.warn("RemoveGreaterCommand was not executed");
-            return;
         }
-        logger.info("Executed RemoveGreaterCommand");
     }
 
 }

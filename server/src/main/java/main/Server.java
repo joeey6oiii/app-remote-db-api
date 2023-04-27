@@ -21,17 +21,14 @@ public class Server {
     public static void main(String[] args) {
 
         ConnectionModule module = new ConnectionModuleConfigurator().newInstance(PORT);
-        logger.info("Server started working");
-        Database database = new Database();
-        CommandHandler handler = new CommandHandler(database);
+        logger.info("Server started");
 
         try {
             while (true) {
                 RequestData requestData = module.receiveData();
                 Request request = new RequestReader().readRequest(requestData.getByteArray());
                 ServerContext context = new ServerContext(module, requestData.getCallerBack(), request);
-                database.setServerContext(context);
-                new RequestHandlerManager().manageRequest(context, handler);
+                new RequestHandlerManager().manageRequest(context);
             }
         } catch (Exception e) {
             e.printStackTrace();

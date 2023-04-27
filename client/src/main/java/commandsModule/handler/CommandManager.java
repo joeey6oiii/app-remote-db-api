@@ -1,9 +1,7 @@
 package commandsModule.handler;
 
 import clientModules.connection.ConnectionModule;
-import clientModules.response.receivers.PersonArgumentCommandResultReceiver;
-import clientModules.response.receivers.CommandReceiver;
-import clientModules.response.receivers.CommandResultReceiver;
+import clientModules.response.receivers.*;
 import commands.CommandDescription;
 import commands.CommandType;
 import exceptions.IllegalManagerArgumentException;
@@ -19,6 +17,8 @@ public class CommandManager {
 
         map.put(CommandType.ARGUMENTLESS, new CommandResultReceiver());
         map.put(CommandType.PERSON_SINGLE_ARGUMENT, new PersonArgumentCommandResultReceiver());
+        map.put(CommandType.EXIT, new ExitCommandReceiver());
+        map.put(CommandType.EXECUTE_SCRIPT, new ExecuteScriptReceiver());
     }
 
     public void manageCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {

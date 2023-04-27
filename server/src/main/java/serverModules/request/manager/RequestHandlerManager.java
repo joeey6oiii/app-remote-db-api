@@ -1,6 +1,5 @@
 package serverModules.request.manager;
 
-import commandsModule.handler.CommandHandleAble;
 import exceptions.IllegalManagerArgumentException;
 import requests.*;
 import serverModules.context.ServerContextContainAble;
@@ -20,10 +19,10 @@ public class RequestHandlerManager {
         handlers.put(SingleArgumentCommandExecutionRequest.class, new ArgumentCommandExecutionRCH<>());
     }
 
-    public void manageRequest(ServerContextContainAble context, CommandHandleAble handler) {
+    public void manageRequest(ServerContextContainAble context) {
         try {
             Optional.ofNullable(handlers.get(context.getRequest().getClass())).orElseThrow(() ->
-                    new IllegalManagerArgumentException("RequestHandlerManager contains illegal argument")).handleRequestContent(context, handler);
+                    new IllegalManagerArgumentException("RequestHandlerManager contains illegal argument")).handleRequestContent(context);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }
