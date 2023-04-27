@@ -4,7 +4,7 @@ import clientModules.connection.ConnectionModule;
 import clientModules.connection.ConnectionModuleConfigurator;
 import clientModules.response.receivers.CommandDescriptionsReceiver;
 import commandsModule.commands.CommandDescriptionsKeeper;
-import commandsModule.master.CommandHandler;
+import commandsModule.handler.CommandHandler;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -32,7 +32,7 @@ public class Client {
                     .newInstanceConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), true);
             module.connect();
 
-            new CommandDescriptionsReceiver().temp(module);
+            new CommandDescriptionsReceiver().receiveCommandDescriptions(module);
 
             CommandHandler handler = new CommandHandler(CommandDescriptionsKeeper.getCommandDescriptions(), new Scanner(System.in));
 
