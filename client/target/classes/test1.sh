@@ -1,1 +1,0 @@
-execute_script src/main/resources/test.sh

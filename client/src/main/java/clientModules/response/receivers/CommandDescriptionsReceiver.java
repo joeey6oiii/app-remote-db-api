@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CommandDescriptionsReceiver {
 
-    public void temp(ConnectionModule module) {
+    public void receiveCommandDescriptions(ConnectionModule module) {
         CommandDescriptionsRequest request = new CommandDescriptionsRequest();
         CommandDescriptionsResponse response = new CommandDescriptionsRequestSender().sendRequest(module, request);
         new CommandDescriptionsRCH().handleResponseContent(response);

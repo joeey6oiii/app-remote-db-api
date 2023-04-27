@@ -13,6 +13,7 @@ import serverModules.request.manager.RequestHandlerManager;
 import serverModules.request.reader.RequestReader;
 
 public class Server {
+
     private static final Logger logger = LogManager.getLogger("logger.Server");
 
     private final static int PORT = 64999;
@@ -35,6 +36,6 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.info("Server ended working");
+        logger.info("Server shut down");
     }
 }
