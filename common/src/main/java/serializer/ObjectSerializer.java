@@ -2,7 +2,7 @@ package serializer;
 
 import java.io.*;
 
-public class ObjectSerializer implements SerializeObjectAble {
+public class ObjectSerializer implements SerializeObjectAble<byte[], Object> {
 
     @Override
     public byte[] serialize(Object object) throws IOException {

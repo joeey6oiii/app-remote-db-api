@@ -3,31 +3,33 @@ package commandsModule.master;
 import clientModules.connection.ConnectionModule;
 import commands.CommandDescription;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CommandHandler {
 
-    private final List<CommandDescription> commands;
+    private final Map<String, CommandDescription> commands;
 
     private final Scanner scanner;
 
     public CommandHandler(List<CommandDescription> commands, Scanner scanner) {
-        this.commands = commands;
+        this.commands = commands.stream().collect(Collectors.toMap(CommandDescription::getCommandName, Function.identity()));
         this.scanner = scanner;
     }
 
-    public void run(CommandManager manager, ConnectionModule module) {
-        String s;
+    public void run(ConnectionModule module) {
+        String input;
         while(true) {
-            s = scanner.nextLine();
-            if (s.isEmpty()) { continue;}
-            String[] arr = s.split(" ");
-            for (CommandDescription cmd : commands) {
-                if (cmd.getCommandName().equals(arr[0])) {
-                    manager.manageCommand(cmd, arr, module);
-                }
+            System.out.print("$ ");
+            input = scanner.nextLine().trim();
+            if (input.isEmpty()) { continue;}
+            String[] arr = input.split(" ");
+            CommandDescription cmd = commands.get(arr[0]);
+            if (cmd != null) {
+                new CommandManager().manageCommand(cmd, arr, module);
             }
         }
     }

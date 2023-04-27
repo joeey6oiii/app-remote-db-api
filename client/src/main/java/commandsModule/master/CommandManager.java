@@ -24,7 +24,7 @@ public class CommandManager {
     public void manageCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
         try {
             Optional.ofNullable(map.get(cmd.getType())).orElseThrow(() ->
-                    new IllegalManagerArgumentException("CommandManager contains illegal argument")).temp(cmd, arr, module);
+                    new IllegalManagerArgumentException("CommandManager contains illegal argument")).receiveCommand(cmd, arr, module);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }

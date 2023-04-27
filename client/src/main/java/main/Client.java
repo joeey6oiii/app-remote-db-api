@@ -5,7 +5,6 @@ import clientModules.connection.ConnectionModuleConfigurator;
 import clientModules.response.receivers.CommandDescriptionsReceiver;
 import commandsModule.commands.CommandDescriptionsKeeper;
 import commandsModule.master.CommandHandler;
-import commandsModule.master.CommandManager;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -37,7 +36,7 @@ public class Client {
 
             CommandHandler handler = new CommandHandler(CommandDescriptionsKeeper.getCommandDescriptions(), new Scanner(System.in));
 
-            handler.run(new CommandManager(), module);
+            handler.run(module);
 
             module.disconnect();
         } catch (IOException e) {
