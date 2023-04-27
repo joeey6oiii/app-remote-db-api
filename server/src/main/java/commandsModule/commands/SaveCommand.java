@@ -17,7 +17,7 @@ public class SaveCommand implements BaseCommand {
 
     @Override
     public String describe() {
-        return "Saves the collection to a file";
+        return "Saves the collection to a file. Can be executed only by server";
     }
 
     @Override

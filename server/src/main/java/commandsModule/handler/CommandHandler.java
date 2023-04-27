@@ -61,7 +61,7 @@ public class CommandHandler implements CommandHandleAble, CommandContext {
     @Override
     public void execute(CommandExecutionRequest request) {
         try {
-            BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand()); // mb add check null
+            BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand());
             if (command instanceof ParameterizedCommand parameterizedCommand) {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();

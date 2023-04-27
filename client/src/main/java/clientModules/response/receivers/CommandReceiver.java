@@ -5,6 +5,6 @@ import commands.CommandDescription;
 
 public interface CommandReceiver {
 
-    void temp(CommandDescription cmd, String[] arr, ConnectionModule module);
+    void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module);
 
 }

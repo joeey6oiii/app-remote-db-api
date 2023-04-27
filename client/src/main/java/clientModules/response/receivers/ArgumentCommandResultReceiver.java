@@ -12,7 +12,7 @@ import responses.CommandExecutionResultResponse;
 public class ArgumentCommandResultReceiver implements CommandReceiver {
 
     @Override
-    public void temp(CommandDescription cmd, String[] arr, ConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
         Person p = new PersonGenerator().generate();
         SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, arr, p);
         CommandExecutionResultResponse resultResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
