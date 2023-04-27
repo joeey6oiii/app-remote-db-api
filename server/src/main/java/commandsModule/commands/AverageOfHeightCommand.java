@@ -1,10 +1,13 @@
 package commandsModule.commands;
 
 import database.Database;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class AverageOfHeightCommand implements BaseCommand {
+    private static final Logger logger = LogManager.getLogger("logger.AverageOfHeightCommand");
     private final String name = "average_of_height";
     private final Database dataBase;
 
@@ -25,6 +28,7 @@ public class AverageOfHeightCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         dataBase.averageOfHeight();
+        logger.info("AverageOfHeight is executed");
     }
 
 }

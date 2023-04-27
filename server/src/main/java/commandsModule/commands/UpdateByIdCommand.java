@@ -2,10 +2,13 @@ package commandsModule.commands;
 
 import database.Database;
 import defaultClasses.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCommand<Person> {
+    private static final Logger logger = LogManager.getLogger("logger.UpdateByIdCommand");
     private final String name = "update_by_id";
     private String[] args;
     private Person argument;
@@ -53,6 +56,8 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
     @Override
     public void execute() throws IOException {
         dataBase.update(Integer.parseInt(args[1]), argument);
+        logger.info("UpdateByIdCommand is executed");
+
     }
 
 }

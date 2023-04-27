@@ -1,6 +1,8 @@
 package commandsModule.commands;
 
 import database.Database;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -12,7 +14,7 @@ public class RemoveByIdCommand implements ParameterizedCommand {
     public RemoveByIdCommand(Database dataBase) {
         this.dataBase = dataBase;
     }
-
+    private static final Logger logger = LogManager.getLogger("logger.RemoveByIdCommand");
     @Override
     public String getName() {
         return this.name;
@@ -41,6 +43,8 @@ public class RemoveByIdCommand implements ParameterizedCommand {
     @Override
     public void execute() throws IOException {
         dataBase.remove(Integer.parseInt(args[1]));
+        logger.info("RemoveByIdCommand is executed");
+
     }
 
 }
