@@ -31,8 +31,14 @@ public class HelpCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.help(context.getCommands());
-        logger.info("HelpCommand is executed");
+        try {
+            dataBase.help(context.getCommands());
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during help command execution...");
+            logger.warn("HelpCommand was not executed");
+            return;
+        }
+        logger.info("Executed HelpCommand");
     }
 
 }

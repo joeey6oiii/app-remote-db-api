@@ -27,8 +27,14 @@ public class SumOfHeightCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.sumOfHeight();
-        logger.info("SumOfHeightCommand is executed");
+        try {
+            dataBase.sumOfHeight();
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during sum_of_height command execution...");
+            logger.warn("SumOfHeightCommand was not executed");
+            return;
+        }
+        logger.info("Executed SumOfHeightCommand");
 
     }
 

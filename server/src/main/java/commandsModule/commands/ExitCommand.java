@@ -2,6 +2,8 @@ package commandsModule.commands;
 
 import database.Database;
 
+import java.io.IOException;
+
 public class ExitCommand implements BaseCommand {
     private final String name = "exit";
     private final Database database;
@@ -21,7 +23,7 @@ public class ExitCommand implements BaseCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         this.database.exit();
     }
 

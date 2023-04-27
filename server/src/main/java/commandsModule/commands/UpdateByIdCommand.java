@@ -55,8 +55,14 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
 
     @Override
     public void execute() throws IOException {
-        dataBase.update(Integer.parseInt(args[1]), argument);
-        logger.info("UpdateByIdCommand is executed");
+        try {
+            dataBase.update(Integer.parseInt(args[1]), argument);
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during update_by_id {id} {element} command execution...");
+            logger.warn("UpdateByIdCommand was not executed");
+            return;
+        }
+        logger.info("Executed UpdateByIdCommand");
 
     }
 

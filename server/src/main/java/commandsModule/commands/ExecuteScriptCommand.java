@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
-public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
+public class ExecuteScriptCommand implements ParameterizedCommand {
     private final String name = "execute_script";
     private final CommandHandleAble handler;
     private String[] args;
@@ -63,7 +63,7 @@ public class ExecuteScriptCommand implements BaseCommand, ParameterizedCommand {
 //                handler.execute(t); тут ваще [INSERT_BAD_WORD]. надо переписывать конкретно, тк теперь CommandHandler принимает Request
             }
         } catch (IOException e) {
-            System.out.println("Incorrect script"); // need fix
+//            System.out.println("Incorrect script"); // need fix
         }
         historyOfDangerScript.clear();
     }

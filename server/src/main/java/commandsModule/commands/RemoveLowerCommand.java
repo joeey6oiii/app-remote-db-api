@@ -39,8 +39,14 @@ public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Pe
 
     @Override
     public void execute() throws IOException {
-        dataBase.removeLower(argument);
-        logger.info("RemoveLowerCommand is executed");
+        try {
+            dataBase.removeLower(argument);
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during remove_lower {element} command execution...");
+            logger.warn("RemoveLowerCommand was not executed");
+            return;
+        }
+        logger.info("Executed RemoveLowerCommand");
     }
 
 }

@@ -42,8 +42,14 @@ public class RemoveByIdCommand implements ParameterizedCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.remove(Integer.parseInt(args[1]));
-        logger.info("RemoveByIdCommand is executed");
+        try {
+            dataBase.remove(Integer.parseInt(args[1]));
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during remove_by_id {id} execution...");
+            logger.warn("RemoveByIdCommand was not executed");
+            return;
+        }
+        logger.info("Executed RemoveByIdCommand");
 
     }
 

@@ -27,8 +27,14 @@ public class AverageOfHeightCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.averageOfHeight();
-        logger.info("AverageOfHeight is executed");
+        try {
+            dataBase.averageOfHeight();
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during average_of_height command execution...");
+            logger.warn("AverageOfHeightCommand was not executed");
+            return;
+        }
+        logger.info("Executed AverageOfHeightCommand");
     }
 
 }

@@ -25,8 +25,14 @@ public class ShowCommand implements BaseCommand {
 
     @Override
     public void execute() {
-        dataBase.show();
-        logger.info("ShowCommand is executed");
+        try {
+            dataBase.show();
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during show command execution...");
+            logger.warn("ShowCommand was not executed");
+            return;
+        }
+        logger.info("Executed ShowCommand");
     }
 
 }

@@ -27,8 +27,14 @@ public class PrintFieldDescendingBirthdayCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        dataBase.printFieldDescendingBirthday();
-        logger.info("PrintFieldDescendingBirthdayCommand is executed");
+        try {
+            dataBase.printFieldDescendingBirthday();
+        } catch (Exception e) {
+            dataBase.notifyCallerBack("Something went wrong during print_field_descending_birthday command execution...");
+            logger.warn("PrintFieldDescendingBirthdayCommand was not executed");
+            return;
+        }
+        logger.info("Executed PrintFieldDescendingBirthdayCommand");
     }
 
 }

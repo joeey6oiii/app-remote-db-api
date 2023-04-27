@@ -205,7 +205,7 @@ public class Database {
         }
     }
 
-    public void exit() {
+    public void exit() throws IOException {
         new SaveCommand(this).execute();
     }
 
