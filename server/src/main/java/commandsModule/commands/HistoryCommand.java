@@ -2,10 +2,14 @@ package commandsModule.commands;
 
 import commandsModule.handler.CommandContext;
 import database.Database;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class HistoryCommand implements BaseCommand {
+    private static final Logger logger = LogManager.getLogger("logger.HistoryCommand");
+
     private final String name = "history";
     private final Database dataBase;
     private final CommandContext context;
@@ -28,6 +32,7 @@ public class HistoryCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         dataBase.history(context.getCommands(), context.getHistory());
+        logger.info("HistoryCommand is executed");
     }
 
 }

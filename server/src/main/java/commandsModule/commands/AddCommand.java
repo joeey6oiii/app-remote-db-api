@@ -4,8 +4,13 @@ import commands.CommandDescription;
 import commands.CommandType;
 import database.Database;
 import defaultClasses.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
+    private static final Logger logger = LogManager.getLogger("logger.add");
     private final String name = "add";
     private Person argument;
     private final Database dataBase;
@@ -37,6 +42,7 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     @Override
     public void execute() {
         dataBase.add(argument);
+        logger.info("AddCommand is executed");
     }
 
 }

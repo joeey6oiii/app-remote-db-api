@@ -2,10 +2,13 @@ package commandsModule.commands;
 
 import database.Database;
 import defaultClasses.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Person> {
+    private static final Logger logger = LogManager.getLogger("logger.RemoveLowerCommand");
     private final String name = "remove_lower";
     private Person argument;
     private final Database dataBase;
@@ -37,6 +40,7 @@ public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Pe
     @Override
     public void execute() throws IOException {
         dataBase.removeLower(argument);
+        logger.info("RemoveLowerCommand is executed");
     }
 
 }

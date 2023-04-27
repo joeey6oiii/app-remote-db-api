@@ -1,5 +1,7 @@
 package serverModules.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import serverModules.callerBack.CallerBack;
 import serverModules.request.data.RequestData;
 
@@ -10,6 +12,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataAble {
+
     private final int BYTE_SIZE = 4096;
     private final DatagramSocket socket;
 
@@ -22,9 +25,7 @@ public class ConnectionModule implements ReceiveDataAble<RequestData>, SendDataA
         byte[] bytes = new byte[BYTE_SIZE];
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         try {
-            socket.receive(packet);
-
-            return new RequestData(packet.getData(), new CallerBack(packet.getAddress(), packet.getPort()));
+            socket.receive(packet);return new RequestData(packet.getData(), new CallerBack(packet.getAddress(), packet.getPort()));
         } catch (IOException e) {
             e.printStackTrace();
         }
