@@ -8,12 +8,26 @@
   height: 2
   birthday: "1999-01-12T09:12:12.000+00:00"
   passportID: "123456789"
-  hairColor: {}
+  hairColor: null
   location:
     x: 2.0
     "y": 3
     name: "YOUTUBE"
 - id: 2
+  name: "Evangelion"
+  coordinates:
+    x: 47457467
+    "y": 53459082
+  creationDate: "2023-04-28T20:04:42.132+00:00"
+  height: 5
+  birthday: "1995-10-04T07:11:12.000+00:00"
+  passportID: "Cruel"
+  hairColor: null
+  location:
+    x: 234797.0
+    "y": 2435
+    name: "heaven"
+- id: 3
   name: "Johnny Silverhand"
   coordinates:
     x: 34
@@ -22,12 +36,12 @@
   height: 3
   birthday: "1988-11-16T20:23:00.000+00:00"
   passportID: "wake the fuck up, samurai"
-  hairColor: {}
+  hairColor: null
   location:
     x: 3.0
     "y": 5
     name: "MIKOSHI"
-- id: 3
+- id: 4
   name: "Singleton"
   coordinates:
     x: 3
@@ -36,7 +50,7 @@
   height: 1
   birthday: "2004-12-05T06:12:23.000+00:00"
   passportID: "SOLID_MOMENT"
-  hairColor: "WHITE"
+  hairColor: null
   location:
     x: 3.0
     "y": 1

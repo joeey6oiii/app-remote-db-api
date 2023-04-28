@@ -1,7 +1,7 @@
 package serverModules.request.contentHandlers;
 
 import commands.CommandDescription;
-import commandsModule.CommandDescriptionsKeeper;
+import commandsModule.ClientCommandsKeeper;
 import responses.CommandDescriptionsResponse;
 import serverModules.context.ServerContextContainAble;
 import serverModules.response.sender.CommandDescriptionsResponseSender;
@@ -12,7 +12,7 @@ public class CommandDescriptionsRCH implements RequestContentHandleAble {
 
     @Override
     public void handleRequestContent(ServerContextContainAble context) {
-        List<CommandDescription> commands = CommandDescriptionsKeeper.getCommands();
+        List<CommandDescription> commands = ClientCommandsKeeper.getCommands();
         CommandDescriptionsResponse response = new CommandDescriptionsResponse(commands);
         new CommandDescriptionsResponseSender().sendResponse(context.getConnectionModule(), context.getCallerBack(), response);
     }

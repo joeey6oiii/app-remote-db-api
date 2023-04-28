@@ -1,10 +1,13 @@
 package commandsModule.commands;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 
-// currently out of order
 public class ExitCommand implements BaseCommand {
-    private String response;
+
+    private static final Logger logger = LogManager.getLogger("logger.ClearCommand");
 
     @Override
     public String getName() {
@@ -13,7 +16,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public String getResponse() {
-        return this.response;
+        return "Standard \"exit\" command response. What did you expect?";
     }
 
     @Override
@@ -23,6 +26,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
+        logger.info("Client disconnects. Saving database data to a file...");
         new SaveCommand().execute();
     }
 

@@ -15,10 +15,10 @@ public class CommandManager {
     {
         this.map = new HashMap<>();
 
-        map.put(CommandType.ARGUMENTLESS, new CommandResultReceiver());
-        map.put(CommandType.PERSON_SINGLE_ARGUMENT, new PersonArgumentCommandResultReceiver());
+        map.put(CommandType.ARGUMENTLESS, new ExecutionResultReceiver());
+        map.put(CommandType.PERSON_SINGLE_ARGUMENT, new PersonCommandResultReceiver());
         map.put(CommandType.EXIT, new ExitCommandReceiver());
-        map.put(CommandType.EXECUTE_SCRIPT, new ExecuteScriptReceiver());
+        map.put(CommandType.EXECUTE_SCRIPT, new ScriptCommandReceiver());
     }
 
     public void manageCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
