@@ -1,0 +1,43 @@
+---
+- id: 1
+  name: "VLAD A4"
+  coordinates:
+    x: 3999
+    "y": 2112
+  creationDate: "2023-04-27T08:48:44.399+00:00"
+  height: 2
+  birthday: "1999-01-12T09:12:12.000+00:00"
+  passportID: "123456789"
+  hairColor: {}
+  location:
+    x: 2.0
+    "y": 3
+    name: "YOUTUBE"
+- id: 2
+  name: "Johnny Silverhand"
+  coordinates:
+    x: 34
+    "y": 2
+  creationDate: "2023-04-27T08:49:06.839+00:00"
+  height: 3
+  birthday: "1988-11-16T20:23:00.000+00:00"
+  passportID: "wake the fuck up, samurai"
+  hairColor: {}
+  location:
+    x: 3.0
+    "y": 5
+    name: "MIKOSHI"
+- id: 3
+  name: "Singleton"
+  coordinates:
+    x: 3
+    "y": 4
+  creationDate: "2023-04-27T08:49:26.538+00:00"
+  height: 1
+  birthday: "2004-12-05T06:12:23.000+00:00"
+  passportID: "SOLID_MOMENT"
+  hairColor: "WHITE"
+  location:
+    x: 3.0
+    "y": 1
+    name: "newInstance"

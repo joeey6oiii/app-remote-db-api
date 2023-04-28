@@ -9,10 +9,7 @@ import serverModules.connection.ConnectionModule;
 import serverModules.response.sender.CommandExecutionResultResponseSender;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Command processing class.
@@ -69,12 +66,11 @@ public class CommandHandler {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();
                 response = parameterizedCommand.getResponse();
-                history.add(parameterizedCommand);
             } else {
                 command.execute();
                 response = command.getResponse();
-                history.add(command);
             }
+            history.add(command);
         } catch (IOException e) {
             e.printStackTrace();
         }

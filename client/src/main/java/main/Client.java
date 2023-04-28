@@ -41,7 +41,7 @@ public class Client {
 
             module.disconnect();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Unpredicted error " + e.getMessage());
         }
     }
 }
