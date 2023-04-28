@@ -6,7 +6,7 @@ import commands.CommandType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandDescriptionsKeeper {
+public class ClientCommandsKeeper {
     private static final List<CommandDescription> commands;
 
     static {

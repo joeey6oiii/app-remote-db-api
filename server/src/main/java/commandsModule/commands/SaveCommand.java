@@ -2,7 +2,6 @@ package commandsModule.commands;
 
 import fileService.FileService;
 import database.Database;
-import main.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,8 +12,6 @@ public class SaveCommand implements BaseCommand {
 
     private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
 
-    private String response;
-
     @Override
     public String getName() {
         return "save";
@@ -22,7 +19,7 @@ public class SaveCommand implements BaseCommand {
 
     @Override
     public String getResponse() {
-        return this.response;
+        return "Executed only by server";
     }
 
     @Override
@@ -33,18 +30,16 @@ public class SaveCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
+        File file = new File("server\\src\\main\\resources\\Person.yaml");
+        FileService fileService = new FileService();
         try {
-            File file = new File("server\\src\\main\\resources\\Person.yaml");
-            FileService fileService = new FileService();
             if (!file.exists()) {
                 fileService.createFile(file);
             }
             fileService.writeObjectToFile(file, database.getCollection());
-            this.response = "Saved collection";
-            logger.info("Executed SaveCommand");
+            logger.info("Saved collection to a file");
         } catch (Exception e) {
-            this.response = "Failed to save collection";
-            logger.warn("SaveCommand was not executed");
+            logger.fatal("Unexpected event: Failed to save data to file ");
         }
     }
 }
