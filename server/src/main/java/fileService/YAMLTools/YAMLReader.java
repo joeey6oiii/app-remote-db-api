@@ -1,11 +1,11 @@
-package YAMLTools;
+package fileService.YAMLTools;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,29 +33,26 @@ public class YAMLReader {
             .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
             .findAndRegisterModules();
 
-    /**
-     * Finds and reads the YAML file at the specified path. Creates object(s) of the specified class and adds them to the <code>List</code>.
-     *
-     * @param path the specified full path to the YAML file
-     * @param type the specified class whose objects will be created in the method
-     * @param <T> arbitrary non-primitive data type
-     * @return list of created elements of type T
-     */
-
-    public <T> List<T> read(String path, Class<T> type) {
+    public <T> List<T> read(File file, Class<T> type) throws IOException {
         Class<T[]> arrayClass = null;
-        T[] objects;
         try {
             arrayClass = (Class<T[]>) Class.forName("[L" + type.getName() + ";");
         } catch (ClassNotFoundException ignored) {}
-        try {
-            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(path));
-            objects = objectMapper.readValue(inputStreamReader, arrayClass);
-            inputStreamReader.close();
+
+        long fileSize = Files.size(file.toPath());
+        if (fileSize == 0) {
+            return new ArrayList<>();
+        }
+
+        T[] objects;
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
+            objects = objectMapper.readValue(reader, arrayClass);
+        }
+
+        if (objects != null) {
             return Arrays.asList(objects);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return new ArrayList<>();
     }
+
 }

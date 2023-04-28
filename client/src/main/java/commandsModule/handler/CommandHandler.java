@@ -26,7 +26,7 @@ public class CommandHandler {
             System.out.print("$ ");
             input = scanner.nextLine().trim();
             if (input.isEmpty()) { continue; }
-            String[] arr = input.split(" ");
+            String[] arr = input.toLowerCase().split(" ");
             CommandDescription cmd = commands.get(arr[0]);
             if (cmd != null) {
                 new CommandManager().manageCommand(cmd, arr, module);

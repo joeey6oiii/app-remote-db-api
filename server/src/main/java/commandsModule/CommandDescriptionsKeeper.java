@@ -18,13 +18,13 @@ public class CommandDescriptionsKeeper {
         commands.add(new CommandDescription("clear", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("remove_by_id", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("help", CommandType.ARGUMENTLESS));
-        commands.add(new CommandDescription("exit", CommandType.ARGUMENTLESS));
+        commands.add(new CommandDescription("exit", CommandType.EXIT));
         commands.add(new CommandDescription("update", CommandType.PERSON_SINGLE_ARGUMENT));
         commands.add(new CommandDescription("history", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("sum_of_height", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("average_of_height", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("print_field_descending_birthday", CommandType.ARGUMENTLESS));
-//        commands.add(new CommandDescription("execute_script", CommandType.));
+        commands.add(new CommandDescription("execute_script", CommandType.EXECUTE_SCRIPT));
         commands.add(new CommandDescription("remove_greater", CommandType.PERSON_SINGLE_ARGUMENT));
         commands.add(new CommandDescription("remove_lower", CommandType.PERSON_SINGLE_ARGUMENT));
     }

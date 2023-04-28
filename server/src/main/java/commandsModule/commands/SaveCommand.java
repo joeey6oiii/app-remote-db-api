@@ -1,10 +1,12 @@
 package commandsModule.commands;
 
-import YAMLTools.YAMLWriter;
+import fileService.FileService;
 import database.Database;
+import main.Server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SaveCommand implements BaseCommand {
@@ -32,8 +34,12 @@ public class SaveCommand implements BaseCommand {
     public void execute() throws IOException {
         Database database = Database.getInstance();
         try {
-            YAMLWriter yamlWriter = new YAMLWriter();
-            yamlWriter.writeYAML(database, "Person.yaml");
+            File file = new File("server\\src\\main\\resources\\Person.yaml");
+            FileService fileService = new FileService();
+            if (!file.exists()) {
+                fileService.createFile(file);
+            }
+            fileService.writeObjectToFile(file, database.getCollection());
             this.response = "Saved collection";
             logger.info("Executed SaveCommand");
         } catch (Exception e) {
