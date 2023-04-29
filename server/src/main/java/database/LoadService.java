@@ -8,7 +8,12 @@ public class LoadService {
 
     public void loadToDatabase(List<Person> list) {
         Database database = Database.getInstance();
-        list.stream().forEach(database::add);
+        list.forEach(database::add);
+        Integer maxId = list.stream()
+                .map(Person::getId)
+                .max(Integer::compareTo)
+                .orElse(1);
+        IDService.setMaxId(maxId);
     }
 
 }

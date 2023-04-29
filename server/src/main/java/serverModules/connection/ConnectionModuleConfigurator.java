@@ -2,10 +2,10 @@ package serverModules.connection;
 
 import java.net.SocketException;
 
-public class ConnectionModuleConfigurator implements InstancingConnectionModuleAble {
+public class ConnectionModuleConfigurator implements InitializeConnectionModuleAble {
 
     @Override
-    public ConnectionModule newInstance(int PORT) {
+    public ConnectionModule init(int PORT) {
         try {
             return new ConnectionModule(PORT);
         } catch (SocketException e) {

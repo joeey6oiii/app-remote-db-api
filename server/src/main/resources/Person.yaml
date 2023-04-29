@@ -55,3 +55,31 @@
     x: 3.0
     "y": 1
     name: "newInstance"
+- id: 5
+  name: "ChatGPT"
+  coordinates:
+    x: 272827252728
+    "y": 1
+  creationDate: "2023-04-29T06:21:26.521+00:00"
+  height: 1
+  birthday: "2022-11-30T01:02:17.000+00:00"
+  passportID: "openai"
+  hairColor: null
+  location:
+    x: 5.4656736E7
+    "y": 1527689
+    name: "internet =))"
+- id: 6
+  name: "Lab6/Kseikoff&Zoola"
+  coordinates:
+    x: 9999
+    "y": 1111
+  creationDate: "2023-04-29T06:28:35.971+00:00"
+  height: 6
+  birthday: "2004-04-04T00:04:04.000+00:00"
+  passportID: "WHTEVER&PREEDUROK"
+  hairColor: {}
+  location:
+    x: 73597.0
+    "y": 320843
+    name: "ITMOU"
