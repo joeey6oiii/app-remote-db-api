@@ -9,9 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SaveCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
-
     @Override
     public String getName() {
         return "save";

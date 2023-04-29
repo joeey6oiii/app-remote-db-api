@@ -1,19 +1,12 @@
 package commandsModule.commands;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
 
-// currently out of order
-public class ExecuteScriptCommand implements ParameterizedCommand {
-    private String response;
-    private String[] args;
-    public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
+public class ExecuteScriptCommand implements BaseCommand {
+    private static final Logger logger = LogManager.getLogger("logger.ExecuteScriptCommand");
 
     @Override
     public String getName() {
@@ -22,17 +15,7 @@ public class ExecuteScriptCommand implements ParameterizedCommand {
 
     @Override
     public String getResponse() {
-        return this.response;
-    }
-
-    @Override
-    public String[] getArguments() {
-        return this.args;
-    }
-
-    @Override
-    public void setArguments(String[] args) {
-        this.args = args;
+        return "Server is waiting to receive commands...";
     }
 
     @Override
@@ -40,27 +23,9 @@ public class ExecuteScriptCommand implements ParameterizedCommand {
         return "Reads and executes a script from the specified file";
     }
 
-    // реализация на клиенте
     @Override
     public void execute() throws IOException {
-        if (historyOfDangerScript.contains(args[0])) {
-            System.out.println("Script in loop"); // need fix
-            return;
-        }
-        File file = new File(args[0]);
-        try (InputStream in = new FileInputStream(file)) {
-            String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
-            var a = contents.split("\n");
-            for (var t : a) {
-                if (t.split(" ")[0].equals("execute_script")) {
-                    historyOfDangerScript.add(args[0]);
-                }
-//                handler.execute(t);
-            }
-        } catch (IOException e) {
-//            System.out.println("Incorrect script");
-        }
-        historyOfDangerScript.clear();
+        logger.info("Executed ExecuteScriptCommand. Waiting to receive commands from the Client...");
     }
 
 }

@@ -9,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Person> {
-
     private static final Logger logger = LogManager.getLogger("logger.RemoveLowerCommand");
-
     private String response;
     private Person argument;
 

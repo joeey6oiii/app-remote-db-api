@@ -10,15 +10,33 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private final Map<String, CommandDescription> commands;
+    private static Map<String, CommandDescription> commands;
+    private final CommandManager manager;
+    private final ConnectionModule module;
     private final Scanner scanner;
 
-    public CommandHandler(List<CommandDescription> commands, Scanner scanner) {
-        this.commands = commands.stream().collect(Collectors.toMap(CommandDescription::getCommandName, Function.identity()));
+    public CommandHandler(Map<String, CommandDescription> commands, Scanner scanner, ConnectionModule module) {
+        CommandHandler.commands = commands;
         this.scanner = scanner;
+        this.module = module;
+        manager = new CommandManager();
     }
 
-    public void start(ConnectionModule module) {
+    public CommandHandler(List<CommandDescription> commands, Scanner scanner, ConnectionModule module) {
+        CommandHandler.commands = commands.stream().collect(Collectors.toMap(CommandDescription::getCommandName, Function.identity()));
+        this.scanner = scanner;
+        this.module = module;
+        manager = new CommandManager();
+    }
+
+    public static CommandDescription getCommandByName(String name) {
+        if (commands != null) {
+            return commands.get(name);
+        }
+        return null;
+    }
+
+    public void start() {
         String input;
         while (true) {
             System.out.print("$ ");
@@ -27,7 +45,7 @@ public class CommandHandler {
             String[] arr = input.toLowerCase().split(" ");
             CommandDescription cmd = commands.get(arr[0]);
             if (cmd != null) {
-                new CommandManager().manageCommand(cmd, arr, module);
+                manager.manageCommand(cmd, arr, module);
             } else {
                 System.out.println("Not Recognized as an Internal or External Command");
             }

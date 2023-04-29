@@ -42,12 +42,12 @@ public class Client {
             out.println("Received commands");
             out.flush();
 
-            CommandHandler handler = new CommandHandler(ClientCommandsKeeper.getCommands(), new Scanner(System.in));
+            CommandHandler handler = new CommandHandler(ClientCommandsKeeper.getCommands(), new Scanner(System.in), module);
 
             out.println("Console input allowed");
             out.flush();
 
-            handler.start(module);
+            handler.start();
 
         } catch (IOException e) {
             out.println("Unpredicted error " + e.getMessage());

@@ -10,9 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCommand<Person> {
-
     private static final Logger logger = LogManager.getLogger("logger.UpdateByIdCommand");
-
     private String response;
     private String[] args;
     private Person argument;
@@ -49,7 +47,7 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
 
     @Override
     public String describe() {
-        return "Allows to reassign values to objects in the database";
+        return "Updates element in database by specified ID";
     }
 
     @Override

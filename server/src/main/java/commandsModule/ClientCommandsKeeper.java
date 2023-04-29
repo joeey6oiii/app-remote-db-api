@@ -19,7 +19,7 @@ public class ClientCommandsKeeper {
         commands.add(new CommandDescription("remove_by_id", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("help", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("exit", CommandType.EXIT));
-        commands.add(new CommandDescription("update", CommandType.PERSON_SINGLE_ARGUMENT));
+        commands.add(new CommandDescription("update_by_id", CommandType.PERSON_SINGLE_ARGUMENT));
         commands.add(new CommandDescription("history", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("sum_of_height", CommandType.ARGUMENTLESS));
         commands.add(new CommandDescription("average_of_height", CommandType.ARGUMENTLESS));

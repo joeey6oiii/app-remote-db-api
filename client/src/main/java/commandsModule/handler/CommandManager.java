@@ -21,10 +21,10 @@ public class CommandManager {
         map.put(CommandType.EXECUTE_SCRIPT, new ScriptCommandReceiver());
     }
 
-    public void manageCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
+    public void manageCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
         try {
             Optional.ofNullable(map.get(cmd.getType())).orElseThrow(() ->
-                    new IllegalManagerArgumentException("CommandManager contains illegal argument")).receiveCommand(cmd, arr, module);
+                    new IllegalManagerArgumentException("CommandManager contains illegal argument")).receiveCommand(cmd, args, module);
         } catch (IllegalManagerArgumentException e) {
             e.printStackTrace();
         }

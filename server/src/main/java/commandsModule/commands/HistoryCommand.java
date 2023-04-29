@@ -11,9 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HistoryCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.HistoryCommand");
-
     private String response;
     private final Map<String, BaseCommand> commands;
 

@@ -8,9 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HelpCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.HelpCommand");
-
     private String response;
     private final Map<String, BaseCommand> commands;
 

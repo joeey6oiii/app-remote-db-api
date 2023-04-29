@@ -7,7 +7,7 @@ import responses.Response;
 
 import java.util.List;
 
-public class CommandsHandler implements HandleResponseAble {
+public class ClientCommandsHandler implements HandleResponseAble {
 
     @Override
     public void handleResponse(Response response) {

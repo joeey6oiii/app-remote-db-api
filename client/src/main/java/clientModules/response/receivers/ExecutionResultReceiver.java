@@ -10,8 +10,8 @@ import responses.ExecutionResultResponse;
 public class ExecutionResultReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
-        CommandExecutionRequest request = new CommandExecutionRequest(cmd, arr);
+    public void receiveCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
+        CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
         ExecutionResultResponse resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
         new ExecutionResultHandler().handleResponse(resultResponse);
     }

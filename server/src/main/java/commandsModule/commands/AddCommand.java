@@ -8,9 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
-    private static final Logger logger = LogManager.getLogger("logger.add");
+    private static final Logger logger = LogManager.getLogger("logger.AddCommand");
     private String response;
     private Person argument;
 
@@ -36,7 +35,7 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
 
     @Override
     public String describe() {
-        return "Creates and adds an element to the collection";
+        return "Adds element to collection";
     }
 
     @Override

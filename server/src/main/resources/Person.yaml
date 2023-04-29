@@ -78,8 +78,22 @@
   height: 6
   birthday: "2004-04-04T00:04:04.000+00:00"
   passportID: "WHTEVER&PREEDUROK"
-  hairColor: {}
+  hairColor: null
   location:
     x: 73597.0
     "y": 320843
     name: "ITMOU"
+- id: 7
+  name: "Singlton <333"
+  coordinates:
+    x: 9
+    "y": 12848202
+  creationDate: "2023-04-29T11:01:08.760+00:00"
+  height: 3
+  birthday: "2005-03-07T13:31:09.000+00:00"
+  passportID: "STUPID"
+  hairColor: {}
+  location:
+    x: 3.2502384E8
+    "y": 2934
+    name: "DOLOI SOLID, SVOBODY STUPID"

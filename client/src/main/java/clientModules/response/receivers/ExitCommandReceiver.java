@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ExitCommandReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
         PrintWriter out = new PrintWriter(System.out);
         out.println("Are you sure you want to exit? [Y/N]");
         out.flush();
@@ -24,13 +24,13 @@ public class ExitCommandReceiver implements CommandReceiver {
             out.flush();
             str = scanner.nextLine();
             if (str.equalsIgnoreCase("N")) {
-                out.print("Return to console input\n");
+                out.print("Returning to the console input\n");
                 out.flush();
                 return;
             }
         }
         out.close();
-        CommandExecutionRequest request = new CommandExecutionRequest(cmd, arr);
+        CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
         ExecutionResultResponse resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
         new ExitCommandHandler().handleResponse(resultResponse);
     }
