@@ -8,9 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class AverageOfHeightCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.AverageOfHeightCommand");
-
     private String response;
 
     @Override

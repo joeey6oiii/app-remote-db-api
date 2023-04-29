@@ -12,9 +12,9 @@ import responses.ExecutionResultResponse;
 public class PersonCommandResultReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] arr, ConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
         Person p = new PersonGenerator().generate();
-        SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, arr, p);
+        SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
         ExecutionResultResponse resultResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
         new ExecutionResultHandler().handleResponse(resultResponse);
     }

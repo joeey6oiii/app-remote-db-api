@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrintFieldDescendingBirthdayCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.PrintFieldDescendingBirthdayCommand");
-
     private String response;
 
     @Override

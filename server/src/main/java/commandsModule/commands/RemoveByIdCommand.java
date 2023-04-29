@@ -7,9 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class RemoveByIdCommand implements ParameterizedCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.RemoveByIdCommand");
-
     private String response;
     private String[] args;
 

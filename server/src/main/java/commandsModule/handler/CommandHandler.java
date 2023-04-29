@@ -2,6 +2,8 @@ package commandsModule.handler;
 
 import commands.CommandDescription;
 import commandsModule.commands.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import requests.CommandExecutionRequest;
 import responses.ExecutionResultResponse;
 import serverModules.callerBack.CallerBack;
@@ -18,6 +20,7 @@ import java.util.*;
  */
 
 public class CommandHandler {
+    private static final Logger logger = LogManager.getLogger("logger.CommandHandler");
     private final Map<String, BaseCommand> commands;
     private static List<BaseCommand> history;
 
@@ -33,7 +36,7 @@ public class CommandHandler {
         commands.put("remove_by_id", new RemoveByIdCommand());
         commands.put("help", new HelpCommand(this.commands));
         commands.put("exit", new ExitCommand());
-        commands.put("update", new UpdateByIdCommand());
+        commands.put("update_by_id", new UpdateByIdCommand());
         commands.put("history", new HistoryCommand(this.commands));
         commands.put("sum_of_height", new SumOfHeightCommand());
         commands.put("average_of_height", new AverageOfHeightCommand());
@@ -55,7 +58,7 @@ public class CommandHandler {
     }
 
     public BaseCommand getCommandByDescription(CommandDescription description)  {
-        return commands.get(description.getCommandName());
+        return commands.get(description.getCommandName().toLowerCase());
     }
 
     public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
@@ -72,7 +75,8 @@ public class CommandHandler {
             }
             history.add(command);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("Unable to execute command: " + e.getMessage());
+            return;
         }
         new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
     }

@@ -8,9 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class SumOfHeightCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.SumOfHeightCommand");
-
     private String response;
 
     @Override

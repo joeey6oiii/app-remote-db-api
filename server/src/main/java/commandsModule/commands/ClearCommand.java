@@ -7,9 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class ClearCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.ClearCommand");
-
     private String response;
 
     @Override

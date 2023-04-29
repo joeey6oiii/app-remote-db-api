@@ -5,9 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class InfoCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.InfoCommand");
-
     private String response;
 
     @Override

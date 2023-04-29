@@ -7,9 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.stream.Collectors;
 
 public class ShowCommand implements BaseCommand {
-
     private static final Logger logger = LogManager.getLogger("logger.ShowCommand");
-
     private String response;
 
     @Override

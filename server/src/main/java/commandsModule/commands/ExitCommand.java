@@ -6,8 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class ExitCommand implements BaseCommand {
-
-    private static final Logger logger = LogManager.getLogger("logger.ClearCommand");
+    private static final Logger logger = LogManager.getLogger("logger.ExitCommand");
 
     @Override
     public String getName() {
@@ -16,7 +15,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public String getResponse() {
-        return "Standard \"exit\" command response. What did you expect?";
+        return "Standard \"exit\" command response";
     }
 
     @Override
