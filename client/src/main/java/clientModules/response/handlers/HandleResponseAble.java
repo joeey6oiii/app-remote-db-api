@@ -1,4 +1,4 @@
-package clientModules.response.contentHandlers;
+package clientModules.response.handlers;
 
 import responses.Response;
 

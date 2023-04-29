@@ -2,12 +2,12 @@ package clientModules.request.sender;
 
 import clientModules.connection.ConnectionModule;
 import requests.SingleArgumentCommandExecutionRequest;
-import responses.CommandExecutionResultResponse;
+import responses.ExecutionResultResponse;
 
-public class SingleArgumentCommandExecutionRequestSender implements RequestAble<CommandExecutionResultResponse, SingleArgumentCommandExecutionRequest<?>> {
+public class SingleArgumentCommandExecutionRequestSender implements RequestAble<ExecutionResultResponse, SingleArgumentCommandExecutionRequest<?>> {
 
     @Override
-    public CommandExecutionResultResponse sendRequest(ConnectionModule module, SingleArgumentCommandExecutionRequest<?> request) {
-        return (CommandExecutionResultResponse) new RequestSender().sendRequest(module, request);
+    public ExecutionResultResponse sendRequest(ConnectionModule module, SingleArgumentCommandExecutionRequest<?> request) {
+        return (ExecutionResultResponse) new RequestSender().sendRequest(module, request);
     }
 }

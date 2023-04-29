@@ -10,9 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-
     private final Map<String, CommandDescription> commands;
-
     private final Scanner scanner;
 
     public CommandHandler(List<CommandDescription> commands, Scanner scanner) {
@@ -22,7 +20,7 @@ public class CommandHandler {
 
     public void start(ConnectionModule module) {
         String input;
-        while(true) {
+        while (true) {
             System.out.print("$ ");
             input = scanner.nextLine().trim();
             if (input.isEmpty()) { continue; }

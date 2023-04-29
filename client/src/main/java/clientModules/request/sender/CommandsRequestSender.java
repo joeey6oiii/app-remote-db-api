@@ -1,13 +1,13 @@
 package clientModules.request.sender;
 
 import clientModules.connection.ConnectionModule;
-import requests.CommandDescriptionsRequest;
-import responses.CommandDescriptionsResponse;
+import requests.ClientCommandsRequest;
+import responses.ClientCommandsResponse;
 
-public class CommandsRequestSender implements RequestAble<CommandDescriptionsResponse, CommandDescriptionsRequest> {
+public class CommandsRequestSender implements RequestAble<ClientCommandsResponse, ClientCommandsRequest> {
 
     @Override
-    public CommandDescriptionsResponse sendRequest(ConnectionModule module, CommandDescriptionsRequest request) {
-        return (CommandDescriptionsResponse) new RequestSender().sendRequest(module, request);
+    public ClientCommandsResponse sendRequest(ConnectionModule module, ClientCommandsRequest request) {
+        return (ClientCommandsResponse) new RequestSender().sendRequest(module, request);
     }
 }

@@ -2,11 +2,10 @@ package clientModules.response.receivers;
 
 import clientModules.connection.ConnectionModule;
 import clientModules.request.sender.CommandExecutionRequestSender;
-import clientModules.response.contentHandlers.ExecutionResultHandler;
-import clientModules.response.contentHandlers.ExitCommandHandler;
+import clientModules.response.handlers.ExitCommandHandler;
 import commands.CommandDescription;
 import requests.CommandExecutionRequest;
-import responses.CommandExecutionResultResponse;
+import responses.ExecutionResultResponse;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -32,7 +31,7 @@ public class ExitCommandReceiver implements CommandReceiver {
         }
         out.close();
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, arr);
-        CommandExecutionResultResponse resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
+        ExecutionResultResponse resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
         new ExitCommandHandler().handleResponse(resultResponse);
     }
 }

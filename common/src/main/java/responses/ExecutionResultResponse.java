@@ -2,10 +2,10 @@ package responses;
 
 import java.io.Serializable;
 
-public class CommandExecutionResultResponse implements Response, Serializable {
+public class ExecutionResultResponse implements Response, Serializable {
     private final String result;
 
-    public CommandExecutionResultResponse(String result) {
+    public ExecutionResultResponse(String result) {
         this.result = result;
     }
 
