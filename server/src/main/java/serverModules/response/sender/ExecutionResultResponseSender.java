@@ -1,13 +1,13 @@
 package serverModules.response.sender;
 
-import responses.CommandExecutionResultResponse;
+import responses.ExecutionResultResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
-public class CommandExecutionResultResponseSender implements ResponseAble<CommandExecutionResultResponse> {
+public class ExecutionResultResponseSender implements ResponseAble<ExecutionResultResponse> {
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, CommandExecutionResultResponse response) {
+    public void sendResponse(ConnectionModule module, CallerBack callerBack, ExecutionResultResponse response) {
         if (response != null) {
             new ResponseSender().sendResponse(module, callerBack, response);
         }

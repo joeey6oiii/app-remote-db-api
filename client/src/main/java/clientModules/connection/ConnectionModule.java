@@ -38,7 +38,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
             try {
                 datagramChannel.connect(socketAddress);
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
     }
@@ -50,7 +50,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
                 datagramChannel.disconnect();
                 datagramChannel.close();
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
     }
@@ -67,7 +67,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         try {
             datagramChannel.send(buffer, socketAddress);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -78,16 +78,16 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         }
 
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        byte[] data = new byte[0];
         try {
             this.datagramChannel.receive(buffer);
             buffer.flip();
-            byte[] data = new byte[buffer.remaining()];
+            data = new byte[buffer.remaining()];
             buffer.get(data);
-            return data;
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
-        return null;
+        return data;
     }
 
     @Override

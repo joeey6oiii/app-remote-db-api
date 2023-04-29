@@ -3,10 +3,10 @@ package commandsModule.handler;
 import commands.CommandDescription;
 import commandsModule.commands.*;
 import requests.CommandExecutionRequest;
-import responses.CommandExecutionResultResponse;
+import responses.ExecutionResultResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
-import serverModules.response.sender.CommandExecutionResultResponseSender;
+import serverModules.response.sender.ExecutionResultResponseSender;
 
 import java.io.IOException;
 import java.util.*;
@@ -74,7 +74,7 @@ public class CommandHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new CommandExecutionResultResponseSender().sendResponse(module, callerBack, new CommandExecutionResultResponse(response));
+        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
     }
 
 }

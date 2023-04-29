@@ -1,4 +1,4 @@
-package commandsModule.commands;
+package commandsModule;
 
 import commands.CommandDescription;
 

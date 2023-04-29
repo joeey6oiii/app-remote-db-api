@@ -4,7 +4,7 @@ import requests.Request;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
-public class ServerContext implements ServerContextContainAble {
+public class ServerContext {
     private final ConnectionModule connectionModule;
     private final CallerBack callerBack;
     private final Request request;
@@ -15,17 +15,14 @@ public class ServerContext implements ServerContextContainAble {
         this.request = request;
     }
 
-    @Override
     public ConnectionModule getConnectionModule() {
         return connectionModule;
     }
 
-    @Override
     public CallerBack getCallerBack() {
         return callerBack;
     }
 
-    @Override
     public Request getRequest() {
         return request;
     }

@@ -10,7 +10,7 @@ import serverModules.connection.ConnectionModuleConfigurator;
 import serverModules.connection.ConnectionModule;
 import serverModules.context.ServerContext;
 import serverModules.request.data.RequestData;
-import serverModules.request.manager.RequestHandlerManager;
+import serverModules.request.handlers.RequestHandlerManager;
 import serverModules.request.reader.RequestReader;
 
 import java.io.File;
