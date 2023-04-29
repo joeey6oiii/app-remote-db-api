@@ -1,6 +1,7 @@
 package commandsModule.commands;
 
 import database.Database;
+import database.IDService;
 import defaultClasses.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,9 +10,7 @@ import java.io.IOException;
 
 
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
-
     private static final Logger logger = LogManager.getLogger("logger.add");
-
     private String response;
     private Person argument;
 
@@ -43,7 +42,7 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     @Override
     public void execute() throws IOException {
         try {
-            Database.getInstance().add(argument);
+            Database.getInstance().add(IDService.recalculateId(argument));
             this.response = "Element was added";
             logger.info("Executed AddCommand");
         } catch (Exception e) {

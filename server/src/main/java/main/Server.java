@@ -52,7 +52,7 @@ public class Server {
             logger.info("Upload data not found. Continuing execution with an empty database");
         }
 
-        ConnectionModule module = new ConnectionModuleConfigurator().newInstance(PORT);
+        ConnectionModule module = new ConnectionModuleConfigurator().init(PORT);
         logger.info("Server started");
 
         try {
