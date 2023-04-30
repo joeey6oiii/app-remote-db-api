@@ -32,7 +32,7 @@ public class Client {
         ConnectionModule module = null;
         try {
             module = new ConnectionModuleConfigurator()
-                    .initConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), true);
+                    .initConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
 
             module.connect();
             out.println("Server connection established\nReceiving commands...");
