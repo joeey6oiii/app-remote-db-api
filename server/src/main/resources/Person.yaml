@@ -92,8 +92,22 @@
   height: 3
   birthday: "2005-03-07T13:31:09.000+00:00"
   passportID: "STUPID"
-  hairColor: {}
+  hairColor: null
   location:
     x: 3.2502384E8
     "y": 2934
     name: "DOLOI SOLID, SVOBODY STUPID"
+- id: 8
+  name: "Monkey D. Luffy"
+  coordinates:
+    x: 345783456
+    "y": 348726
+  creationDate: "2023-04-30T19:29:47.711+00:00"
+  height: 3
+  birthday: "1505-05-05T12:05:25.000+00:00"
+  passportID: "pirate"
+  hairColor: null
+  location:
+    x: 3.4568458E10
+    "y": 5289
+    name: "GRAND LINE"

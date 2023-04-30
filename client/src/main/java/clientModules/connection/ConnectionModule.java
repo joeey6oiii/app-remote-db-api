@@ -16,7 +16,7 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
         BlockingReceiveDataAble<byte[]>, NonBlockingReceiveDataAble<byte[]> {
     private final int PACKET_SIZE = 4096;
     private final int BUFFER_SIZE = 4096;
-    private final DatagramChannel datagramChannel;
+    private DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 
     protected ConnectionModule(DatagramChannel datagramChannel, SocketAddress socketAddress) {
@@ -60,64 +60,47 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
     }
 
     @Override
-    public void sendData(byte[] data) {
+    public void sendData(byte[] data) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(data.length);
         buffer.put(data);
         buffer.flip();
-        try {
-            datagramChannel.send(buffer, socketAddress);
-        } catch (IOException e) {
 
-        }
+        datagramChannel.send(buffer, socketAddress);
     }
 
     @Override
-    public byte[] blockingReceiveData() throws LockStateException {
+    public byte[] blockingReceiveData() throws LockStateException, ClosedChannelException, IOException {
         if (!datagramChannel.isBlocking()) {
             throw new LockStateException("DatagramChannel is non-blocking");
         }
 
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
-        byte[] data = new byte[0];
-        try {
-            this.datagramChannel.receive(buffer);
-            buffer.flip();
-            data = new byte[buffer.remaining()];
-            buffer.get(data);
-        } catch (IOException e) {
+        byte[] data;
 
-        }
+        this.datagramChannel.receive(buffer);
+
+        buffer.flip();
+        data = new byte[buffer.remaining()];
+        buffer.get(data);
+
         return data;
     }
 
     @Override
-    public byte[] nonBlockingReceiveData() throws LockStateException {
+    public byte[] nonBlockingReceiveData() throws LockStateException, ClosedChannelException, IOException {
         if (datagramChannel.isBlocking()) {
             throw new LockStateException("DatagramChannel is blocking");
         }
 
         ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
 
-        Selector selector = null;
-        try {
-            selector = Selector.open();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            datagramChannel.register(selector, SelectionKey.OP_READ);
-        } catch (ClosedChannelException e) {
-            e.printStackTrace();
-        }
+        Selector selector = Selector.open();
+
+        datagramChannel.register(selector, SelectionKey.OP_READ);
 
         while (true) {
-            int readyChannels = 0;
-            try {
-                assert selector != null;
-                readyChannels = selector.select();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            int readyChannels;
+            readyChannels = selector.select();
             if (readyChannels == 0) {
                 continue;
             }
@@ -129,20 +112,13 @@ public class ConnectionModule implements ConnectionManageAble, SendDataAble,
                 SelectionKey key = keyIterator.next();
 
                 if (key.isReadable()) {
-                    DatagramChannel datagramChannel = (DatagramChannel) key.channel();
-                    try {
-                        datagramChannel.read(buffer);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    datagramChannel = (DatagramChannel) key.channel();
+                    datagramChannel.read(buffer);
+
                     buffer.flip();
                     byte[] data = new byte[buffer.remaining()];
                     buffer.get(data);
-                    try {
-                        datagramChannel.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                     return data;
                 }
 
