@@ -9,6 +9,8 @@ import generators.PersonGenerator;
 import requests.SingleArgumentCommandExecutionRequest;
 import responses.ExecutionResultResponse;
 
+import java.io.IOException;
+
 public class PersonCommandResultReceiver implements CommandReceiver {
 
     @Override

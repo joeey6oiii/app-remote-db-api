@@ -8,6 +8,7 @@ import helpFun.Decision;
 import helpFun.StringToDateParser;
 import validators.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class PersonGenerator implements Generate {
      *
      * @return Person
      */
-    public Person generate() {
+    public Person generate(){
         Scanner scanner = new Scanner(System.in);
         Person person = new Person();
         System.out.print("Enter name \n$ ");
@@ -80,26 +81,19 @@ public class PersonGenerator implements Generate {
         person.setPassportID(passportId);
         System.out.println("Choose one of the hair colors");
         System.out.println(Color.listValues());
-        System.out.println("If you don't want to chose hair color press ENTER");
-        String str;
-        str = scanner.nextLine();
+        System.out.print("If you don't want to chose hair color press \"N\"\n$ ");
         String decision = "N";
-        Color cl = null;
-        while(decision == "N") {
-            System.out.print("$ ");
-            str = scanner.nextLine();
-            cl = Color.getColorByName(str.toLowerCase());
-            if (cl == null){
-                System.out.println("Your HairColor is null. Would you like to create null HairColor? Type [Y/N]");
-                decision = Decision.decision("Y", "N");
-                if (decision.equalsIgnoreCase("Y")){
-                    person.setHairColor(cl);
+        String str;
+        str = scanner.next();
+        if (!str.toUpperCase().equals("N")){
+            while(!str.toUpperCase().equals("N")) {
+                if (Color.getColorByName(str.toLowerCase()) != null) {
+                    person.setHairColor(Color.getColorByName(str.toLowerCase()));
                     break;
+                } else {
+                    System.out.print("Your color is null. If you don't want to chose hair color press \"N\"\n$ ");
+                    str = scanner.next();
                 }
-            }
-            else{
-                person.setHairColor(cl);
-                break;
             }
         }
         System.out.println("Creating Location:");
