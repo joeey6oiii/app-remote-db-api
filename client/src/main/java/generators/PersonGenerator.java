@@ -8,7 +8,6 @@ import helpFun.Decision;
 import helpFun.StringToDateParser;
 import validators.*;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -38,7 +37,7 @@ public class PersonGenerator implements Generate {
         CoordinatesGenerator coordinatesGenerator = new CoordinatesGenerator();
         Coordinates coordinates = coordinatesGenerator.generate();
         while (!new CoordinatesValidator().validate(coordinates)) {
-            System.out.print("Incorrect coordinates. Enter coordinates again \n$ ");
+            System.out.print("Incorrect coordinates. Enter coordinates again. \n");
             coordinates = coordinatesGenerator.generate();
         }
         person.setCoordinates(coordinates);
