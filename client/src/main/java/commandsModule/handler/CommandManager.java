@@ -26,7 +26,7 @@ public class CommandManager {
             Optional.ofNullable(map.get(cmd.getType())).orElseThrow(() ->
                     new IllegalManagerArgumentException("CommandManager contains illegal argument")).receiveCommand(cmd, args, module);
         } catch (IllegalManagerArgumentException e) {
-            e.printStackTrace(); // fix
+            System.out.println("Failed to manage response");
         }
     }
 }

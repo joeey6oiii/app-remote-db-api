@@ -39,7 +39,7 @@ public class SumOfHeightCommand implements BaseCommand {
             logger.info("Executed SumOfHeightCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during sum_of_height command execution...";
-            logger.warn("SumOfHeightCommand was not executed");
+            logger.warn("SumOfHeightCommand was not executed", e);
         }
     }
 }

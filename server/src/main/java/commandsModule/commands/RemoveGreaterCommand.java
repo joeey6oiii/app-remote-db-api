@@ -51,7 +51,7 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
             logger.info("Executed RemoveGreaterCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during remove_greater {element} execution...";
-            logger.warn("RemoveGreaterCommand was not executed");
+            logger.warn("RemoveGreaterCommand was not executed", e);
         }
     }
 

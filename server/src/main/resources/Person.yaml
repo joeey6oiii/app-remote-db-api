@@ -125,3 +125,28 @@
     x: 5.0
     "y": 1005
     name: "15:18"
+- id: 10
+  name: "TEST_1"
+  coordinates:
+    x: 23432
+    "y": 13
+  creationDate: "2023-05-10T15:05:37.701+00:00"
+  height: 2
+  birthday: "1932-06-23T15:06:12.000+00:00"
+  passportID: "TEST_TSET"
+  hairColor: null
+  location:
+    x: 232343.0
+    "y": 9438
+    name: "TESTTTTTT"
+- id: 11
+  name: "BILIBOBA"
+  coordinates:
+    x: 23432
+    "y": 5345
+  creationDate: "2023-05-10T15:29:54.114+00:00"
+  height: 23
+  birthday: "1955-03-09T12:06:12.000+00:00"
+  passportID: "hjkdfghjkfg"
+  hairColor: null
+  location: null

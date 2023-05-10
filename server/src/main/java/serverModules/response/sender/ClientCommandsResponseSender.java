@@ -8,8 +8,6 @@ public class ClientCommandsResponseSender implements ResponseAble<ClientCommands
 
     @Override
     public void sendResponse(ConnectionModule module, CallerBack callerBack, ClientCommandsResponse response) {
-        if (response != null) {
-            new ResponseSender().sendResponse(module, callerBack, response);
-        }
+        new ResponseSender().sendResponse(module, callerBack, response);
     }
 }

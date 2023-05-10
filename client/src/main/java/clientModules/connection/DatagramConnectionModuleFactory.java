@@ -11,9 +11,10 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
         try {
             return new DatagramConnectionModule(DatagramChannel.open(), address);
         } catch (IOException e) {
-            // fix
+            System.out.println("Unexpected event: Unable to create client connection core");
+            System.exit(-99);
         }
-        return null; // fix
+        return null;
     }
 
     public DatagramConnectionModule createConfigureBlocking(SocketAddress address, boolean isBlocking) {
@@ -23,9 +24,10 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
             datagramChannel.configureBlocking(isBlocking);
             return new DatagramConnectionModule(datagramChannel, address);
         } catch (IOException e) {
-            // fix
+            System.out.println("Unexpected event: Unable to create client connection core");
+            System.exit(-99);
         }
-        return null; // fix
+        return null;
     }
 
     public void configureBlocking(DatagramConnectionModule module, boolean isBlocking) {
@@ -34,7 +36,8 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
                     module.getDatagramChannel().configureBlocking(isBlocking);
             }
         } catch (IOException e) {
-            // fix
+            System.out.println("Unexpected event: Unable to configure client connection core");
+            System.exit(-99);
         }
     }
 }

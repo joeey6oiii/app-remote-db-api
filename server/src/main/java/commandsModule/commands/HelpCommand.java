@@ -44,7 +44,7 @@ public class HelpCommand implements BaseCommand {
             logger.info("Executed HelpCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during help command execution...";
-            logger.warn("HelpCommand was not executed");
+            logger.warn("HelpCommand was not executed", e);
         }
     }
 

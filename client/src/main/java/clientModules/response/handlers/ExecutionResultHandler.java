@@ -3,7 +3,7 @@ package clientModules.response.handlers;
 import responses.ExecutionResultResponse;
 import responses.Response;
 
-public class ExecutionResultHandler implements HandleResponseAble {
+public class ExecutionResultHandler implements ResponseHandler {
 
     @Override
     public void handleResponse(Response response) {

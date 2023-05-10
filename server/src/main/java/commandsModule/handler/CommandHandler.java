@@ -74,9 +74,9 @@ public class CommandHandler {
                 response = command.getResponse();
             }
             history.add(command);
-        } catch (IOException e) {
-            logger.warn("Unable to execute command: " + e.getMessage()); // fix
-            return;
+        } catch (IOException | NullPointerException e) {
+            logger.fatal("Unable to execute command", e);
+            response = "Something went wrong during command execution";
         }
         new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response)); // fix (a lot of data)
     }

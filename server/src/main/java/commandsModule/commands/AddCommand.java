@@ -46,7 +46,7 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
             logger.info("Executed AddCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during add {element} command execution...";
-            logger.warn("AddCommand was not executed");
+            logger.warn("AddCommand was not executed", e);
         }
     }
 }

@@ -8,13 +8,8 @@ import java.io.IOException;
 public class ResponseReader implements ResponseReadAble<Response> {
 
     @Override
-    public Response readResponse(byte[] data) {
+    public Response readResponse(byte[] data) throws IOException, ClassNotFoundException {
         ObjectSerializer os = new ObjectSerializer();
-        try {
-            return (Response) os.deserialize(data);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace(); // fix
-        }
-        return null;
+        return (Response) os.deserialize(data);
     }
 }

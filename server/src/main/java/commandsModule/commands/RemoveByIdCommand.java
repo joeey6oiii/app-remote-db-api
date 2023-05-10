@@ -53,7 +53,7 @@ public class RemoveByIdCommand implements ParameterizedCommand {
             logger.info("Executed RemoveByIdCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during remove_by_id {id} execution...";
-            logger.warn("RemoveByIdCommand was not executed");
+            logger.warn("RemoveByIdCommand was not executed", e);
         }
     }
 }

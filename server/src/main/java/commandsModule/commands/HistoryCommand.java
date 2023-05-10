@@ -52,7 +52,7 @@ public class HistoryCommand implements BaseCommand {
             logger.info("Executed HistoryCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during history command execution...";
-            logger.warn("HistoryCommand was not executed");
+            logger.warn("HistoryCommand was not executed", e);
         }
     }
 }

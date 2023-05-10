@@ -52,7 +52,7 @@ public class PrintFieldDescendingBirthdayCommand implements BaseCommand {
             logger.info("Executed PrintFieldDescendingBirthdayCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during print_field_descending_birthday command execution...";
-            logger.warn("PrintFieldDescendingBirthdayCommand was not executed");
+            logger.warn("PrintFieldDescendingBirthdayCommand was not executed", e);
         }
     }
 

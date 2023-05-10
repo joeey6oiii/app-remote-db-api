@@ -36,7 +36,7 @@ public class InfoCommand implements BaseCommand {
             logger.info("Executed InfoCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during info command execution...";
-            logger.warn("InfoCommand was not executed");
+            logger.warn("InfoCommand was not executed", e);
         }
     }
 }
