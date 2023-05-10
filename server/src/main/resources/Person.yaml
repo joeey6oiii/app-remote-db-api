@@ -150,3 +150,17 @@
   passportID: "hjkdfghjkfg"
   hairColor: null
   location: null
+- id: 12
+  name: "TEST_2"
+  coordinates:
+    x: 10
+    "y": 5
+  creationDate: "2023-05-10T19:26:42.413+00:00"
+  height: 2
+  birthday: "1998-04-07T10:17:49.000+00:00"
+  passportID: "22:27"
+  hairColor: {}
+  location:
+    x: 2023.0
+    "y": 2022
+    name: "2021"

@@ -57,6 +57,11 @@ public class CommandHandler {
         return history;
     }
 
+    /**
+     * @param description
+     * @return
+     */
+
     public BaseCommand getCommandByDescription(CommandDescription description)  {
         return commands.get(description.getCommandName().toLowerCase());
     }
@@ -74,11 +79,20 @@ public class CommandHandler {
                 response = command.getResponse();
             }
             history.add(command);
-        } catch (IOException | NullPointerException e) {
-            logger.fatal("Unable to execute command", e);
-            response = "Something went wrong during command execution";
+        } catch (IllegalArgumentException | NullPointerException e) {
+            response = "Command has invalid arguments";
+            logger.fatal(response, e);
+        } catch (IndexOutOfBoundsException e) {
+            response = "Command has invalid number of arguments";
+            logger.fatal(response, e);
+        } catch (IOException e) {
+            response = "Something went wrong during I/O operations";
+            logger.fatal(response, e);
+        } catch (Exception e) {
+            response = "Unexpected error happened during command execution";
+            logger.fatal(response, e);
         }
-        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response)); // fix (a lot of data)
+        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
     }
 
 }

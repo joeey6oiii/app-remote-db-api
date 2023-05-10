@@ -29,17 +29,12 @@ public class SumOfHeightCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, can not execute sum_of_height";
-            } else {
-                int sum = database.getCollection().stream().mapToInt(Person::getHeight).sum();
-                this.response = "Sum of \"height\" values is " + sum;
-            }
-            logger.info("Executed SumOfHeightCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during sum_of_height command execution...";
-            logger.warn("SumOfHeightCommand was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, can not execute sum_of_height";
+        } else {
+            int sum = database.getCollection().stream().mapToInt(Person::getHeight).sum();
+            this.response = "Sum of \"height\" values is " + sum;
         }
+        logger.info("Executed SumOfHeightCommand");
     }
 }

@@ -40,13 +40,8 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
 
     @Override
     public void execute() throws IOException {
-        try {
-            Database.getInstance().add(IDService.recalculateId(argument));
-            this.response = "Element was added";
-            logger.info("Executed AddCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during add {element} command execution...";
-            logger.warn("AddCommand was not executed", e);
-        }
+        Database.getInstance().add(IDService.recalculateId(argument));
+        this.response = "Element was added";
+        logger.info("Executed AddCommand");
     }
 }

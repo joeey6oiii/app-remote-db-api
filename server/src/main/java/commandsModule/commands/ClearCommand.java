@@ -28,18 +28,13 @@ public class ClearCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, there is nothing to clear";
-            } else {
-                database.clear();
-                this.response = "Cleared the collection";
-            }
-            logger.info("Executed ClearCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during clear command execution...";
-            logger.warn("Clear command was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, there is nothing to clear";
+        } else {
+            database.clear();
+            this.response = "Cleared the collection";
         }
+        logger.info("Executed ClearCommand");
     }
 
 }

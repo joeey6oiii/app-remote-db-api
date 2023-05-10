@@ -41,18 +41,13 @@ public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Pe
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, there is nothing to remove";
-            } else {
-                database.getCollection().removeIf(p -> new HeightComparator().compare(p, argument) < 0);
-                this.response = "Removed elements whose height parameter is lower than " + argument.getHeight();
-            }
-            logger.info("Executed RemoveLowerCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during remove_lower {element} command execution...";
-            logger.warn("RemoveLowerCommand was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, there is nothing to remove";
+        } else {
+            database.getCollection().removeIf(p -> new HeightComparator().compare(p, argument) < 0);
+            this.response = "Removed elements whose height parameter is lower than " + argument.getHeight();
         }
+        logger.info("Executed RemoveLowerCommand");
     }
 
 }

@@ -39,21 +39,16 @@ public class RemoveByIdCommand implements ParameterizedCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            int id = Integer.parseInt(args[1]);
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, there is nothing to remove";
+        int id = Integer.parseInt(args[1]);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, there is nothing to remove";
+        } else {
+            if (database.remove(id)) {
+                this.response = "Removed element with id " + id;
             } else {
-                if (database.remove(id)) {
-                    this.response = "Removed element with id " + id;
-                } else {
-                    this.response = "No element matches id " + id;
-                }
+                this.response = "No element matches id " + id;
             }
-            logger.info("Executed RemoveByIdCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during remove_by_id {id} execution...";
-            logger.warn("RemoveByIdCommand was not executed", e);
         }
+        logger.info("Executed RemoveByIdCommand");
     }
 }

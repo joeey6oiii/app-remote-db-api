@@ -27,16 +27,11 @@ public class InfoCommand implements BaseCommand {
     @Override
     public void execute() {
         Database database = Database.getInstance();
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append("Type: ").append(database.getCollection().getClass()).append("\nLength: ")
-                    .append(database.getCollection().size()).append("\nInitialization Time: ")
-                    .append(database.getInitializationTime());
-            this.response = new String(builder);
-            logger.info("Executed InfoCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during info command execution...";
-            logger.warn("InfoCommand was not executed", e);
-        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("Type: ").append(database.getCollection().getClass()).append("\nLength: ")
+                .append(database.getCollection().size()).append("\nInitialization Time: ")
+                .append(database.getInitializationTime());
+        this.response = new String(builder);
+        logger.info("Executed InfoCommand");
     }
 }
