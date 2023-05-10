@@ -8,7 +8,7 @@ import serverModules.response.sender.ClientCommandsResponseSender;
 
 import java.util.List;
 
-public class ClientCommandsHandler implements HandleRequestAble {
+public class ClientCommandsHandler implements RequestHandler {
 
     @Override
     public void handleRequest(ServerContext context) {

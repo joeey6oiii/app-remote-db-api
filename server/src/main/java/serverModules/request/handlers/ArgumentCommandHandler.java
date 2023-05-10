@@ -5,7 +5,7 @@ import commandsModule.handler.CommandHandler;
 import requests.SingleArgumentCommandExecutionRequest;
 import serverModules.context.ServerContext;
 
-public class ArgumentCommandHandler<T> implements HandleRequestAble {
+public class ArgumentCommandHandler<T> implements RequestHandler {
 
     @Override
     public void handleRequest(ServerContext context) {

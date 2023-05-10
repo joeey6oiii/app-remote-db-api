@@ -1,7 +1,7 @@
 package main;
 
 import clientModules.connection.DatagramConnectionModule;
-import clientModules.connection.ConnectionModuleConfigurator;
+import clientModules.connection.DatagramConnectionModuleFactory;
 import clientModules.response.receivers.CommandsReceiver;
 import commandsModule.ClientCommandsKeeper;
 import commandsModule.handler.CommandHandler;
@@ -27,33 +27,25 @@ public class Client {
 
     public static void main(String[] args) {
 
-        PrintStream out = new PrintStream(System.out);
-
+        DatagramConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
         DatagramConnectionModule module = null;
         try {
-            module = new ConnectionModuleConfigurator()
-                    .initConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
+            module = factory.createConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
 
-            module.connect();
-            out.println("Server connection established\nReceiving commands...");
-            out.flush();
+            module.connect(); // во прикол, PortUnreachableException выбрасывается не при подключении к серверу (см стр 38)
+            System.out.println("Server connection established\nReceiving commands..."); // (!) потом разберемся с PrintStream (!)
 
-            new CommandsReceiver().receiveCommands(module);
-            out.println("Received commands");
-            out.flush();
+            new CommandsReceiver().receiveCommands(module); // вот тут выбрасывается PUE при невозможности отправить данные
+            System.out.println("Received commands");
 
             CommandHandler handler = new CommandHandler(ClientCommandsKeeper.getCommands(), new Scanner(System.in), module);
 
-            out.println("Console input allowed");
-            out.flush();
-
+            System.out.println("Console input allowed");
             handler.start();
 
         } catch (IOException e) {
-            out.println("Unpredicted error " + e.getMessage());
-            out.flush();
+            System.out.println("Unpredicted error " + e.getMessage());
         } finally {
-            out.close();
             module.disconnect();
         }
     }

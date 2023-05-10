@@ -9,7 +9,7 @@ import java.nio.channels.Selector;
 import java.util.Iterator;
 import java.util.Set;
 
-public class DatagramConnectionModule implements ConnectionModule, SendDataAble, ReceiveDataAble<byte[]> {
+public class DatagramConnectionModule implements ConnectionModule, DataTransfer<byte[]> {
     private final int PACKET_SIZE = 4096;
     private DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
@@ -29,7 +29,7 @@ public class DatagramConnectionModule implements ConnectionModule, SendDataAble,
             try {
                 datagramChannel.connect(socketAddress);
             } catch (IOException e) {
-
+                // fix
             }
         }
     }
@@ -41,7 +41,7 @@ public class DatagramConnectionModule implements ConnectionModule, SendDataAble,
                 datagramChannel.disconnect();
                 datagramChannel.close();
             } catch (IOException e) {
-
+                // fix
             }
         }
     }

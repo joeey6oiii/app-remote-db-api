@@ -7,6 +7,7 @@ import responses.Response;
 import serializer.ObjectSerializer;
 
 import java.io.IOException;
+import java.net.PortUnreachableException;
 
 public class RequestSender implements RequestAble<Response, Request> {
 
@@ -17,9 +18,11 @@ public class RequestSender implements RequestAble<Response, Request> {
             module.sendData(os.serialize(request));
 
             return new ResponseReader().readResponse(module.receiveData());
-        } catch (IOException e) {
+        } catch (PortUnreachableException e) {
             e.printStackTrace();
+        } catch (IOException exception) {
+            // fix
         }
-        return null;
+        return null; // fix
     }
 }

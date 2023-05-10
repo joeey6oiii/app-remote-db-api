@@ -2,6 +2,7 @@ package clientModules.connection;
 
 import java.io.IOException;
 
-public interface ReceiveDataAble<T> {
+public interface DataTransfer<T> {
     T receiveData() throws IOException;
+    void sendData(byte[] data) throws IOException;
 }
