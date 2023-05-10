@@ -29,19 +29,14 @@ public class AverageOfHeightCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, can not execute average_of_height";
-            } else {
-                double averageHeight = database.getCollection()
-                        .stream().mapToInt(Person::getHeight).average().orElse(0);
-                this.response = "The average \"height\" value is " + averageHeight;
-            }
-            logger.info("Executed AverageOfHeightCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during average_of_height command execution...";
-            logger.warn("AverageOfHeightCommand was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, can not execute average_of_height";
+        } else {
+            double averageHeight = database.getCollection()
+                    .stream().mapToInt(Person::getHeight).average().orElse(0);
+            this.response = "The average \"height\" value is " + averageHeight;
         }
+        logger.info("Executed AverageOfHeightCommand");
     }
 
 }

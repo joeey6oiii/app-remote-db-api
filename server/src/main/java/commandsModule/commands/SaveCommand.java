@@ -30,14 +30,10 @@ public class SaveCommand implements BaseCommand {
         Database database = Database.getInstance();
         File file = new File("server\\src\\main\\resources\\Person.yaml");
         FileService fileService = new FileService();
-        try {
-            if (!file.exists()) {
-                fileService.createFile(file);
-            }
-            fileService.writeObjectToFile(file, database.getCollection());
-            logger.info("Saved collection to a file");
-        } catch (Exception e) {
-            logger.fatal("Unexpected event: Failed to save data to file", e);
+        if (!file.exists()) {
+            fileService.createFile(file);
         }
+        fileService.writeObjectToFile(file, database.getCollection());
+        logger.info("Saved collection to a file");
     }
 }

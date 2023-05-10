@@ -41,18 +41,13 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, there is nothing to remove";
-            } else {
-                database.getCollection().removeIf(p -> new HeightComparator().compare(p, argument) > 0);
-                this.response = "Removed elements whose height parameter is greater than " + argument.getHeight();
-            }
-            logger.info("Executed RemoveGreaterCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during remove_greater {element} execution...";
-            logger.warn("RemoveGreaterCommand was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, there is nothing to remove";
+        } else {
+            database.getCollection().removeIf(p -> new HeightComparator().compare(p, argument) > 0);
+            this.response = "Removed elements whose height parameter is greater than " + argument.getHeight();
         }
+        logger.info("Executed RemoveGreaterCommand");
     }
 
 }

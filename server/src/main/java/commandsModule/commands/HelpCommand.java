@@ -33,19 +33,14 @@ public class HelpCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        try {
-            int commandLength = commands.keySet().stream().mapToInt(String::length).max().orElse(0);
-            String formatString = "%-" + (commandLength + 4) + "s%s\n";
-            StringBuilder builder;
-            builder = new StringBuilder(commands.entrySet().stream()
-                    .map(entry -> String.format(formatString, entry.getKey() + " ", entry.getValue().describe()))
-                    .collect(Collectors.joining()));
-            this.response = builder.substring(0, builder.length() - 1);
-            logger.info("Executed HelpCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during help command execution...";
-            logger.warn("HelpCommand was not executed", e);
-        }
+        int commandLength = commands.keySet().stream().mapToInt(String::length).max().orElse(0);
+        String formatString = "%-" + (commandLength + 4) + "s%s\n";
+        StringBuilder builder;
+        builder = new StringBuilder(commands.entrySet().stream()
+                .map(entry -> String.format(formatString, entry.getKey() + " ", entry.getValue().describe()))
+                .collect(Collectors.joining()));
+        this.response = builder.substring(0, builder.length() - 1);
+        logger.info("Executed HelpCommand");
     }
 
 }

@@ -36,23 +36,18 @@ public class HistoryCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         List<BaseCommand> list = CommandHandler.getHistory();
-        try {
-            if (list.isEmpty()) {
-                this.response = "No command history yet";
-            } else {
-                List<String> history = list.stream()
-                        .map(BaseCommand::getName)
-                        .collect(Collectors.toList());
-                int i = 9;
-                if (history.size() > i) {
-                    history = history.subList(history.size() - i, history.size());
-                }
-                this.response = history.toString();
+        if (list.isEmpty()) {
+            this.response = "No command history yet";
+        } else {
+            List<String> history = list.stream()
+                    .map(BaseCommand::getName)
+                    .collect(Collectors.toList());
+            int i = 9;
+            if (history.size() > i) {
+                history = history.subList(history.size() - i, history.size());
             }
-            logger.info("Executed HistoryCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during history command execution...";
-            logger.warn("HistoryCommand was not executed", e);
+            this.response = history.toString();
         }
+        logger.info("Executed HistoryCommand");
     }
 }

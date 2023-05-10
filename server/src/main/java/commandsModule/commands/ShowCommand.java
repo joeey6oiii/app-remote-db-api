@@ -28,22 +28,17 @@ public class ShowCommand implements BaseCommand {
     @Override
     public void execute() {
         Database database = Database.getInstance();
-        try {
-            if (database.getCollection().isEmpty()) {
-                this.response = "Collection is empty, there is nothing to show";
-            } else {
-                StringBuilder builder;
-                builder = new StringBuilder(database.getCollection()
-                        .stream()
-                        .map(Object::toString)
-                        .collect(Collectors.joining("\n")));
-                this.response = builder.substring(0, builder.length() - 1);
-            }
-            logger.info("Executed ShowCommand");
-        } catch (Exception e) {
-            this.response = "Something went wrong during show command execution...";
-            logger.warn("ShowCommand was not executed", e);
+        if (database.getCollection().isEmpty()) {
+            this.response = "Collection is empty, there is nothing to show";
+        } else {
+            StringBuilder builder;
+            builder = new StringBuilder(database.getCollection()
+                    .stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining("\n")));
+            this.response = builder.substring(0, builder.length() - 1);
         }
+        logger.info("Executed ShowCommand");
     }
 
 }
