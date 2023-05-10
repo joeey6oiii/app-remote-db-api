@@ -9,10 +9,12 @@ import generators.PersonGenerator;
 import requests.SingleArgumentCommandExecutionRequest;
 import responses.ExecutionResultResponse;
 
+import java.io.IOException;
+
 public class PersonCommandResultReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module)  {
         Person p = new PersonGenerator().generate();
         SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
         ExecutionResultResponse resultResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
