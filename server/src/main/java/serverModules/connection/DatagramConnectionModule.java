@@ -23,16 +23,16 @@ public class DatagramConnectionModule implements ConnectionModule {
     @Override
     public RequestData receiveData() {
         byte[] bytes = new byte[BYTE_SIZE];
-        DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         try {
+            DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
             socket.receive(packet);
             logger.debug("Received data");
 
             return new RequestData(packet.getData(), new CallerBack(packet.getAddress(), packet.getPort()));
         } catch (IOException e) {
-            logger.error("Something went wrong during receiving data: " + e.getMessage());
+            logger.error("Something went wrong during receiving data", e);
         }
-        return null; // fix
+        return new RequestData();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DatagramConnectionModule implements ConnectionModule {
             socket.send(new DatagramPacket(data, data.length, address, port));
             logger.debug("Data sent");
         } catch (IOException e) {
-            logger.error("Something went wrong during data sending: " + e.getMessage());
+            logger.error("Something went wrong during data sending", e);
         }
     }
 }

@@ -37,7 +37,7 @@ public class SaveCommand implements BaseCommand {
             fileService.writeObjectToFile(file, database.getCollection());
             logger.info("Saved collection to a file");
         } catch (Exception e) {
-            logger.fatal("Unexpected event: Failed to save data to file ");
+            logger.fatal("Unexpected event: Failed to save data to file", e);
         }
     }
 }

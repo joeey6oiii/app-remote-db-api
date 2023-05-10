@@ -40,7 +40,7 @@ public class AverageOfHeightCommand implements BaseCommand {
             logger.info("Executed AverageOfHeightCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during average_of_height command execution...";
-            logger.warn("AverageOfHeightCommand was not executed");
+            logger.warn("AverageOfHeightCommand was not executed", e);
         }
     }
 

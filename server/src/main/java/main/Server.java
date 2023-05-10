@@ -42,7 +42,7 @@ public class Server {
                 logger.warn("\"Person.yaml\" file not found. Created new eponymous file");
             }
         } catch (IOException e) {
-            logger.fatal("Failed to read file: " + e.getMessage());
+            logger.fatal("Failed to proceed file", e);
         }
 
         if (!list.isEmpty()) {
@@ -56,17 +56,24 @@ public class Server {
         ConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
         ConnectionModule module = factory.createConnectionModule(PORT);
         logger.info("Server started");
-
-        try {
-            while (true) {
+        while (true) {
+            try {
                 RequestData requestData = module.receiveData();
+                if (requestData.hasNullStatus()) {
+                    logger.debug("Empty request received");
+                    continue;
+                }
+
                 Request request = new RequestReader().readRequest(requestData.getByteArray());
                 ServerContext context = new ServerContext(module, requestData.getCallerBack(), request);
                 new RequestHandlerManager().manageRequest(context);
+            } catch (IOException e) {
+                logger.error("Something went wrong during I/O operations", e);
+            } catch (ClassNotFoundException e) {
+                logger.error("Unexpected error: Could not find request class", e);
+            } catch (Exception e) {
+                logger.error("Unexpected error", e);
             }
-        } catch (Exception e) {
-            logger.fatal("Unpredicted error " + e.getMessage());
         }
-        logger.info("Server shut down");
     }
 }

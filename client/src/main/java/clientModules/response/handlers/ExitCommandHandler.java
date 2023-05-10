@@ -4,7 +4,7 @@ import responses.Response;
 
 import java.io.PrintWriter;
 
-public class ExitCommandHandler implements HandleResponseAble {
+public class ExitCommandHandler implements ResponseHandler {
 
     @Override
     public void handleResponse(Response response) {

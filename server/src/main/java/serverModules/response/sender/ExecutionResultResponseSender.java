@@ -8,8 +8,6 @@ public class ExecutionResultResponseSender implements ResponseAble<ExecutionResu
 
     @Override
     public void sendResponse(ConnectionModule module, CallerBack callerBack, ExecutionResultResponse response) {
-        if (response != null) {
-            new ResponseSender().sendResponse(module, callerBack, response);
-        }
+        new ResponseSender().sendResponse(module, callerBack, response);
     }
 }

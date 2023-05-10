@@ -42,7 +42,7 @@ public class ShowCommand implements BaseCommand {
             logger.info("Executed ShowCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during show command execution...";
-            logger.warn("ShowCommand was not executed");
+            logger.warn("ShowCommand was not executed", e);
         }
     }
 

@@ -24,24 +24,20 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
     }
 
     @Override
-    public void connect() {
+    public void connect() throws IOException {
         if (!datagramChannel.isConnected() && datagramChannel.isOpen()) {
-            try {
-                datagramChannel.connect(socketAddress);
-            } catch (IOException e) {
-                // fix
-            }
+            datagramChannel.connect(socketAddress);
         }
     }
 
     @Override
-    public void disconnect() {
+    public void disconnect() throws IOException {
         if (datagramChannel.isConnected() && datagramChannel.isOpen()) {
             try {
                 datagramChannel.disconnect();
                 datagramChannel.close();
             } catch (IOException e) {
-                // fix
+                datagramChannel.close();
             }
         }
     }

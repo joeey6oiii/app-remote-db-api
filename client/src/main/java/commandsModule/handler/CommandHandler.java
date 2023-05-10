@@ -36,7 +36,7 @@ public class CommandHandler {
         return null;
     }
 
-    public void start() {
+    public void startHandling() {
         String input;
         while (true) {
             System.out.print("$ ");

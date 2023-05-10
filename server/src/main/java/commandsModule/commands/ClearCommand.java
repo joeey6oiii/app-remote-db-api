@@ -38,7 +38,7 @@ public class ClearCommand implements BaseCommand {
             logger.info("Executed ClearCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during clear command execution...";
-            logger.warn("Clear command was not executed");
+            logger.warn("Clear command was not executed", e);
         }
     }
 

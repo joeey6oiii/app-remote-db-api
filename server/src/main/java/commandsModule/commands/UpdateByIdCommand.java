@@ -69,7 +69,7 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
             logger.info("Executed UpdateByIdCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during update_by_id {id} {element} command execution...";
-            logger.warn("UpdateByIdCommand was not executed");
+            logger.warn("UpdateByIdCommand was not executed", e);
         }
     }
 }

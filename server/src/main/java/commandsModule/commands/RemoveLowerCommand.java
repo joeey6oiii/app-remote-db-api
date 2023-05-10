@@ -51,7 +51,7 @@ public class RemoveLowerCommand implements BaseCommand, SingleArgumentCommand<Pe
             logger.info("Executed RemoveLowerCommand");
         } catch (Exception e) {
             this.response = "Something went wrong during remove_lower {element} command execution...";
-            logger.warn("RemoveLowerCommand was not executed");
+            logger.warn("RemoveLowerCommand was not executed", e);
         }
     }
 
