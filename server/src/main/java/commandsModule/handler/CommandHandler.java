@@ -75,10 +75,10 @@ public class CommandHandler {
             }
             history.add(command);
         } catch (IOException e) {
-            logger.warn("Unable to execute command: " + e.getMessage());
+            logger.warn("Unable to execute command: " + e.getMessage()); // fix
             return;
         }
-        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
+        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response)); // fix (a lot of data)
     }
 
 }

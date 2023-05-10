@@ -5,9 +5,6 @@ import serializer.ObjectSerializer;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-
 public class ResponseSender implements ResponseAble<Response> {
 
     @Override

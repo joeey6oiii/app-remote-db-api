@@ -6,8 +6,9 @@ import fileService.FileService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import requests.Request;
-import serverModules.connection.ConnectionModuleConfigurator;
 import serverModules.connection.ConnectionModule;
+import serverModules.connection.ConnectionModuleFactory;
+import serverModules.connection.DatagramConnectionModuleFactory;
 import serverModules.context.ServerContext;
 import serverModules.request.data.RequestData;
 import serverModules.request.handlers.RequestHandlerManager;
@@ -52,7 +53,8 @@ public class Server {
             logger.info("Upload data not found. Continuing execution with an empty database");
         }
 
-        ConnectionModule module = new ConnectionModuleConfigurator().init(PORT);
+        ConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
+        ConnectionModule module = factory.createConnectionModule(PORT);
         logger.info("Server started");
 
         try {

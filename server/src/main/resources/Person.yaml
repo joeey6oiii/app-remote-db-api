@@ -111,3 +111,17 @@
     x: 3.4568458E10
     "y": 5289
     name: "GRAND LINE"
+- id: 9
+  name: "10.05.2023"
+  coordinates:
+    x: 1517
+    "y": 2023
+  creationDate: "2023-05-10T12:17:20.940+00:00"
+  height: 2
+  birthday: "2023-05-10T12:18:23.000+00:00"
+  passportID: "eng/rus"
+  hairColor: null
+  location:
+    x: 5.0
+    "y": 1005
+    name: "15:18"
