@@ -16,7 +16,6 @@ import java.util.Scanner;
  *
  * @author Dmitrii Chebanenko
  */
-
 public class PersonGenerator implements Generate {
     /**
      * Method that creates an object of class Person
