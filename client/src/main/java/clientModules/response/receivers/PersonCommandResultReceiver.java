@@ -1,6 +1,6 @@
 package clientModules.response.receivers;
 
-import clientModules.connection.DatagramConnectionModule;
+import clientModules.connection.DataTransferConnectionModule;
 import clientModules.request.sender.SingleArgumentCommandExecutionRequestSender;
 import clientModules.response.handlers.ExecutionResultHandler;
 import commands.CommandDescription;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class PersonCommandResultReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module)  {
+    public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         Person p = new PersonGenerator().generate();
         SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
         ExecutionResultResponse resultResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
