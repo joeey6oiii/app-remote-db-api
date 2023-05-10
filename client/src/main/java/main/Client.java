@@ -1,5 +1,7 @@
 package main;
 
+import clientModules.connection.ConnectionModule;
+import clientModules.connection.DataTransferConnectionModule;
 import clientModules.connection.DatagramConnectionModule;
 import clientModules.connection.DatagramConnectionModuleFactory;
 import clientModules.response.receivers.CommandsReceiver;
@@ -28,14 +30,14 @@ public class Client {
     public static void main(String[] args) {
 
         DatagramConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
-        DatagramConnectionModule module = null;
+        DataTransferConnectionModule module = null;
         try {
             module = factory.createConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
 
-            module.connect(); // во прикол, PortUnreachableException выбрасывается не при подключении к серверу (см стр 38)
-            System.out.println("Server connection established\nReceiving commands..."); // (!) потом разберемся с PrintStream (!)
+            module.connect();
+            System.out.println("Server connection established\nTrying to receive commands...");
 
-            new CommandsReceiver().receiveCommands(module); // вот тут выбрасывается PUE при невозможности отправить данные
+            new CommandsReceiver().receiveCommands(module);
             System.out.println("Received commands");
 
             CommandHandler handler = new CommandHandler(ClientCommandsKeeper.getCommands(), new Scanner(System.in), module);

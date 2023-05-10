@@ -13,7 +13,7 @@ public class ResponseReader implements ResponseReadAble<Response> {
         try {
             return (Response) os.deserialize(data);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // fix
         }
         return null;
     }
