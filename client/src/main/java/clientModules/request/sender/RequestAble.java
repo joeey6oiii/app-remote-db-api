@@ -1,7 +1,7 @@
 package clientModules.request.sender;
 
-import clientModules.connection.DatagramConnectionModule;
+import clientModules.connection.DataTransferConnectionModule;
 
 public interface RequestAble<T, V> {
-    T sendRequest(DatagramConnectionModule module, V value);
+    T sendRequest(DataTransferConnectionModule module, V value);
 }

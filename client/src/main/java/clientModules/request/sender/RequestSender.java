@@ -1,6 +1,7 @@
 package clientModules.request.sender;
 
-import clientModules.connection.DatagramConnectionModule;
+import clientModules.connection.ConnectionModule;
+import clientModules.connection.DataTransferConnectionModule;
 import clientModules.response.reader.ResponseReader;
 import requests.Request;
 import responses.Response;
@@ -12,7 +13,7 @@ import java.net.PortUnreachableException;
 public class RequestSender implements RequestAble<Response, Request> {
 
     @Override
-    public Response sendRequest(DatagramConnectionModule module, Request request) {
+    public Response sendRequest(DataTransferConnectionModule module, Request request) {
         ObjectSerializer os = new ObjectSerializer();
         try {
             module.sendData(os.serialize(request));
