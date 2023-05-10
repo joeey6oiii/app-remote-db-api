@@ -1,6 +1,6 @@
 package main;
 
-import clientModules.connection.ConnectionModule;
+import clientModules.connection.DatagramConnectionModule;
 import clientModules.connection.ConnectionModuleConfigurator;
 import clientModules.response.receivers.CommandsReceiver;
 import commandsModule.ClientCommandsKeeper;
@@ -27,9 +27,9 @@ public class Client {
 
     public static void main(String[] args) {
 
-        PrintWriter out = new PrintWriter(System.out);
+        PrintStream out = new PrintStream(System.out);
 
-        ConnectionModule module = null;
+        DatagramConnectionModule module = null;
         try {
             module = new ConnectionModuleConfigurator()
                     .initConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);

@@ -1,6 +1,6 @@
 package clientModules.response.receivers;
 
-import clientModules.connection.ConnectionModule;
+import clientModules.connection.DatagramConnectionModule;
 import clientModules.request.sender.CommandExecutionRequestSender;
 import clientModules.response.handlers.ExecutionResultHandler;
 import commands.CommandDescription;
@@ -20,7 +20,7 @@ public class ScriptCommandReceiver implements CommandReceiver {
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module) {
         if (historyOfDangerScript.contains(args[0])) {
             System.out.println("Detected dangerous command: the script will loop if the command is executed\n" +
                     "Continuing executing script from the next command...");

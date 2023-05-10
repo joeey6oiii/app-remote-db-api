@@ -1,6 +1,6 @@
 package commandsModule.handler;
 
-import clientModules.connection.ConnectionModule;
+import clientModules.connection.DatagramConnectionModule;
 import clientModules.response.receivers.*;
 import commands.CommandDescription;
 import commands.CommandType;
@@ -21,7 +21,7 @@ public class CommandManager {
         map.put(CommandType.EXECUTE_SCRIPT, new ScriptCommandReceiver());
     }
 
-    public void manageCommand(CommandDescription cmd, String[] args, ConnectionModule module) {
+    public void manageCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module) {
         try {
             Optional.ofNullable(map.get(cmd.getType())).orElseThrow(() ->
                     new IllegalManagerArgumentException("CommandManager contains illegal argument")).receiveCommand(cmd, args, module);

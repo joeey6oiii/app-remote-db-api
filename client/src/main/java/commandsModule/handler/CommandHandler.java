@@ -1,6 +1,6 @@
 package commandsModule.handler;
 
-import clientModules.connection.ConnectionModule;
+import clientModules.connection.DatagramConnectionModule;
 import commands.CommandDescription;
 
 import java.util.List;
@@ -12,17 +12,17 @@ import java.util.stream.Collectors;
 public class CommandHandler {
     private static Map<String, CommandDescription> commands;
     private final CommandManager manager;
-    private final ConnectionModule module;
+    private final DatagramConnectionModule module;
     private final Scanner scanner;
 
-    public CommandHandler(Map<String, CommandDescription> commands, Scanner scanner, ConnectionModule module) {
+    public CommandHandler(Map<String, CommandDescription> commands, Scanner scanner, DatagramConnectionModule module) {
         CommandHandler.commands = commands;
         this.scanner = scanner;
         this.module = module;
         manager = new CommandManager();
     }
 
-    public CommandHandler(List<CommandDescription> commands, Scanner scanner, ConnectionModule module) {
+    public CommandHandler(List<CommandDescription> commands, Scanner scanner, DatagramConnectionModule module) {
         CommandHandler.commands = commands.stream().collect(Collectors.toMap(CommandDescription::getCommandName, Function.identity()));
         this.scanner = scanner;
         this.module = module;
