@@ -4,32 +4,32 @@ import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
-public class ConnectionModuleConfigurator implements InitializeConnectionModuleAble, ConfigureConnectionModuleAble {
+public class ConnectionModuleConfigurator implements InitializeConnectionModuleAble {
 
     @Override
-    public ConnectionModule init(SocketAddress address) {
+    public DatagramConnectionModule init(SocketAddress address) {
         try {
-            return new ConnectionModule(DatagramChannel.open(), address);
+            return new DatagramConnectionModule(DatagramChannel.open(), address);
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+
         }
+        return null;
     }
 
     @Override
-    public ConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking) {
+    public DatagramConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking) {
+        DatagramChannel datagramChannel;
         try {
-            DatagramChannel datagramChannel = DatagramChannel.open();
+            datagramChannel = DatagramChannel.open();
             datagramChannel.configureBlocking(isBlocking);
-            return new ConnectionModule(datagramChannel, address);
+            return new DatagramConnectionModule(datagramChannel, address);
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+
         }
+        return null;
     }
 
-    @Override
-    public void configureBlocking(ConnectionModule module, boolean isBlocking) {
+    public void configureBlocking(DatagramConnectionModule module, boolean isBlocking) {
         try {
             if (module.getDatagramChannel() != null) {
                 if (module.getDatagramChannel().isOpen()) {
@@ -37,7 +37,7 @@ public class ConnectionModuleConfigurator implements InitializeConnectionModuleA
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 }

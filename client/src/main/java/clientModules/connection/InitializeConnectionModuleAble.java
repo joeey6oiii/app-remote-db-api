@@ -3,6 +3,6 @@ package clientModules.connection;
 import java.net.SocketAddress;
 
 public interface InitializeConnectionModuleAble {
-    ConnectionModule init(SocketAddress address);
-    ConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking);
+    DatagramConnectionModule init(SocketAddress address);
+    DatagramConnectionModule initConfigureBlocking(SocketAddress address, boolean isBlocking);
 }
