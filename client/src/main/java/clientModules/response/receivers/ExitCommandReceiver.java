@@ -1,6 +1,6 @@
 package clientModules.response.receivers;
 
-import clientModules.connection.DatagramConnectionModule;
+import clientModules.connection.DataTransferConnectionModule;
 import clientModules.request.sender.CommandExecutionRequestSender;
 import clientModules.response.handlers.ExitCommandHandler;
 import commands.CommandDescription;
@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ExitCommandReceiver implements CommandReceiver {
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DatagramConnectionModule module) {
+    public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         PrintWriter out = new PrintWriter(System.out);
         out.println("Are you sure you want to exit? [Y/N]");
         out.flush();

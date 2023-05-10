@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
-public class DatagramConnectionModuleFactory implements ConnectionModuleFactory {
+public class DatagramConnectionModuleFactory implements DataTransferConnectionModuleFactory {
 
     @Override
     public DatagramConnectionModule create(SocketAddress address) {
