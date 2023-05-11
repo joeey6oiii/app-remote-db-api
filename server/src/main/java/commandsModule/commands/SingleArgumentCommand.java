@@ -1,7 +1,7 @@
 package commandsModule.commands;
 
 /**
- * Abstract interface for all commands-implementers with uncommon arguments.
+ * An interface for all commands-implementers with uncommon arguments.
  *
  * @param <T> uncommon argument of the command
  */

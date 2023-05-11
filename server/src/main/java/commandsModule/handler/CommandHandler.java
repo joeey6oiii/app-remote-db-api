@@ -22,8 +22,12 @@ public class CommandHandler {
     private final Map<String, BaseCommand> commands;
     private static List<BaseCommand> history;
 
-    public CommandHandler() {
+    /**
+     * A constructor for a CommandHandler. Creates command collection and fills it with the available commands. Creates
+     * history list where executed commands will be stored.
+     */
 
+    public CommandHandler() {
         commands = new LinkedHashMap<>();
         history = getHistory();
 
@@ -44,9 +48,21 @@ public class CommandHandler {
         commands.put("remove_lower", new RemoveLowerCommand());
     }
 
+    /**
+     * A method for getting a list containing available commands.
+     *
+     * @return returns a list of commands
+     */
+
     public Map<String, BaseCommand> getCommands() {
         return commands;
     }
+
+    /**
+     * A method for getting command execution history.
+     *
+     * @return history of used commands
+     */
 
     public static List<BaseCommand> getHistory() {
         if (history == null) {
@@ -56,13 +72,24 @@ public class CommandHandler {
     }
 
     /**
-     * @param description
-     * @return
+     * A method that returns {@link BaseCommand} inheritor by the specified {@link CommandDescription}.
+     *
+     * @param description a command description, by which the relevant command will be selected
      */
 
     public BaseCommand getCommandByDescription(CommandDescription description)  {
         return commands.get(description.getCommandName().toLowerCase());
     }
+
+    /**
+     * When called, checks if the received command is parametrized or not, then according to check result, executes the
+     * command with or without arguments. After, gets response from the command and adds command to the command history
+     * list, then sends the response to the client.
+     *
+     * @param module server core. Used to send data
+     * @param callerBack the client to whom to send response
+     * @param request the request, received from the client
+     */
 
     public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
         String response = "";

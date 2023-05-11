@@ -2,7 +2,18 @@ package serializer;
 
 import java.io.*;
 
+/**
+ * A class that provides serialization and deserialization methods.
+ */
+
 public class ObjectSerializer implements SerializeObjectAble<byte[], Object> {
+
+    /**
+     * A method to serialize an object to a byte array.
+     *
+     * @param object object to serialize
+     * @throws IOException if failed during I/O operations
+     */
 
     @Override
     public byte[] serialize(Object object) throws IOException {
@@ -17,6 +28,14 @@ public class ObjectSerializer implements SerializeObjectAble<byte[], Object> {
         return data;
     }
 
+    /**
+     * A method to deserialize a byte array to an object.
+     *
+     * @param data data to deserialize
+     * @throws IOException if failed during I/O operations
+     * @throws ClassNotFoundException when could not create object after deserialization
+     */
+
     @Override
     public Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -26,4 +45,5 @@ public class ObjectSerializer implements SerializeObjectAble<byte[], Object> {
         bais.close();
         return object;
     }
+
 }
