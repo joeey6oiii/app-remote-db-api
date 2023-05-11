@@ -16,6 +16,7 @@ import serverModules.request.reader.RequestReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,7 @@ public class Server {
      */
 
     public static void main(String[] args) {
-
-        File file = new File("server\\src\\main\\resources\\Person.yaml");
+        File file = new File(".jar\\src\\main\\resources\\Person.yaml");
         FileService fileService = new FileService();
         Class<Person> type = Person.class;
 
