@@ -23,8 +23,9 @@ public class CommandHandler {
     private static List<BaseCommand> history;
 
     /**
-     * A constructor for a CommandHandler. Creates command collection and fills it with the available commands. Creates
-     * history list where executed commands will be stored.
+     * A constructor for a CommandHandler.
+     * Creates a command collection and fills it with the available commands.
+     * Creates a history list where executed commands will be stored.
      */
 
     public CommandHandler() {
@@ -82,7 +83,7 @@ public class CommandHandler {
     }
 
     /**
-     * When called, checks if the received command is parametrized or not, then according to check result, executes the
+     * When called, checks if the received command is parametrized or not, then, according to check result, executes the
      * command with or without arguments. After, gets response from the command and adds command to the command history
      * list, then sends the response to the client.
      *
@@ -117,6 +118,8 @@ public class CommandHandler {
             response = "Unexpected error happened during command execution";
             logger.fatal(response, e);
         }
+        // todo: флаги (1 2 3 -1) порядок чанков, суммирование буфера, добавление к строке
+        // todo: маленькие пакеты и большие пакеты + дробление
         new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
     }
 

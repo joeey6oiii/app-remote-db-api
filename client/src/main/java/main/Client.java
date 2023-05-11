@@ -36,20 +36,14 @@ public class Client {
             module.connect();
             System.out.println("Server connection established");
 
-            int tries = 5;
-            int time_ms = 5000;
+            int time_ms = 4999;
             boolean receivedCommands = false;
             while (!receivedCommands) {
-                if (tries <= 0) {
-                    System.out.println("Failed to receive commands from server. Unable to continue execution");
-                    System.exit(-99);
-                }
                 System.out.println("Trying to receive commands...");
                 try {
                     new CommandsReceiver().receiveCommands(module);
                     receivedCommands = true;
                 } catch (ServerUnavailableException e) {
-                    tries -= 1;
                     Thread.sleep(time_ms);
                 }
             }

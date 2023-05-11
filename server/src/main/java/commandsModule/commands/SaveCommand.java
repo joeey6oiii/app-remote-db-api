@@ -52,7 +52,7 @@ public class SaveCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        File file = new File("server\\src\\main\\resources\\Person.yaml");
+        File file = new File("Person.yaml"); // todo: check input stream
         FileService fileService = new FileService();
         if (!file.exists()) {
             fileService.createFile(file);
