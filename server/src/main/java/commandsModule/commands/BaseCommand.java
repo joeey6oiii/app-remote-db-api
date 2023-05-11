@@ -3,7 +3,7 @@ package commandsModule.commands;
 import java.io.IOException;
 
 /**
- * Abstract interface for all commands-implementers without arguments.
+ * An interface for all command-implementers without arguments.
  */
 
 public interface BaseCommand {

@@ -5,8 +5,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.net.SocketException;
 
+/**
+ * A class that represents a factory of {@link DatagramConnectionModule} objects.
+ */
+
 public class DatagramConnectionModuleFactory implements ConnectionModuleFactory {
     private static final Logger logger = LogManager.getLogger("logger.DatagramConnectionModuleFactory");
+
+    /**
+     * A method that creates the {@link DatagramConnectionModule} object with the specified port.
+     *
+     * @param PORT specified port of the server
+     * @return server core
+     */
 
     @Override
     public DatagramConnectionModule createConnectionModule(int PORT) {

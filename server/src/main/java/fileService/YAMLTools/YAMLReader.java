@@ -33,6 +33,16 @@ public class YAMLReader {
             .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
             .findAndRegisterModules();
 
+    /**
+     * Reads the specified file. Creates object(s) of the specified class and adds them to the <code>List</code>.
+     *
+     * @param file the specified file
+     * @param type the specified class whose objects will be created in the method
+     * @param <T> arbitrary non-primitive data type
+     * @return list of created elements of type T. Returns empty <code>ArrayList</code> if the size of the file is zero
+     * or no objects were found in the file.
+     */
+
     public <T> List<T> read(File file, Class<T> type) throws IOException {
         Class<T[]> arrayClass = null;
         try {

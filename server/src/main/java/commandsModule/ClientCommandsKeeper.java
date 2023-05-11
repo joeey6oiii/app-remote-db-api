@@ -6,6 +6,10 @@ import commands.CommandType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class where the {@link CommandDescription} objects are stored.
+ */
+
 public class ClientCommandsKeeper {
     private static final List<CommandDescription> commands;
 
@@ -28,6 +32,10 @@ public class ClientCommandsKeeper {
         commands.add(new CommandDescription("remove_greater", CommandType.PERSON_SINGLE_ARGUMENT));
         commands.add(new CommandDescription("remove_lower", CommandType.PERSON_SINGLE_ARGUMENT));
     }
+
+    /**
+     * A method thar returns <code>List</code> with {@link CommandDescription} objects.
+     */
 
     public static List<CommandDescription> getCommands() {
         return commands;

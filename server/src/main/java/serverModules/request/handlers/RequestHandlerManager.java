@@ -9,6 +9,10 @@ import serverModules.context.ServerContext;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+/**
+ * A class that manages the received requests.
+ */
+
 public class RequestHandlerManager {
     private static final Logger logger = LogManager.getLogger("logger.RequestHandlerManager");
     private final LinkedHashMap<Class<? extends Request>, RequestHandler> handlers;
@@ -21,6 +25,13 @@ public class RequestHandlerManager {
         handlers.put(SingleArgumentCommandExecutionRequest.class, new ArgumentCommandHandler<>());
     }
 
+    /**
+     * Finds a matching request with a request from {@link ServerContext} and manages it using the
+     * {@link RequestHandler#handleRequest(ServerContext)} method.
+     *
+     * @param context the specified server settings
+     */
+
     public void manageRequest(ServerContext context) {
         try {
             Optional.ofNullable(handlers.get(context.getRequest().getClass())).orElseThrow(() ->
@@ -29,4 +40,5 @@ public class RequestHandlerManager {
             logger.error("Failed to manage request", e);
         }
     }
+
 }
