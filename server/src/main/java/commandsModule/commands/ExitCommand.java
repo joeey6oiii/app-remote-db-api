@@ -5,6 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * Class that implements the "exit" command.
+ */
+
 public class ExitCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.ExitCommand");
 
@@ -34,6 +38,12 @@ public class ExitCommand implements BaseCommand {
     public String describe() {
         return "Closes the program without saving";
     }
+
+    /**
+     * When called, calls {@link SaveCommand#execute()} method to save the database data to the file.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {

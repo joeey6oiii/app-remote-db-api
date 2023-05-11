@@ -2,6 +2,10 @@ package commandsModule.commands;
 
 import java.io.IOException;
 
+/**
+ * Abstract interface for all commands-implementers without arguments.
+ */
+
 public interface BaseCommand {
 
     /**
@@ -21,6 +25,12 @@ public interface BaseCommand {
      */
 
     String describe();
+
+    /**
+     * Command call method.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     void execute() throws IOException;
 

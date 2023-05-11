@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Command processing class.
- *
- * @authors Dmitrii Chebanenko and Alexey Kseikoff
+ * A class that contains and executes commands.
  */
 
 public class CommandHandler {

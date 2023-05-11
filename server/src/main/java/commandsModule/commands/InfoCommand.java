@@ -4,6 +4,12 @@ import database.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+
+/**
+ * Class that implements the "info" command.
+ */
+
 public class InfoCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.InfoCommand");
     private String response;
@@ -36,8 +42,14 @@ public class InfoCommand implements BaseCommand {
                 " output stream (type, initialization date, number of elements, etc.)";
     }
 
+    /**
+     * When called, displays the information about the database (Type, Length, Initialization Time).
+     *
+     * @throws IOException when failed during I/O operations
+     */
+
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         Database database = Database.getInstance();
         StringBuilder builder = new StringBuilder();
         builder.append("Type: ").append(database.getCollection().getClass()).append("\nLength: ")
@@ -46,4 +58,5 @@ public class InfoCommand implements BaseCommand {
         this.response = new String(builder);
         logger.info("Executed InfoCommand");
     }
+
 }

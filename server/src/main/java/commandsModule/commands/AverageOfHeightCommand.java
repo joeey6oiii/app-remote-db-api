@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 /**
- * A class that implements the average_of_height command.
+ * A class that implements the "average_of_height" command.
  */
 
 public class AverageOfHeightCommand implements BaseCommand {
@@ -46,7 +46,7 @@ public class AverageOfHeightCommand implements BaseCommand {
      * When called, sums the height field values of all {@link Person} objects and counts the amount of objects in the
      * collection, then outputs the average value by dividing sum by count.
      *
-     * @throws IOException
+     * @throws IOException when failed during I/O operations
      */
 
     @Override

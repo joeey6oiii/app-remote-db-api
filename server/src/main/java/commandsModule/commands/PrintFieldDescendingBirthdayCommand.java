@@ -11,6 +11,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A class that implements the "print_field_descending_birthday" command.
+ */
+
 public class PrintFieldDescendingBirthdayCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.PrintFieldDescendingBirthdayCommand");
     private String response;
@@ -41,6 +45,13 @@ public class PrintFieldDescendingBirthdayCommand implements BaseCommand {
     public String describe() {
         return "Outputs the \"birthday\" values of all elements in the database in descending order";
     }
+
+    /**
+     * When called, creates an <code>ArrayList</code> and adds the values of the birthday field of all the {@link Person}
+     * objects in the collection to it. Then, sorts, reverses and sets the resulting list to the response field.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {

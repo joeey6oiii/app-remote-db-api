@@ -5,6 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * A class that implements the "execute_script" command.
+ */
+
 public class ExecuteScriptCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.ExecuteScriptCommand");
 
@@ -34,6 +38,12 @@ public class ExecuteScriptCommand implements BaseCommand {
     public String describe() {
         return "Reads and executes a script from the specified file";
     }
+
+    /**
+     * When called, waits to receive commands from the client.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {

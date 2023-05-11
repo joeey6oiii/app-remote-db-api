@@ -4,7 +4,12 @@ import database.Database;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
+
+/**
+ * A class that implements the "show" command.
+ */
 
 public class ShowCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.ShowCommand");
@@ -37,8 +42,14 @@ public class ShowCommand implements BaseCommand {
         return "Prints to standard output all elements of the collection in string representation";
     }
 
+    /**
+     * When called, shows user all elements from the collection.
+     *
+     * @throws IOException when failed during I/O operations
+     */
+
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         Database database = Database.getInstance();
         if (database.getCollection().isEmpty()) {
             this.response = "Collection is empty, there is nothing to show";

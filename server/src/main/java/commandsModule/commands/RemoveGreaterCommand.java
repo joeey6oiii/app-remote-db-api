@@ -8,6 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * A class that implements the "remove_greater" command.
+ */
+
 public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<Person> {
     private static final Logger logger = LogManager.getLogger("logger.RemoveGreaterCommand");
     private String response;
@@ -31,10 +35,18 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
         return this.response;
     }
 
+    /**
+     * A method that returns the {@link Person} argument of the command.
+     */
+
     @Override
     public Person getSingleArgument() {
         return this.argument;
     }
+
+    /**
+     * A method that sets the {@link Person} argument to the command.
+     */
 
     @Override
     public void setSingleArgument(Person argument) {
@@ -49,6 +61,13 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
     public String describe() {
         return "Removes from the collection all elements greater than the specified";
     }
+
+    /**
+     * When called, removes all {@link Person} elements from the collection whose height field is greater than the
+     * height field of the received created object.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {

@@ -6,6 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * A class that implements the "clear" command.
+ */
+
 public class ClearCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.ClearCommand");
     private String response;
@@ -36,6 +40,12 @@ public class ClearCommand implements BaseCommand {
     public String describe() {
         return "Clears the collection";
     }
+
+    /**
+     * When called, clears the collection in the database.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {

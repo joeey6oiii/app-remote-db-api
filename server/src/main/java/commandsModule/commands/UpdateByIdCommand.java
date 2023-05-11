@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A class that implements the "update_by_id" command.
+ */
+
 public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCommand<Person> {
     private static final Logger logger = LogManager.getLogger("logger.UpdateByIdCommand");
     private String response;
@@ -33,20 +37,38 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
         return this.response;
     }
 
+    /**
+     * A method that returns arguments of the command.
+     */
+
     @Override
     public String[] getArguments() {
         return this.args;
     }
+
+    /**
+     * A method that sets arguments to the command.
+     *
+     * @param args arguments of the command
+     */
 
     @Override
     public void setArguments(String[] args) {
         this.args = args;
     }
 
+    /**
+     * A method that returns the {@link Person} argument of the command.
+     */
+
     @Override
     public Person getSingleArgument() {
         return this.argument;
     }
+
+    /**
+     * A method that sets the {@link Person} argument to the command.
+     */
 
     @Override
     public void setSingleArgument(Person argument) {
@@ -61,6 +83,14 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
     public String describe() {
         return "Updates element in database by specified ID";
     }
+
+    /**
+     * When called, iterates through the collection to find the {@link Person} object with the specified id. If not found,
+     * outputs <code>String</code>, otherwise replaces in the database current {@link Person} with the specified id
+     * with the received created {@link Person} object.
+     *
+     * @throws IOException when failed during I/O operations
+     */
 
     @Override
     public void execute() throws IOException {
@@ -79,4 +109,5 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
         }
         logger.info("Executed UpdateByIdCommand");
     }
+
 }

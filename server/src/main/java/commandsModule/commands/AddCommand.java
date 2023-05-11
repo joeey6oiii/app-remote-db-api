@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 /**
- * Class for implementing the add command.
+ * A class that implements the "add" command.
  */
 
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
@@ -35,10 +35,18 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
         return this.response;
     }
 
+    /**
+     * A method that returns the {@link Person} argument of the command.
+     */
+
     @Override
     public Person getSingleArgument() {
         return this.argument;
     }
+
+    /**
+     * A method that sets the {@link Person} argument to the command.
+     */
 
     @Override
     public void setSingleArgument(Person argument) {
@@ -55,7 +63,9 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     }
 
     /**
-     * When called, adds received Person object to the collection.
+     * When called, adds received {@link Person} object to the collection.
+     *
+     * @throws IOException when failed during I/O operations
      */
 
     @Override
