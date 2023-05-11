@@ -23,5 +23,4 @@ public interface ConnectionModule {
      */
 
     void disconnect() throws IOException;
-
 }
