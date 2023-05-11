@@ -9,7 +9,19 @@ import serializer.ObjectSerializer;
 
 import java.io.IOException;
 
+/**
+ * A class that represents the base request sender.
+ */
+
 public class RequestSender implements RequestAble<Response, Request> {
+
+    /**
+     * A method that serializes the request and sends it to the server. After, gets and returns the response.
+     *
+     * @param module server core
+     * @param request request
+     * @return base response
+     */
 
     @Override
     public Response sendRequest(DataTransferConnectionModule module, Request request) throws IOException, ServerUnavailableException {
@@ -28,4 +40,5 @@ public class RequestSender implements RequestAble<Response, Request> {
 
         return response;
     }
+
 }

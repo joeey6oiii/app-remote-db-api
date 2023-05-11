@@ -21,7 +21,7 @@ public class DatagramConnectionModule implements ConnectionModule {
     private final DatagramSocket socket;
 
     /**
-     * A constructor for datagram connection module.
+     * A constructor for the datagram connection module.
      *
      * @param port the specified server port
      * @throws SocketException if error happened during socket operations

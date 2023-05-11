@@ -4,7 +4,18 @@ import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.DatagramChannel;
 
+/**
+ * A class that represents a factory of {@link DatagramConnectionModule} objects.
+ */
+
 public class DatagramConnectionModuleFactory implements DataTransferConnectionModuleFactory {
+
+    /**
+     * A method that creates the {@link DatagramConnectionModule} object with the specified address of the server.
+     *
+     * @param address specified address of the server
+     * @return client connection core
+     */
 
     @Override
     public DatagramConnectionModule create(SocketAddress address) {
@@ -16,6 +27,15 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
         }
         return null;
     }
+
+    /**
+     * A method that creates the {@link DatagramConnectionModule} object with the specified address of the server and
+     * configures blocking state of the datagram channel with the <code>boolean</code> isBlocking parameter.
+     *
+     * @param address specified address of the server
+     * @param isBlocking blocking state of the datagram channel
+     * @return client connection core
+     */
 
     public DatagramConnectionModule createConfigureBlocking(SocketAddress address, boolean isBlocking) {
         DatagramChannel datagramChannel;
@@ -30,6 +50,14 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
         return null;
     }
 
+    /**
+     * A method
+     * that configures blocking state of the datagram channel with the <code>boolean</code> isBlocking parameter.
+     *
+     * @param module client connection core
+     * @param isBlocking blocking state of the datagram channel
+     */
+
     public void configureBlocking(DatagramConnectionModule module, boolean isBlocking) {
         try {
             if (module.getDatagramChannel() != null && module.getDatagramChannel().isOpen()) {
@@ -40,4 +68,5 @@ public class DatagramConnectionModuleFactory implements DataTransferConnectionMo
             System.exit(-99);
         }
     }
+
 }

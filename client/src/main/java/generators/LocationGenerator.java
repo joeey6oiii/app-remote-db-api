@@ -5,16 +5,19 @@ import defaultClasses.Location;
 import java.util.Scanner;
 
 /**
- * A class that allows the user to create an object of class Location
+ * A class that allows the user to create an object of class Location.
  *
  * @author Dmitrii Chebanenko
  */
+
 public class LocationGenerator implements Generate {
+
     /**
-     * Method that creates an object of class Location
+     * Method that creates an object of class Location.
      *
      * @return Location
      */
+
     public Location generate() {
         Scanner scanner = new Scanner(System.in);
         Location location = new Location();

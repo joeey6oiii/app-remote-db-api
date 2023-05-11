@@ -13,7 +13,20 @@ import responses.ExecutionResultResponse;
 
 import java.io.IOException;
 
+/**
+ * A class that represents the person single argument command execution result receiver.
+ */
+
 public class PersonCommandResultReceiver implements CommandReceiver {
+
+    /**
+     * A method that receives the simplified uncommon argument command, sends request to a server, gets response
+     * and calls the {@link ExecutionResultHandler} method.
+     *
+     * @param cmd simplified command
+     * @param args simplified command arguments
+     * @param module client core
+     */
 
     @Override
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {

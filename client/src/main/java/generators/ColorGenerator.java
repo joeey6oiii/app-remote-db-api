@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ColorGenerator implements Generate {
 
     /**
-     * List the values of the {@link Color} enum and asks to input color name
+     * List the values of the {@link Color} enum and asks to input color name.
      *
      * @return color from the {@link Color} enum by its name
      */

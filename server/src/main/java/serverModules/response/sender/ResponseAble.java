@@ -12,7 +12,7 @@ import serverModules.connection.ConnectionModule;
 public interface ResponseAble<T> {
 
     /**
-     * A method that sends response of T type to the client.
+     * A method that sends response of a T type to the client.
      *
      * @param module server core
      * @param callerBack client

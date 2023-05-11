@@ -8,10 +8,25 @@ import commandsModule.handler.CommandHandler;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
 import responses.ExecutionResultResponse;
+import responses.Response;
 
 import java.io.IOException;
 
+/**
+ * A class that represents the command execution result receiver.
+ */
+
 public class ExecutionResultReceiver implements CommandReceiver {
+
+    /**
+     * A method
+     * that receives the simplified command, sends request to a server,
+     * gets response and calls the {@link ExecutionResultHandler#handleResponse(Response)} method.
+     *
+     * @param cmd simplified command
+     * @param args simplified command arguments
+     * @param module client core
+     */
 
     @Override
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
