@@ -49,6 +49,11 @@ public class CommandHandler {
         String input;
         while (true) {
             if (!missedCommands.isEmpty()) {
+                System.out.println("Trying to send commands from missed commands collection...");
+                Map<CommandDescription, String[]> copyMissedCommands = new LinkedHashMap<>(missedCommands);
+                copyMissedCommands.forEach((key, value) -> manager.manageCommand(key, value, module));
+            }
+            if (!missedCommands.isEmpty()) {
                 System.out.println("Server failed to execute some commands " +
                         "(perhaps the server is or was unavailable). Returning to the console input");
             }
@@ -67,12 +72,6 @@ public class CommandHandler {
                 System.out.println("Added command to the end of the missed commands collection due to its not emptiness");
             } else {
                 manager.manageCommand(cmd, arr, module);
-            }
-
-            if (!missedCommands.isEmpty()) {
-                System.out.println("Trying to send commands from missed commands collection...");
-                Map<CommandDescription, String[]> copyMissedCommands = new LinkedHashMap<>(missedCommands);
-                copyMissedCommands.forEach((key, value) -> manager.manageCommand(key, value, module));
             }
         }
     }

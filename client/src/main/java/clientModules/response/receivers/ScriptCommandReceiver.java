@@ -44,6 +44,9 @@ public class ScriptCommandReceiver implements CommandReceiver {
             } catch (ServerUnavailableException e) {
                 CommandHandler.getMissedCommands().put(cmd, args);
                 return;
+            } catch (NullPointerException e) {
+                System.out.println("Unexpected error: Empty response received");
+                return;
             }
             CommandHandler.getMissedCommands().remove(cmd, args);
             for (var t : a) {
