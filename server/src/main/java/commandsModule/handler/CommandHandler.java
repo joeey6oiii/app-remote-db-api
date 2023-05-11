@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Command processing class.
- *
- * @authors Dmitrii Chebanenko and Alexey Kseikoff
+ * A class that contains and executes commands.
  */
 
 public class CommandHandler {
@@ -80,7 +78,7 @@ public class CommandHandler {
             }
             history.add(command);
         } catch (IllegalArgumentException | NullPointerException e) {
-            response = "Command has invalid arguments";
+            response = "Command has invalid argument(s)";
             logger.fatal(response, e);
         } catch (IndexOutOfBoundsException e) {
             response = "Command has invalid number of arguments";

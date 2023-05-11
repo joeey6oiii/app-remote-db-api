@@ -19,11 +19,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Program entry point class. Contains <code>main()</code> method.
+ */
+
 public class Server {
 
     private static final Logger logger = LogManager.getLogger("logger.Server");
 
     private static final int PORT = 64999;
+
+    /**
+     * Program entry point.
+     *
+     * @param args the command line arguments
+     */
 
     public static void main(String[] args) {
 
@@ -72,7 +82,7 @@ public class Server {
             } catch (ClassNotFoundException e) {
                 logger.error("Unexpected error: Could not find request class", e);
             } catch (Exception e) {
-                logger.error("Unexpected error", e);
+                logger.error("Unexpected error happened during server operations", e);
             }
         }
     }
