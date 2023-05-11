@@ -5,16 +5,19 @@ import defaultClasses.Coordinates;
 import java.util.Scanner;
 
 /**
- * A class that allows the user to create an object of class Coordinates
+ * A class that allows the user to create an object of class Coordinates.
  *
  * @author Dmitrii Chebanenko
  */
+
 public class CoordinatesGenerator implements Generate {
+
     /**
-     * Method that creates an object of class Coordinates
+     * Method that creates an object of class Coordinates.
      *
      * @return coordinates
      */
+
     public Coordinates generate() {
         try {
             Coordinates coordinates = new Coordinates();

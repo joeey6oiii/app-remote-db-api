@@ -9,6 +9,10 @@ import exceptions.IllegalManagerArgumentException;
 import java.util.HashMap;
 import java.util.Optional;
 
+/**
+ * A class that manages simplified commands.
+ */
+
 public class CommandManager {
     private final HashMap<CommandType, CommandReceiver> map;
 
@@ -21,6 +25,15 @@ public class CommandManager {
         map.put(CommandType.EXECUTE_SCRIPT, new ScriptCommandReceiver());
     }
 
+    /**
+     * Finds a matching simplified command with a received simplified command and manages it using the
+     * {@link CommandReceiver#receiveCommand(CommandDescription, String[], DataTransferConnectionModule)} method.
+     * 
+     * @param cmd simplified command
+     * @param args simplified command arguments
+     * @param module client core
+     */
+
     public void manageCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         try {
             Optional.ofNullable(map.get(cmd.getType())).orElseThrow(() ->
@@ -29,4 +42,5 @@ public class CommandManager {
             System.out.println("Failed to manage response");
         }
     }
+
 }

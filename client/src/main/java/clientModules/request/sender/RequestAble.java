@@ -5,6 +5,21 @@ import exceptions.ServerUnavailableException;
 
 import java.io.IOException;
 
+/**
+ * An interface for all request sender-implementers.
+ *
+ * @param <T> concrete response
+ */
+
 public interface RequestAble<T, V> {
-    T sendRequest(DataTransferConnectionModule module, V value) throws IOException, ServerUnavailableException;
+
+    /**
+     * A method that sends a request of a T type to the server.
+     *
+     * @param module client core
+     * @param request concrete request
+     */
+
+    T sendRequest(DataTransferConnectionModule module, V request) throws IOException, ServerUnavailableException;
+
 }

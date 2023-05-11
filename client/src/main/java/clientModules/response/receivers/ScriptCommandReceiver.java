@@ -17,8 +17,24 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
+/**
+ * A class that represents the script command receiver.
+ */
+
 public class ScriptCommandReceiver implements CommandReceiver {
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
+
+    /**
+     * A method that receives the simplified "execute_script" command, parse file, sends request to a server,
+     * gets response and calls the {@link ExecutionResultHandler} method.
+     * After, iterates through <code>String[]</code> of commands from the parsed file
+     * and calls the {@link CommandManager#manageCommand(CommandDescription, String[], DataTransferConnectionModule)} method.
+     * Stores "history of danger scripts" collection to avoid looping
+     *
+     * @param cmd simplified command
+     * @param args simplified command arguments
+     * @param module client core
+     */
 
     @Override
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {

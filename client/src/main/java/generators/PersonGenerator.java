@@ -12,16 +12,19 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- * A class that allows the user to create an object of class Person
+ * A class that allows the user to create an object of class Person.
  *
  * @author Dmitrii Chebanenko
  */
+
 public class PersonGenerator implements Generate {
+
     /**
-     * Method that creates an object of class Person
+     * Method that creates an object of class Person.
      *
      * @return Person
      */
+
     public Person generate(){
         Scanner scanner = new Scanner(System.in);
         Person person = new Person();
