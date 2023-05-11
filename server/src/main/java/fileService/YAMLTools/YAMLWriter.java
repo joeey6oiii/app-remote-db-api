@@ -16,6 +16,13 @@ import fileService.FileService;
 public class YAMLWriter {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory()).findAndRegisterModules();
 
+    /**
+     * Method that saves collection to the specified file.
+     *
+     * @param object - object to save to the file
+     * @throws IOException if the input of the object parameter fails
+     */
+
     public void writeYAML(Object object, File file) throws IOException {
         if (!file.exists()) {
             new FileService().createFile(file);
@@ -23,4 +30,5 @@ public class YAMLWriter {
         this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         this.mapper.writeValue(file, object);
     }
+
 }

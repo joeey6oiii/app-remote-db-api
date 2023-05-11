@@ -11,14 +11,32 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+/**
+ * A class that represents the datagram connection module.
+ */
+
 public class DatagramConnectionModule implements ConnectionModule {
     private static final Logger logger = LogManager.getLogger("logger.ConnectionModule");
     private final int BYTE_SIZE = 4096;
     private final DatagramSocket socket;
 
+    /**
+     * A constructor for datagram connection module.
+     *
+     * @param port the specified server port
+     * @throws SocketException if error happened during socket operations
+     */
+
     protected DatagramConnectionModule(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
     }
+
+    /**
+     * A method that receives data.
+     *
+     * @return a class that contains the information about the received request.
+     * Returns empty {@link RequestData} if empty request received.
+     */
 
     @Override
     public RequestData receiveData() {
@@ -35,6 +53,14 @@ public class DatagramConnectionModule implements ConnectionModule {
         return new RequestData();
     }
 
+    /**
+     * A method that sends the specified data to the specified address and port.
+     *
+     * @param data data to send
+     * @param address address to send to
+     * @param port port to send to
+     */
+
     @Override
     public void sendData(byte[] data, InetAddress address, int port) {
         try {
@@ -44,4 +70,5 @@ public class DatagramConnectionModule implements ConnectionModule {
             logger.error("Something went wrong during data sending", e);
         }
     }
+
 }

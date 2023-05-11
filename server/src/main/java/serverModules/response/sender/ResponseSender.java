@@ -7,8 +7,20 @@ import serializer.ObjectSerializer;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
+/**
+ * A class that represents the base response sender.
+ */
+
 public class ResponseSender implements ResponseAble<Response> {
     private static final Logger logger = LogManager.getLogger("logger.ResponseSender");
+
+    /**
+     * A method that serializes the received response and sends it to the client.
+     *
+     * @param module server core
+     * @param callerBack client
+     * @param response answer to the client
+     */
 
     @Override
     public void sendResponse(ConnectionModule module, CallerBack callerBack, Response response) {
@@ -21,4 +33,5 @@ public class ResponseSender implements ResponseAble<Response> {
             }
         }
     }
+
 }

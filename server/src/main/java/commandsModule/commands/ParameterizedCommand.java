@@ -1,7 +1,7 @@
 package commandsModule.commands;
 
 /**
- * An interface for all commands-implementers with arguments.
+ * An interface for all command-implementers with arguments.
  */
 
 public interface ParameterizedCommand extends BaseCommand {
