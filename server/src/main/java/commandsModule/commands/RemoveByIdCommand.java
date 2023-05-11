@@ -11,10 +11,18 @@ public class RemoveByIdCommand implements ParameterizedCommand {
     private String response;
     private String[] args;
 
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "remove_by_id";
     }
+
+    /**
+     * A method that returns the response of the command.
+     */
 
     @Override
     public String getResponse() {
@@ -30,6 +38,10 @@ public class RemoveByIdCommand implements ParameterizedCommand {
     public void setArguments(String[] args) {
         this.args = args;
     }
+
+    /**
+     * A method that returns the description of the command.
+     */
 
     @Override
     public String describe() {

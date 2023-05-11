@@ -8,15 +8,27 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * Class for implementing the add command.
+ */
+
 public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
     private static final Logger logger = LogManager.getLogger("logger.AddCommand");
     private String response;
     private Person argument;
 
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "add";
     }
+
+    /**
+     * A method that returns the response of the command.
+     */
 
     @Override
     public String getResponse() {
@@ -33,10 +45,18 @@ public class AddCommand implements BaseCommand, SingleArgumentCommand<Person> {
         this.argument = argument;
     }
 
+    /**
+     * Method that returns the description of the command.
+     */
+
     @Override
     public String describe() {
         return "Adds element to collection";
     }
+
+    /**
+     * When called, adds received Person object to the collection.
+     */
 
     @Override
     public void execute() throws IOException {

@@ -11,15 +11,27 @@ public class SumOfHeightCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.SumOfHeightCommand");
     private String response;
 
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "sum_of_height";
     }
 
+    /**
+     * A method that returns the response of the command.
+     */
+
     @Override
     public String getResponse() {
         return this.response;
     }
+
+    /**
+     * A method that returns the description of the command.
+     */
 
     @Override
     public String describe() {

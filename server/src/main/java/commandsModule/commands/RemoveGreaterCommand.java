@@ -13,10 +13,18 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
     private String response;
     private Person argument;
 
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "remove_greater";
     }
+
+    /**
+     * A method that returns the response of the command.
+     */
 
     @Override
     public String getResponse() {
@@ -32,6 +40,10 @@ public class RemoveGreaterCommand implements BaseCommand, SingleArgumentCommand<
     public void setSingleArgument(Person argument) {
         this.argument = argument;
     }
+
+    /**
+     * A method that returns the description of the command.
+     */
 
     @Override
     public String describe() {

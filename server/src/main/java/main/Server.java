@@ -19,11 +19,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Program entry point class. Contains <code>main()</code> method.
+ */
+
 public class Server {
 
     private static final Logger logger = LogManager.getLogger("logger.Server");
 
     private static final int PORT = 64999;
+
+    /**
+     * Program entry point.
+     *
+     * @param args the command line arguments
+     */
 
     public static void main(String[] args) {
 

@@ -10,15 +10,28 @@ import java.io.IOException;
 
 public class SaveCommand implements BaseCommand {
     private static final Logger logger = LogManager.getLogger("logger.SaveCommand");
+
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "save";
     }
 
+    /**
+     * A method that returns the response of the command.
+     */
+
     @Override
     public String getResponse() {
         return "Executed only by server";
     }
+
+    /**
+     * A method that returns the description of the command.
+     */
 
     @Override
     public String describe() {

@@ -50,7 +50,7 @@ public class Client {
                     receivedCommands = true;
                 } catch (ServerUnavailableException e) {
                     tries -= 1;
-                    // todo: waiting method
+                    Thread.sleep(time_ms);
                 }
             }
             System.out.println("Received commands");
@@ -66,7 +66,6 @@ public class Client {
             System.out.println("Something went wrong during I/O operations");
         } catch (Exception e) {
             System.out.println("Unexpected error happened during client operations");
-            e.printStackTrace();
         }
     }
 

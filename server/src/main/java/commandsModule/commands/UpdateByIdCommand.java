@@ -15,10 +15,18 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
     private String[] args;
     private Person argument;
 
+    /**
+     * A method that returns the name of the command.
+     */
+
     @Override
     public String getName() {
         return "update_by_id";
     }
+
+    /**
+     * A method that returns the response of the command.
+     */
 
     @Override
     public String getResponse() {
@@ -44,6 +52,10 @@ public class UpdateByIdCommand implements ParameterizedCommand, SingleArgumentCo
     public void setSingleArgument(Person argument) {
         this.argument = argument;
     }
+
+    /**
+     * A method that returns the description of the command.
+     */
 
     @Override
     public String describe() {

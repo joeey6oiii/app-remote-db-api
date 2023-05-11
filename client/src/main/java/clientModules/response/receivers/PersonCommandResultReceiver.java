@@ -32,6 +32,7 @@ public class PersonCommandResultReceiver implements CommandReceiver {
             return;
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
+            return;
         }
         CommandHandler.getMissedCommands().remove(cmd, args);
     }
