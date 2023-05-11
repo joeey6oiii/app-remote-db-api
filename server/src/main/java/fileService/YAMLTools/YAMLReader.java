@@ -15,16 +15,17 @@ import java.util.List;
  * <p>
  * YAMLReader uses {@link ObjectMapper} with {@link YAMLFactory} parameter to create objects from the YAML file. Uses custom
  * {@link DeserializationFeature} configuration: reads enums using <code>toString()</code>; accepts: empty array as null object,
- * single value as array, empty string as null object; doesn't fail on: unknown properties, ignored properties, invalid subtype,
+ * single value as an array, empty string as a null object; doesn't fail on: unknown properties, ignored properties, invalid subtype,
  * missing creator properties, null creator properties and null for primitives.
  */
 
 public class YAMLReader {
     private final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory())
-            .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+            .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
             .configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true)
             .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
             .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
+            .configure(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS, false)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
             .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
