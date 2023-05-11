@@ -18,7 +18,7 @@ import java.util.Set;
  */
 
 public class DatagramConnectionModule implements DataTransferConnectionModule {
-    private final int PACKET_SIZE = 4096;
+    private final int PACKET_SIZE = 1024;
     private DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 

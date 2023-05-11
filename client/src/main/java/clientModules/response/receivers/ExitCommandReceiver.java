@@ -38,6 +38,9 @@ public class ExitCommandReceiver implements CommandReceiver {
             str = scanner.nextLine();
             if (str.equalsIgnoreCase("N")) {
                 System.out.print("Returning to the console input\n");
+                try {
+                    CommandHandler.getMissedCommands().remove(cmd, args);
+                } catch (Exception ignored) {}
                 return;
             }
         }

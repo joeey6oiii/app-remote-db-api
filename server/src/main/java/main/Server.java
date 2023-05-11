@@ -16,7 +16,6 @@ import serverModules.request.reader.RequestReader;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,8 @@ public class Server {
      */
 
     public static void main(String[] args) {
-        File file = new File(".jar\\src\\main\\resources\\Person.yaml");
+
+        File file = new File("Person.yaml"); // todo: input stream
         FileService fileService = new FileService();
         Class<Person> type = Person.class;
 
@@ -60,12 +60,13 @@ public class Server {
             new LoadService().loadToDatabase(list);
             logger.info("Data uploaded");
         } else {
-            logger.info("Upload data not found. Continuing execution with an empty database");
+            logger.info("Continuing execution with an empty database");
         }
 
         ConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
         ConnectionModule module = factory.createConnectionModule(PORT);
         logger.info("Server started");
+
         while (true) {
             try {
                 RequestData requestData = module.receiveData();

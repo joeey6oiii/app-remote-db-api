@@ -19,6 +19,7 @@ public class ClientCommandsResponseSender implements ResponseAble<ClientCommands
      * @param response answer to the client
      */
 
+    // list сериализуем и делим
     @Override
     public void sendResponse(ConnectionModule module, CallerBack callerBack, ClientCommandsResponse response) {
         new ResponseSender().sendResponse(module, callerBack, response);
