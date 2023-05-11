@@ -159,7 +159,7 @@
   height: 2
   birthday: "1998-04-07T10:17:49.000+00:00"
   passportID: "22:27"
-  hairColor: {}
+  hairColor: null
   location:
     x: 2023.0
     "y": 2022

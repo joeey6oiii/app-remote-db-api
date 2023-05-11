@@ -80,7 +80,7 @@ public class CommandHandler {
             }
             history.add(command);
         } catch (IllegalArgumentException | NullPointerException e) {
-            response = "Command has invalid arguments";
+            response = "Command has invalid argument(s)";
             logger.fatal(response, e);
         } catch (IndexOutOfBoundsException e) {
             response = "Command has invalid number of arguments";

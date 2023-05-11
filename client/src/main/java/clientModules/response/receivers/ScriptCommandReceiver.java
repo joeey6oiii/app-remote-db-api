@@ -6,6 +6,7 @@ import clientModules.response.handlers.ExecutionResultHandler;
 import commands.CommandDescription;
 import commandsModule.handler.CommandHandler;
 import commandsModule.handler.CommandManager;
+import exceptions.ServerUnavailableException;
 import org.apache.commons.io.IOUtils;
 import requests.CommandExecutionRequest;
 
@@ -37,8 +38,14 @@ public class ScriptCommandReceiver implements CommandReceiver {
             String contents = IOUtils.toString(in, StandardCharsets.UTF_8);
             String[] splitStr;
             var a = contents.split("\n");
-            new ExecutionResultHandler().handleResponse(new CommandExecutionRequestSender()
-                    .sendRequest(module, new CommandExecutionRequest(cmd, args)));
+            try {
+                new ExecutionResultHandler().handleResponse(new CommandExecutionRequestSender()
+                        .sendRequest(module, new CommandExecutionRequest(cmd, args)));
+            } catch (ServerUnavailableException e) {
+                CommandHandler.getMissedCommands().put(cmd, args);
+                return;
+            }
+            CommandHandler.getMissedCommands().remove(cmd, args);
             for (var t : a) {
                 splitStr = t.split(" ");
                 if (splitStr[0].equals("execute_script")) {

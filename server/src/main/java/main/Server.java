@@ -72,7 +72,7 @@ public class Server {
             } catch (ClassNotFoundException e) {
                 logger.error("Unexpected error: Could not find request class", e);
             } catch (Exception e) {
-                logger.error("Unexpected error", e);
+                logger.error("Unexpected error happened during server operations", e);
             }
         }
     }

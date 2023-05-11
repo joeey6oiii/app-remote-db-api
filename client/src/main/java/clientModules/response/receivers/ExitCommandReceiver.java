@@ -4,9 +4,12 @@ import clientModules.connection.DataTransferConnectionModule;
 import clientModules.request.sender.CommandExecutionRequestSender;
 import clientModules.response.handlers.ExitCommandHandler;
 import commands.CommandDescription;
+import commandsModule.handler.CommandHandler;
+import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
 import responses.ExecutionResultResponse;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ExitCommandReceiver implements CommandReceiver {
@@ -25,7 +28,17 @@ public class ExitCommandReceiver implements CommandReceiver {
             }
         }
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        ExecutionResultResponse resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
+        ExecutionResultResponse resultResponse;
+        try {
+            resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
+        } catch (IOException e) {
+            System.out.println("Something went wrong during I/O operations");
+            return;
+        } catch (ServerUnavailableException e) {
+            CommandHandler.getMissedCommands().put(cmd, args);
+            return;
+        }
+        CommandHandler.getMissedCommands().remove(cmd, args);
         new ExitCommandHandler().handleResponse(resultResponse);
     }
 }

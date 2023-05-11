@@ -1,6 +1,9 @@
 package clientModules.connection;
 
+import exceptions.ServerUnavailableException;
+
 import java.io.IOException;
+import java.net.PortUnreachableException;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
@@ -43,16 +46,20 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
     }
 
     @Override
-    public void sendData(byte[] data) throws IOException {
+    public void sendData(byte[] data) throws IOException, ServerUnavailableException {
         ByteBuffer buffer = ByteBuffer.allocate(data.length);
         buffer.put(data);
         buffer.flip();
 
-        datagramChannel.send(buffer, socketAddress);
+        try {
+            datagramChannel.send(buffer, socketAddress);
+        } catch (PortUnreachableException e) {
+            throw new ServerUnavailableException("Server is currently unavailable");
+        }
     }
 
     @Override
-    public byte[] receiveData() throws IOException {
+    public byte[] receiveData() throws IOException, ServerUnavailableException {
         ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
         byte[] data;
 
@@ -78,8 +85,12 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
 
                     if (key.isReadable()) {
                         datagramChannel = (DatagramChannel) key.channel();
-                        datagramChannel.read(buffer);
-                        read = true;
+                        try {
+                            datagramChannel.read(buffer);
+                            read = true;
+                        } catch (PortUnreachableException e) {
+                            throw new ServerUnavailableException("Server is currently unavailable");
+                        }
                     }
 
                     keyIterator.remove();
