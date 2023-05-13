@@ -14,7 +14,8 @@ import fileService.FileService;
  * @author Dmitrii Chebanenko
  */
 public class YAMLWriter {
-    ObjectMapper mapper = new ObjectMapper(new YAMLFactory()).findAndRegisterModules();
+    ObjectMapper mapper = new ObjectMapper(new YAMLFactory()).findAndRegisterModules()
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     /**
      * Method that saves collection to the specified file.
@@ -27,7 +28,6 @@ public class YAMLWriter {
         if (!file.exists()) {
             new FileService().createFile(file);
         }
-        this.mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         this.mapper.writeValue(file, object);
     }
 

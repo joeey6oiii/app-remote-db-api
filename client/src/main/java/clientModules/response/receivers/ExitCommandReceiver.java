@@ -37,10 +37,8 @@ public class ExitCommandReceiver implements CommandReceiver {
             System.out.print("$ ");
             str = scanner.nextLine();
             if (str.equalsIgnoreCase("N")) {
-                System.out.print("Returning to the console input\n");
-                try {
-                    CommandHandler.getMissedCommands().remove(cmd, args);
-                } catch (Exception ignored) {}
+                System.out.println("Returning to the console input");
+                CommandHandler.getMissedCommands().remove(cmd, args);
                 return;
             }
         }
@@ -50,16 +48,14 @@ public class ExitCommandReceiver implements CommandReceiver {
             resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
 
             new ExitCommandHandler().handleResponse(resultResponse);
+
+            CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-            return;
         } catch (ServerUnavailableException e) {
             CommandHandler.getMissedCommands().put(cmd, args);
-            return;
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
-            return;
         }
-        CommandHandler.getMissedCommands().remove(cmd, args);
     }
 }
