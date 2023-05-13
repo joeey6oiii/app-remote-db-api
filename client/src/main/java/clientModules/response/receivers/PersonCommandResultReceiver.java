@@ -37,16 +37,14 @@ public class PersonCommandResultReceiver implements CommandReceiver {
             resultResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
 
             new ExecutionResultHandler().handleResponse(resultResponse);
+
+            CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-            return;
         } catch (ServerUnavailableException e) {
             CommandHandler.getMissedCommands().put(cmd, args);
-            return;
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
-            return;
         }
-        CommandHandler.getMissedCommands().remove(cmd, args);
     }
 }

@@ -28,4 +28,5 @@ public class CommandExecutionRequestSender implements RequestAble<ExecutionResul
     public ExecutionResultResponse sendRequest(DataTransferConnectionModule module, CommandExecutionRequest request) throws IOException, ServerUnavailableException {
         return (ExecutionResultResponse) new RequestSender().sendRequest(module, request);
     }
+
 }
