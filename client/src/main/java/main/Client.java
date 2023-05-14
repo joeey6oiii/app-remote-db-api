@@ -44,7 +44,7 @@ public class Client {
                 try {
                     new CommandsReceiver().receiveCommands(module);
                     receivedCommands = true;
-                } catch (ServerUnavailableException e) {
+                } catch (ServerUnavailableException | IOException e) {
                     Thread.sleep(timeout);
                 }
             }
