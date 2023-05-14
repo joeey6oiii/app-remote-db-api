@@ -2,9 +2,14 @@ package fileService;
 
 import fileService.YAMLTools.YAMLReader;
 import fileService.YAMLTools.YAMLWriter;
+import main.Server;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
 import java.util.List;
 
 /**
@@ -12,6 +17,38 @@ import java.util.List;
  */
 
 public class FileService {
+    private static final Logger logger = LogManager.getLogger("logger.FileService");
+    private static File workPathAsFile;
+
+    static {
+        try {
+            workPathAsFile = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Failed to find program file. Can not continue program execution");
+            System.exit(-99);
+        }
+    }
+
+    /**
+     * A method that returns current program working path as a file.
+     */
+
+    public static File getWorkPathAsFile() {
+        return workPathAsFile;
+    }
+
+    /**
+     * A method that checks if the program is running from a jar file.
+     *
+     * @return true if program is running from a jar file, otherwise false
+     */
+
+    public static boolean isProgramRunningFromJar() {
+        String className = Server.class.getName().replace('.', '/');
+        String classJar = Server.class.getResource("/" + className + ".class").toString();
+        return classJar.startsWith("jar:");
+    }
+
 
     /**
      * Reads the specified file using {@link YAMLReader}.

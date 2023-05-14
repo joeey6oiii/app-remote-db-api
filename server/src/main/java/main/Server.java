@@ -16,6 +16,9 @@ import serverModules.request.reader.RequestReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,13 @@ public class Server {
 
     public static void main(String[] args) {
 
-        File file = new File("Person.yaml"); // todo: input stream
+        File workPathAsFile = FileService.getWorkPathAsFile();
+        String workDir = "server";
+        if (FileService.isProgramRunningFromJar()) {
+            workDir = workPathAsFile.getParentFile().getPath();
+        }
+
+        File file = new File(workDir + "/Person.yaml");
         FileService fileService = new FileService();
         Class<Person> type = Person.class;
 
@@ -45,20 +54,24 @@ public class Server {
         try {
             if (file.exists()) {
                 logger.info("Reading file...");
-                list = fileService.readFile(file, type);
-                logger.info("Completed reading file");
+                if (file.length() == 0) {
+                    logger.info("Upload data not found: File is empty");
+                } else {
+                    list = fileService.readFile(file, type);
+                }
             } else {
+                logger.fatal("\"Person.yaml\" file not found");
                 fileService.createFile(file);
-                logger.warn("\"Person.yaml\" file not found. Created new eponymous file");
+                logger.info("Created new eponymous file");
             }
-        } catch (IOException e) {
-            logger.fatal("Failed to proceed file", e);
+        } catch (IOException | NullPointerException e) {
+            logger.fatal("Failed to proceed file. Can not continue program execution", e);
+            System.exit(-99);
         }
 
         if (!list.isEmpty()) {
             logger.info("Uploading data from file to database...");
             new LoadService().loadToDatabase(list);
-            logger.info("Data uploaded");
         } else {
             logger.info("Continuing execution with an empty database");
         }

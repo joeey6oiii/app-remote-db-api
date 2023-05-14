@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * A class that implements the "save" command.
@@ -52,7 +53,13 @@ public class SaveCommand implements BaseCommand {
     @Override
     public void execute() throws IOException {
         Database database = Database.getInstance();
-        File file = new File("Person.yaml"); // todo: check input stream
+
+        File workPathAsFile = FileService.getWorkPathAsFile();
+        String workDir = "server";
+        if (FileService.isProgramRunningFromJar()) {
+            workDir = workPathAsFile.getParentFile().getPath();
+        }
+        File file = new File(workDir + "/Person.yaml");
         FileService fileService = new FileService();
         if (!file.exists()) {
             fileService.createFile(file);

@@ -1,7 +1,7 @@
 package responses;
 
 /**
- * An interface for all responses-implementers.
+ * An interface for all response-implementers.
  */
 
 public interface Response {

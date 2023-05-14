@@ -47,7 +47,7 @@ public class ExitCommand implements BaseCommand {
 
     @Override
     public void execute() throws IOException {
-        logger.info("Client disconnects. Saving database data to a file...");
+        logger.info("Client disconnects");
         new SaveCommand().execute();
     }
 
