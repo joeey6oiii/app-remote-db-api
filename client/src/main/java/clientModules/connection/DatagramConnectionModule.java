@@ -5,13 +5,15 @@ import exceptions.ServerUnavailableException;
 import java.io.IOException;
 import java.net.PortUnreachableException;
 import java.net.SocketAddress;
-import java.net.SocketException;
+import java.util.concurrent.Semaphore;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A class that represents the data transfer datagram connection module.
@@ -107,15 +109,50 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
         byte[] data;
 
         if (datagramChannel.isBlocking()) {
-            this.datagramChannel.receive(buffer);
+            AtomicBoolean serverUnavailable = new AtomicBoolean(false);
+            Semaphore semaphore = new Semaphore(0);
+
+            try {
+                Thread thread = new Thread(() -> {
+                    try {
+                        datagramChannel.receive(buffer);
+                    } catch (IOException e) {
+                        serverUnavailable.set(true);
+                    }
+                    semaphore.release();
+                });
+
+                thread.start();
+
+                boolean acquired = semaphore.tryAcquire(5, TimeUnit.SECONDS);
+
+                if (!acquired || serverUnavailable.get()) {
+                    thread.interrupt();
+                    throw new ServerUnavailableException("Server is currently unavailable");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Unexpected error: Thread was interrupted");
+            } finally {
+                semaphore.release();
+            }
         } else {
             boolean read = false;
             Selector selector = Selector.open();
             datagramChannel.register(selector, SelectionKey.OP_READ);
 
+            int timeout = 4999;
+            long startTime = System.currentTimeMillis();
+
             while (!read) {
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                long remainingTime = timeout - elapsedTime;
+
+                if (remainingTime <= 0) {
+                    throw new ServerUnavailableException("Server is currently unavailable");
+                }
+
                 int readyChannels;
-                readyChannels = selector.select();
+                readyChannels = selector.select(remainingTime);
                 if (readyChannels == 0) {
                     continue;
                 }
@@ -147,4 +184,5 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
 
         return data;
     }
+
 }
