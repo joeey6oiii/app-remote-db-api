@@ -93,34 +93,51 @@ public class CommandHandler {
      */
 
     public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
-        String response = "";
+        StringBuilder response = new StringBuilder();
+        ExecutionResultResponseSender sender = new ExecutionResultResponseSender();
         try {
             BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand());
             if (command instanceof ParameterizedCommand parameterizedCommand) {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();
-                response = parameterizedCommand.getResponse();
+                response.append(parameterizedCommand.getResponse());
             } else {
                 command.execute();
-                response = command.getResponse();
+                response.append(command.getResponse());
             }
             history.add(command);
         } catch (IllegalArgumentException | NullPointerException e) {
-            response = "Command has invalid argument(s)";
-            logger.fatal(response, e);
+            response.append("Command has invalid argument(s)");
+            logger.fatal(response.toString(), e);
         } catch (IndexOutOfBoundsException e) {
-            response = "Command has invalid number of arguments";
-            logger.fatal(response, e);
+            response.append("Command has invalid number of arguments");
+            logger.fatal(response.toString(), e);
         } catch (IOException e) {
-            response = "Something went wrong during I/O operations";
-            logger.fatal(response, e);
+            response.append("Something went wrong during I/O operations");
+            logger.fatal(response.toString(), e);
         } catch (Exception e) {
-            response = "Unexpected error happened during command execution";
-            logger.fatal(response, e);
+            response.append("Unexpected error happened during command execution");
+            logger.fatal(response.toString(), e);
         }
-        // todo: флаги (1 2 3 -1) порядок чанков, суммирование буфера, добавление к строке
-        // todo: маленькие пакеты и большие пакеты + дробление
-        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
+
+        int maxPacketSize = 4096;
+        int chunkNumber = 1;
+        int totalChunks = (int) Math.ceil(response.length() / (double) maxPacketSize);
+
+        while (response.length() > 0) {
+            String chunk;
+            if (response.length() <= maxPacketSize) {
+                chunk = response + "-1-" + totalChunks;
+                response.setLength(0);
+            } else {
+                chunk = response.substring(0, maxPacketSize) + "-" + chunkNumber + "-" + totalChunks;
+                response.delete(0, maxPacketSize);
+            }
+
+            sender.sendResponse(module, callerBack, new ExecutionResultResponse(chunk));
+
+            chunkNumber++;
+        }
     }
 
 }
