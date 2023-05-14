@@ -31,12 +31,13 @@ public class Client {
 
         DatagramConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
         try {
-            DataTransferConnectionModule module = factory.createConfigureBlocking(new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
+            DataTransferConnectionModule module = factory.createConfigureBlocking
+                    (new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);
 
             module.connect();
             System.out.println("Server connection established");
 
-            int time_ms = 4999;
+            int timeout = 4999;
             boolean receivedCommands = false;
             while (!receivedCommands) {
                 System.out.println("Trying to receive commands...");
@@ -44,7 +45,7 @@ public class Client {
                     new CommandsReceiver().receiveCommands(module);
                     receivedCommands = true;
                 } catch (ServerUnavailableException e) {
-                    Thread.sleep(time_ms);
+                    Thread.sleep(timeout);
                 }
             }
             System.out.println("Received commands");
