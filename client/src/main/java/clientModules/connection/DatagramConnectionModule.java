@@ -128,7 +128,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
 
                 if (!acquired || serverUnavailable.get()) {
                     thread.interrupt();
-                    throw new ServerUnavailableException("Server is currently unavailable");
+                    throw new ServerUnavailableException("Server is currently unavailable"); // delegate checks and throw ResponseTimeoutException
                 }
             } catch (InterruptedException e) {
                 System.out.println("Unexpected error: Thread was interrupted");
@@ -148,7 +148,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
                 long remainingTime = timeout - elapsedTime;
 
                 if (remainingTime <= 0) {
-                    throw new ServerUnavailableException("Server is currently unavailable");
+                    throw new ServerUnavailableException("Server is currently unavailable"); // throw ResponseTimeoutException
                 }
 
                 int readyChannels;

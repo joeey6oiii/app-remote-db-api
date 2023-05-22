@@ -94,6 +94,7 @@ public class CommandHandler {
 
     public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
         StringBuilder response = new StringBuilder();
+        StringBuilder chunk = new StringBuilder();
         ExecutionResultResponseSender sender = new ExecutionResultResponseSender();
         try {
             BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand());
@@ -123,21 +124,32 @@ public class CommandHandler {
         int maxPacketSize = 4096;
         int chunkNumber = 1;
         int totalChunks = (int) Math.ceil(response.length() / (double) maxPacketSize);
+        int currentResponseNumber = 1;
 
         while (response.length() > 0) {
-            String chunk;
             if (response.length() <= maxPacketSize) {
-                chunk = response + "-1-" + totalChunks;
+                chunk = response;
                 response.setLength(0);
             } else {
-                chunk = response.substring(0, maxPacketSize) + "-" + chunkNumber + "-" + totalChunks;
+                chunk.append(response.substring(0, maxPacketSize));
                 response.delete(0, maxPacketSize);
             }
 
-            sender.sendResponse(module, callerBack, new ExecutionResultResponse(chunk));
+            ExecutionResultResponse resultResponse;
+            if (chunkNumber == 1 && totalChunks <= 1) {
+                resultResponse = new ExecutionResultResponse(new String(chunk));
+            } else if (chunkNumber == totalChunks) {
+                resultResponse = new ExecutionResultResponse(new String(chunk), -1, totalChunks);
+            } else {
+                resultResponse = new ExecutionResultResponse(new String(chunk), currentResponseNumber, totalChunks);
+            }
+
+            sender.sendResponse(module, callerBack, resultResponse);
 
             chunkNumber++;
+            currentResponseNumber++;
         }
+
     }
 
 }
