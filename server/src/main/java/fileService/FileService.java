@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A class for working with a file.
@@ -19,10 +20,14 @@ import java.util.List;
 public class FileService {
     private static final Logger logger = LogManager.getLogger("logger.FileService");
     private static File workPathAsFile;
+    private static boolean runningFromJar;
 
     static {
         try {
             workPathAsFile = new File(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+
+            runningFromJar = Objects.requireNonNull(Server.class.getResource("/" + Server.class.
+                    getName().replace('.', '/') + ".class")).toString().startsWith("jar:");
         } catch (URISyntaxException | NullPointerException e) {
             logger.error("Failed to find program file. Can not continue program execution");
             System.exit(-99);
@@ -44,9 +49,7 @@ public class FileService {
      */
 
     public static boolean isProgramRunningFromJar() {
-        String className = Server.class.getName().replace('.', '/');
-        String classJar = Server.class.getResource("/" + className + ".class").toString();
-        return classJar.startsWith("jar:");
+        return runningFromJar;
     }
 
 

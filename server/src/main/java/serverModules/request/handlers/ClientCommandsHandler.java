@@ -20,6 +20,7 @@ public class ClientCommandsHandler implements RequestHandler {
      * @param context the specified server settings
      */
 
+    // todo отправляем n респонсов
     @Override
     public void handleRequest(ServerContext context) {
         List<CommandDescription> commands = ClientCommandsKeeper.getCommands();
