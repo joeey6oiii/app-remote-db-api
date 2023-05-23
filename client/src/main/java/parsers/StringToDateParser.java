@@ -1,4 +1,4 @@
-package helpFun;
+package parsers;
 
 /**
  * A class with help parse method.

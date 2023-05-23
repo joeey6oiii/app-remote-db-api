@@ -4,8 +4,7 @@ import defaultClasses.Color;
 import defaultClasses.Coordinates;
 import defaultClasses.Location;
 import defaultClasses.Person;
-import helpFun.Decision;
-import helpFun.StringToDateParser;
+import parsers.StringToDateParser;
 import validators.*;
 
 import java.util.Date;
@@ -13,8 +12,6 @@ import java.util.Scanner;
 
 /**
  * A class that implements a generating ability.
- *
- * @author Dmitrii Chebanenko
  */
 
 public class PersonGenerator implements Generate {
@@ -22,7 +19,7 @@ public class PersonGenerator implements Generate {
     /**
      * Method that creates an object of class Person.
      *
-     * @return Person
+     * @return Person object
      */
 
     public Person generate() {
