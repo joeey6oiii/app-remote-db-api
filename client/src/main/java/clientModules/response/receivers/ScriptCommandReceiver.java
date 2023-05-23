@@ -6,6 +6,7 @@ import clientModules.response.handlers.ExecutionResultHandler;
 import commands.CommandDescription;
 import commandsModule.handler.CommandHandler;
 import commandsModule.handler.CommandManager;
+import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import org.apache.commons.io.IOUtils;
 import requests.CommandExecutionRequest;
@@ -55,9 +56,9 @@ public class ScriptCommandReceiver implements CommandReceiver {
             String[] splitStr;
             var a = contents.split("\n");
             try {
-                new ExecutionResultHandler().handleResponse(new CommandExecutionRequestSender()
+                new ExecutionResultHandler().handleResponses(new CommandExecutionRequestSender()
                         .sendRequest(module, new CommandExecutionRequest(cmd, args)));
-            } catch (ServerUnavailableException e) {
+            } catch (ServerUnavailableException | ResponseTimeoutException e) {
                 CommandHandler.getMissedCommands().put(cmd, args);
                 return;
             } catch (NullPointerException e) {

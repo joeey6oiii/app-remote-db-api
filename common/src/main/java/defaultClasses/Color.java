@@ -15,6 +15,13 @@ import java.util.stream.Collectors;
 public enum Color implements Generated, Serializable {
     RED("red"),
     ORANGE("orange"),
+    BROWN("brown"),
+    GRAY("gray"),
+    GREEN("green"),
+    BLACK("black"),
+    YELLOW("yellow"),
+    BLUE("blue"),
+    PURPLE("purple"),
     WHITE("white");
 
     private final String colorName;

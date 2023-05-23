@@ -5,12 +5,13 @@ import clientModules.request.sender.CommandExecutionRequestSender;
 import clientModules.response.handlers.ExitCommandHandler;
 import commands.CommandDescription;
 import commandsModule.handler.CommandHandler;
+import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
 import responses.ExecutionResultResponse;
-import responses.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -21,7 +22,7 @@ public class ExitCommandReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified "exit" command, sends request to a server,
-     * gets response and calls the {@link ExitCommandHandler#handleResponse(Response)} method.
+     * gets responses and calls the {@link ExitCommandHandler#handleResponses(java.util.HashMap)} method.
      *
      * @param cmd simplified command
      * @param args simplified command arguments
@@ -43,19 +44,20 @@ public class ExitCommandReceiver implements CommandReceiver {
             }
         }
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        ExecutionResultResponse resultResponse;
+        HashMap<Integer, ExecutionResultResponse> resultResponses;
         try {
-            resultResponse = new CommandExecutionRequestSender().sendRequest(module, request);
+            resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
 
-            new ExitCommandHandler().handleResponse(resultResponse);
+            new ExitCommandHandler().handleResponses(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-        } catch (ServerUnavailableException e) {
+        } catch (ServerUnavailableException | ResponseTimeoutException e) {
             CommandHandler.getMissedCommands().put(cmd, args);
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
         }
     }
+
 }

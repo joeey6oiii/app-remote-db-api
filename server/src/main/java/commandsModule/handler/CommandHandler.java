@@ -121,14 +121,14 @@ public class CommandHandler {
             logger.fatal(response.toString(), e);
         }
 
-        int maxPacketSize = 4096;
+        int maxPacketSize = 2048;
         int chunkNumber = 1;
         int totalChunks = (int) Math.ceil(response.length() / (double) maxPacketSize);
         int currentResponseNumber = 1;
-
+        
         while (response.length() > 0) {
             if (response.length() <= maxPacketSize) {
-                chunk = response;
+                chunk.append(response);
                 response.setLength(0);
             } else {
                 chunk.append(response.substring(0, maxPacketSize));
@@ -143,6 +143,7 @@ public class CommandHandler {
             } else {
                 resultResponse = new ExecutionResultResponse(new String(chunk), currentResponseNumber, totalChunks);
             }
+            chunk.delete(0, chunk.length());
 
             sender.sendResponse(module, callerBack, resultResponse);
 

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import serverModules.callerBack.CallerBack;
 import serverModules.request.data.RequestData;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -17,7 +18,6 @@ import java.net.SocketException;
 
 public class DatagramConnectionModule implements ConnectionModule {
     private static final Logger logger = LogManager.getLogger("logger.ConnectionModule");
-    private final int BYTE_SIZE = 4096;
     private final DatagramSocket socket;
 
     /**
@@ -40,6 +40,7 @@ public class DatagramConnectionModule implements ConnectionModule {
 
     @Override
     public RequestData receiveData() {
+        int BYTE_SIZE = 4096;
         byte[] bytes = new byte[BYTE_SIZE];
         try {
             DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
