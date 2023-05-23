@@ -21,23 +21,49 @@ public class LocationGenerator implements Generate {
     public Location generate() {
         Scanner scanner = new Scanner(System.in);
         Location location = new Location();
-        try {
-            System.out.print("Enter x (Float) \n$ ");
-            Float x = Float.parseFloat(scanner.nextLine());
-            location.setX(x);
-            System.out.print("Enter y (Integer) \n$ ");
-            Integer y = Integer.parseInt(scanner.nextLine());
-            location.setY(y);
-            System.out.print("Enter name \n$ ");
-            String name = scanner.nextLine();
-            if (name.equals("")) {
-                location.setName(null);
-            } else {
-                location.setName(name);
+        String input;
+
+        System.out.print("Enter X coordinate\n$ ");
+        while (true) {
+            try {
+                input = scanner.nextLine();
+                if (input.isEmpty()) {
+                    return null;
+                } else {
+                    Float x = Float.parseFloat(input);
+                    location.setX(x);
+                    break;
+                }
+            } catch (Exception e){
+                System.out.print("Invalid coordinate X. Please enter a valid X coordinate\n$ ");
             }
-            return location;
-        } catch (Exception e) {
-            return null;
         }
+
+        System.out.print("Enter Y coordinate\n$ ");
+        while (true) {
+            try {
+                input = scanner.nextLine();
+                if (input.isEmpty()) {
+                    return null;
+                } else {
+                    Integer y = Integer.parseInt(input);
+                    location.setY(y);
+                    break;
+                }
+            } catch (Exception e){
+                System.out.print("Invalid coordinate Y. Please enter a valid Y coordinate\n$ ");
+            }
+        }
+
+        System.out.print("Enter name. Press \"ENTER\" to skip this operation\n$ ");
+        String name = scanner.nextLine();
+        if (name.isEmpty()) {
+            location.setName(null);
+        } else {
+            location.setName(name);
+        }
+
+        return location;
      }
+
 }

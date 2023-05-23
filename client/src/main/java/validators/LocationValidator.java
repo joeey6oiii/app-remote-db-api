@@ -18,6 +18,6 @@ public class LocationValidator implements ValidateAble<Location> {
 
     @Override
     public boolean validate(Location location) {
-        return location == null ? true : (location.getX() != null && location.getY() != null && !Objects.equals(location.getName(), ""));
+        return location == null || (location.getX() != null && location.getY() != null && !Objects.equals(location.getName(), ""));
     }
 }

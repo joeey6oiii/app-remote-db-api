@@ -86,11 +86,17 @@ public class CommandHandler {
         String input;
         while (true) {
             if (!missedCommands.isEmpty()) {
-                System.out.println("Server failed to execute some commands " +
-                        "(perhaps the server is or was unavailable). Returning to the console input");
+                System.out.println("Server failed to execute some commands (perhaps the" +
+                        " server is or was unavailable). Returning to the console input");
             }
 
             System.out.print("$ ");
+
+            if (!scanner.hasNextLine()) {
+                System.out.println("Unexpected event: scanner was closed. Unable to continue scanning input");
+                break;
+            }
+
             input = scanner.nextLine().trim();
             if (input.isEmpty()) { continue; }
             String[] arr = input.toLowerCase().split(" ");

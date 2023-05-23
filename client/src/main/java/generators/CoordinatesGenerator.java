@@ -22,10 +22,10 @@ public class CoordinatesGenerator implements Generate {
         try {
             Coordinates coordinates = new Coordinates();
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter x (long) \n$ ");
+            System.out.print("Enter X coordinate\n$ ");
             long x = Long.parseLong(scanner.nextLine());
             coordinates.setX(x);
-            System.out.print("Enter y (int) \n$ ");
+            System.out.print("Enter Y coordinate\n$ ");
             int y = Integer.parseInt(scanner.nextLine());
             coordinates.setY(y);
             return coordinates;
