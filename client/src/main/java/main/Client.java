@@ -61,7 +61,6 @@ public class Client {
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Unexpected error happened during client operations");
         }
     }
