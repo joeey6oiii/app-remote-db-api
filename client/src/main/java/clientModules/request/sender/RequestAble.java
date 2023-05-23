@@ -1,6 +1,7 @@
 package clientModules.request.sender;
 
 import clientModules.connection.DataTransferConnectionModule;
+import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 
 import java.io.IOException;
@@ -20,6 +21,6 @@ public interface RequestAble<T, V> {
      * @param request concrete request
      */
 
-    T sendRequest(DataTransferConnectionModule module, V request) throws IOException, ServerUnavailableException;
+    T sendRequest(DataTransferConnectionModule module, V request) throws IOException, ServerUnavailableException, ResponseTimeoutException;
 
 }

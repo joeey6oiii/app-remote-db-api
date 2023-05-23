@@ -5,6 +5,7 @@ import clientModules.connection.DatagramConnectionModuleFactory;
 import clientModules.response.receivers.CommandsReceiver;
 import commandsModule.ClientCommandsKeeper;
 import commandsModule.handler.CommandHandler;
+import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 
 import java.io.*;
@@ -44,7 +45,7 @@ public class Client {
                 try {
                     new CommandsReceiver().receiveCommands(module);
                     receivedCommands = true;
-                } catch (ServerUnavailableException | IOException e) {
+                } catch (ServerUnavailableException | ResponseTimeoutException | IOException e) {
                     Thread.sleep(timeout);
                 }
             }

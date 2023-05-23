@@ -1,24 +1,25 @@
 package clientModules.response.handlers;
 
-import responses.Response;
+import responses.ExecutionResultResponse;
 
-import java.io.PrintWriter;
+import java.util.HashMap;
 
 /**
  * A class that works with the "exit" command execution result response.
  */
 
-public class ExitCommandHandler implements ResponseHandler {
+public class ExitCommandHandler implements ResponseHandler<ExecutionResultResponse> {
 
     /**
      * A method that handles the "exit" command execution result response and ends the program.
      *
-     * @param response the received response
+     * @param responses the received responses map
      */
 
     @Override
-    public void handleResponse(Response response) {
+    public void handleResponses(HashMap<Integer, ExecutionResultResponse> responses) {
         System.out.println("Shutting down program...");
         System.exit(0);
     }
+
 }

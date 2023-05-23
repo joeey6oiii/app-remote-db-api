@@ -1,5 +1,6 @@
 package clientModules.connection;
 
+import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 
 import java.io.IOException;
@@ -101,10 +102,11 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
      *
      * @throws IOException if failed during I/O operations
      * @throws ServerUnavailableException if the server was unavailable during sending and receiving operations
+     * @throws ResponseTimeoutException if client could not get response from the server during the given time
      */
 
     @Override
-    public byte[] receiveData() throws IOException, ServerUnavailableException {
+    public byte[] receiveData() throws IOException, ServerUnavailableException, ResponseTimeoutException {
         ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
         byte[] data;
 
@@ -116,22 +118,25 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
                 Thread thread = new Thread(() -> {
                     try {
                         datagramChannel.receive(buffer);
+
+                        semaphore.release();
                     } catch (IOException e) {
                         serverUnavailable.set(true);
+                        Thread.currentThread().interrupt();
                     }
-                    semaphore.release();
                 });
-
                 thread.start();
 
                 boolean acquired = semaphore.tryAcquire(5, TimeUnit.SECONDS);
-
-                if (!acquired || serverUnavailable.get()) {
+                if (!acquired) {
                     thread.interrupt();
-                    throw new ServerUnavailableException("Server is currently unavailable"); // delegate checks and throw ResponseTimeoutException
                 }
             } catch (InterruptedException e) {
-                System.out.println("Unexpected error: Thread was interrupted");
+                if (serverUnavailable.get()) {
+                    throw new ServerUnavailableException("Server is currently unavailable");
+                } else {
+                    throw new ResponseTimeoutException("Could not get response from the server during the given time");
+                }
             } finally {
                 semaphore.release();
             }
@@ -148,7 +153,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
                 long remainingTime = timeout - elapsedTime;
 
                 if (remainingTime <= 0) {
-                    throw new ServerUnavailableException("Server is currently unavailable"); // throw ResponseTimeoutException
+                    throw new ResponseTimeoutException("Could not get response from the server during the given time");
                 }
 
                 int readyChannels;
