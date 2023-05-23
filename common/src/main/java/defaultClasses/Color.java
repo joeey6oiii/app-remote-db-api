@@ -50,7 +50,8 @@ public enum Color implements Generated, Serializable {
      * @return {@link Color} if a list contains the specified name of the color, otherwise null
      */
 
-    public static Color getColorByName (String colorName){
+    public static Color getColorByName(String colorName){
         return colors.get(colorName);
     }
+
 }

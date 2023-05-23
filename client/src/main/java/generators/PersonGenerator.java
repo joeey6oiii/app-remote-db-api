@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- * A class that allows the user to create an object of class Person.
+ * A class that implements a generating ability.
  *
  * @author Dmitrii Chebanenko
  */
@@ -25,92 +25,82 @@ public class PersonGenerator implements Generate {
      * @return Person
      */
 
-    public Person generate(){
+    public Person generate() {
         Scanner scanner = new Scanner(System.in);
         Person person = new Person();
-        System.out.print("Enter name \n$ ");
+
+        System.out.print("Enter name\n$ ");
         String name = scanner.nextLine();
         while (!new NameValidator().validate(name)) {
-            System.out.print("Incorrect name. Enter name again \n$ ");
+            System.out.print("Invalid name. Please enter a valid name\n$ ");
             name = scanner.nextLine();
         }
         person.setName(name);
+
         System.out.println("Creating coordinates:");
         CoordinatesGenerator coordinatesGenerator = new CoordinatesGenerator();
         Coordinates coordinates = coordinatesGenerator.generate();
         while (!new CoordinatesValidator().validate(coordinates)) {
-            System.out.print("Incorrect coordinates. Enter coordinates again. \n");
+            System.out.println("Invalid coordinates. Please enter valid coordinates:");
             coordinates = coordinatesGenerator.generate();
         }
         person.setCoordinates(coordinates);
-        System.out.print("Enter height (Long) \n$ ");
-        int height = -10;
+
+        System.out.print("Enter height\n$ ");
+        int height = Integer.parseInt(scanner.next());
         while (!new HeightValidator().validate(height)) {
             try {
+                System.out.print("Invalid height. Please enter a valid height\n$ ");
                 height = Integer.parseInt(scanner.next());
-                if (!new HeightValidator().validate(height))
-                    System.out.print("Incorrect height. Enter height again \n$ ");
-            } catch (Exception e) {
-                System.out.print("Incorrect height. Enter height again \n$ ");
+            } catch (Exception ignored) {
             }
-
         }
         person.setHeight(height);
-        System.out.print("Enter birthday in format yyyy-MM-dd HH:mm:ss \n$ ");
-        String test = scanner.nextLine(); // он кушает /n в буфере
-        test = scanner.nextLine();
-        boolean flag = true;
-        Date date = null;
-        while (flag) {
+
+        System.out.print("Enter birthday. Use <<yyyy-MM-dd HH:mm:ss>> pattern\n$ ");
+        scanner.nextLine();
+        Date birthday;
+        String input;
+        while (true) {
+            input = scanner.nextLine().trim();
             try {
-                    date = StringToDateParser.parse(test);
-                    flag = false;
-            } catch (Exception e){
-                System.out.print("Incorrect. Enter the date in format yyyy-MM-dd HH:mm:ss\n$ ");
-                test = scanner.nextLine();
+                if (input.isEmpty()) {
+                    throw new IllegalArgumentException();
+                }
+                birthday = StringToDateParser.parse(input);
+                break;
+            } catch (Exception e) {
+                System.out.print("Invalid date. Please enter a valid date. Use <<yyyy-MM-dd HH:mm:ss>> pattern\n$ ");
             }
         }
-        person.setBirthday(date);
-        System.out.print("Enter passportID \n$ ");
-        String passportId = scanner.next();
-        while(!new PassportIDValidator().validate(passportId)) {
+        person.setBirthday(birthday);
 
-            System.out.print("Incorrect. passportId  must be equal to or greater than 5 \n$ ");
-
-            passportId = scanner.next();
+        System.out.print("Enter passportID of length 5 or more\n$ ");
+        String passportId = scanner.nextLine();
+        while (!new PassportIDValidator().validate(passportId)) {
+            System.out.print("Invalid passportId. Please enter a valid passportId of length 5 or more\n$ ");
+            passportId = scanner.nextLine();
         }
         person.setPassportID(passportId);
-        System.out.println("Choose one of the hair colors");
-        System.out.println(Color.listValues());
-        System.out.print("If you don't want to chose hair color press \"N\"\n$ ");
-        String decision = "N";
-        String str;
-        str = scanner.next();
-        if (!str.toUpperCase().equals("N")){
-            while(!str.toUpperCase().equals("N")) {
-                if (Color.getColorByName(str.toLowerCase()) != null) {
-                    person.setHairColor(Color.getColorByName(str.toLowerCase()));
-                    break;
-                } else {
-                    System.out.print("Your color is null. If you don't want to chose hair color press \"N\"\n$ ");
-                    str = scanner.next();
-                }
-            }
+
+        System.out.print("Choose hair color:\n" + Color.listValues() + "\n" +
+                "Enter anything except color name to skip this operation\n$ ");
+        String str = scanner.nextLine().trim();
+        Color hairColor = null;
+        if (!str.isEmpty()) {
+            hairColor = Color.getColorByName(str.toLowerCase());
         }
-        System.out.println("Creating Location:");
+        person.setHairColor(hairColor);
+
+        System.out.println("Creating Location. Press \"ENTER\" to skip this operation");
         LocationGenerator locationGenerator = new LocationGenerator();
         Location location = locationGenerator.generate();
-        decision = "N";
-        while((!new LocationValidator().validate(location) && decision == "N") || location == null){
-            if (location==null){
-                System.out.println("Your location is null. Would you like to create null location? Type [Y/N]");
-                decision = Decision.decision("Y", "N");
-                if (decision.equalsIgnoreCase("Y"))
-                    break;
-            }
+        while (!new LocationValidator().validate(location)) {
             location = locationGenerator.generate();
         }
         person.setLocation(location);
+
         return person;
     }
+
 }
