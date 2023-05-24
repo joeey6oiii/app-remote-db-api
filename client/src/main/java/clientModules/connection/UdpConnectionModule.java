@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * A class that represents the data transfer datagram connection module.
  */
 
-public class DatagramConnectionModule implements DataTransferConnectionModule {
+public class UdpConnectionModule implements DataTransferConnectionModule {
     private final int PACKET_SIZE = 4096;
     private DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
@@ -32,7 +32,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
      * @param socketAddress the specified server address
      */
 
-    protected DatagramConnectionModule(DatagramChannel datagramChannel, SocketAddress socketAddress) {
+    protected UdpConnectionModule(DatagramChannel datagramChannel, SocketAddress socketAddress) {
         this.datagramChannel = datagramChannel;
         this.socketAddress = socketAddress;
     }
@@ -46,7 +46,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
     }
 
     /**
-     * A method that connects the {@link DatagramConnectionModule} to the server.
+     * A method that connects the {@link UdpConnectionModule} to the server.
      *
      * @throws IOException if failed during I/O operations
      */
@@ -59,7 +59,7 @@ public class DatagramConnectionModule implements DataTransferConnectionModule {
     }
 
     /**
-     * A method that disconnects the {@link DatagramConnectionModule} from the server.
+     * A method that disconnects the {@link UdpConnectionModule} from the server.
      *
      * @throws IOException if failed during I/O operations
      */

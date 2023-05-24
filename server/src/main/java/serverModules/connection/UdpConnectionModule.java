@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import serverModules.callerBack.CallerBack;
 import serverModules.request.data.RequestData;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -16,7 +15,7 @@ import java.net.SocketException;
  * A class that represents the datagram connection module.
  */
 
-public class DatagramConnectionModule implements ConnectionModule {
+public class UdpConnectionModule implements ConnectionModule {
     private static final Logger logger = LogManager.getLogger("logger.ConnectionModule");
     private final DatagramSocket socket;
 
@@ -27,7 +26,7 @@ public class DatagramConnectionModule implements ConnectionModule {
      * @throws SocketException if error happened during socket operations
      */
 
-    protected DatagramConnectionModule(int port) throws SocketException {
+    protected UdpConnectionModule(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
     }
 
