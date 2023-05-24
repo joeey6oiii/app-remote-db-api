@@ -1,7 +1,7 @@
 package main;
 
 import clientModules.connection.DataTransferConnectionModule;
-import clientModules.connection.DatagramConnectionModuleFactory;
+import clientModules.connection.UdpConnectionModuleFactory;
 import clientModules.response.receivers.CommandsReceiver;
 import commandsModule.ClientCommandsKeeper;
 import commandsModule.handler.CommandHandler;
@@ -30,7 +30,7 @@ public class Client {
 
     public static void main(String[] args) {
 
-        DatagramConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
+        UdpConnectionModuleFactory factory = new UdpConnectionModuleFactory();
         try {
             DataTransferConnectionModule module = factory.createConfigureBlocking
                     (new InetSocketAddress(InetAddress.getLocalHost(), PORT), false);

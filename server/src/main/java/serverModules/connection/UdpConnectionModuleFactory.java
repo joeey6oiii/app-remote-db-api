@@ -6,23 +6,23 @@ import org.apache.logging.log4j.Logger;
 import java.net.SocketException;
 
 /**
- * A class that represents a factory of {@link DatagramConnectionModule} objects.
+ * A class that represents a factory of {@link UdpConnectionModule} objects.
  */
 
-public class DatagramConnectionModuleFactory implements ConnectionModuleFactory {
+public class UdpConnectionModuleFactory implements ConnectionModuleFactory {
     private static final Logger logger = LogManager.getLogger("logger.DatagramConnectionModuleFactory");
 
     /**
-     * A method that creates the {@link DatagramConnectionModule} object with the specified port.
+     * A method that creates the {@link UdpConnectionModule} object with the specified port.
      *
      * @param PORT specified port of the server
      * @return server core
      */
 
     @Override
-    public DatagramConnectionModule createConnectionModule(int PORT) {
+    public UdpConnectionModule createConnectionModule(int PORT) {
         try {
-            return new DatagramConnectionModule(PORT);
+            return new UdpConnectionModule(PORT);
         } catch (SocketException e) {
             logger.fatal("Failed to create server core", e);
             System.exit(-99);

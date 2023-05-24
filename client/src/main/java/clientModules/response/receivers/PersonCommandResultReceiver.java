@@ -34,8 +34,7 @@ public class PersonCommandResultReceiver implements CommandReceiver {
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         Person p = new PersonGenerator().generate();
         SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
-        ExecutionResultHandler handler = new ExecutionResultHandler();
-        HashMap<Integer, ExecutionResultResponse> resultResponses = new HashMap<>();
+        HashMap<Integer, ExecutionResultResponse> resultResponses;
         try {
             resultResponses = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
 
@@ -44,15 +43,8 @@ public class PersonCommandResultReceiver implements CommandReceiver {
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-        } catch (ServerUnavailableException e) {
+        } catch (ServerUnavailableException | ResponseTimeoutException e) {
             CommandHandler.getMissedCommands().put(cmd, args);
-        } catch (ResponseTimeoutException e) {
-            if (resultResponses.size() > 0) {
-                System.out.println("Some of the data is missing due to an expired timeout for getting response from the server");
-                handler.handleResponses(resultResponses);
-            } else {
-                CommandHandler.getMissedCommands().put(cmd, args);
-            }
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
         }

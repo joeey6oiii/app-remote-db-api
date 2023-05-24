@@ -32,25 +32,17 @@ public class ExecutionResultReceiver implements CommandReceiver {
     @Override
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        ExecutionResultHandler handler = new ExecutionResultHandler();
-        HashMap<Integer, ExecutionResultResponse> resultResponses = new HashMap<>();
+        HashMap<Integer, ExecutionResultResponse> resultResponses;
         try {
             resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
 
-            handler.handleResponses(resultResponses);
+            new ExecutionResultHandler().handleResponses(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-        } catch (ServerUnavailableException e) {
+        } catch (ServerUnavailableException | ResponseTimeoutException e) {
             CommandHandler.getMissedCommands().put(cmd, args);
-        } catch (ResponseTimeoutException e) {
-            if (resultResponses.size() > 0) {
-                System.out.println("Some of the data is missing due to an expired timeout for getting response from the server");
-                handler.handleResponses(resultResponses);
-            } else {
-                CommandHandler.getMissedCommands().put(cmd, args);
-            }
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
         }

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import requests.Request;
 import serverModules.connection.ConnectionModule;
 import serverModules.connection.ConnectionModuleFactory;
-import serverModules.connection.DatagramConnectionModuleFactory;
+import serverModules.connection.UdpConnectionModuleFactory;
 import serverModules.context.ServerContext;
 import serverModules.request.data.RequestData;
 import serverModules.request.handlers.RequestHandlerManager;
@@ -73,7 +73,7 @@ public class Server {
             logger.info("Continuing execution with an empty database");
         }
 
-        ConnectionModuleFactory factory = new DatagramConnectionModuleFactory();
+        ConnectionModuleFactory factory = new UdpConnectionModuleFactory();
         ConnectionModule module = factory.createConnectionModule(PORT);
         logger.info("Server started");
 
