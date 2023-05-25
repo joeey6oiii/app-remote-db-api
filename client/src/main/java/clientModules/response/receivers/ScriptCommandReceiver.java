@@ -10,6 +10,7 @@ import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import org.apache.commons.io.IOUtils;
 import requests.CommandExecutionRequest;
+import response.responses.ExecutionResultResponse;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,8 +27,8 @@ public class ScriptCommandReceiver implements CommandReceiver {
     public static LinkedList<String> historyOfDangerScript = new LinkedList<>();
 
     /**
-     * A method that receives the simplified "execute_script" command, parse file, sends request to a server,
-     * gets response and calls the {@link ExecutionResultHandler} method.
+     * A method that receives the simplified "execute_script" command, parses file, sends request to a server,
+     * gets response and calls the {@link ExecutionResultHandler#handleResponse(ExecutionResultResponse)} method.
      * After, iterates through <code>String[]</code> of commands from the parsed file
      * and calls the {@link CommandManager#manageCommand(CommandDescription, String[], DataTransferConnectionModule)} method.
      * Stores "history of danger scripts" collection to avoid looping
@@ -56,7 +57,7 @@ public class ScriptCommandReceiver implements CommandReceiver {
             String[] splitStr;
             var a = contents.split("\n");
             try {
-                new ExecutionResultHandler().handleResponses(new CommandExecutionRequestSender()
+                new ExecutionResultHandler().handleResponse(new CommandExecutionRequestSender()
                         .sendRequest(module, new CommandExecutionRequest(cmd, args)));
             } catch (ServerUnavailableException | ResponseTimeoutException e) {
                 CommandHandler.getMissedCommands().put(cmd, args);
@@ -84,4 +85,5 @@ public class ScriptCommandReceiver implements CommandReceiver {
         }
         historyOfDangerScript.clear();
     }
+
 }

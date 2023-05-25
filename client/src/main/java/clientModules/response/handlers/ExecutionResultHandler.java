@@ -1,8 +1,6 @@
 package clientModules.response.handlers;
 
-import responses.ExecutionResultResponse;
-
-import java.util.HashMap;
+import response.responses.ExecutionResultResponse;
 
 /**
  * A class that works with the command execution result response.
@@ -11,19 +9,14 @@ import java.util.HashMap;
 public class ExecutionResultHandler implements ResponseHandler<ExecutionResultResponse> {
 
     /**
-     * A method that handles the command execution result responses and outputs the result.
+     * A method that handles the command execution result response and outputs the result.
      *
-     * @param responses the received responses map
+     * @param response the received response
      */
 
     @Override
-    public void handleResponses(HashMap<Integer, ExecutionResultResponse> responses) {
-        int totalResponsesAmount = responses.get(-1).getTotalResponsesAmount();
-        ExecutionResultResponse lastResultResponse = responses.get(-1);
-        for (int i = 1; i <= totalResponsesAmount - 1; i++) {
-            ExecutionResultResponse resultResponse = responses.get(i);
-            System.out.print(resultResponse.getResult());
-        }
-        System.out.print(lastResultResponse.getResult() + "\n");
+    public void handleResponse(ExecutionResultResponse response) {
+        System.out.println(response.getResult());
     }
+
 }

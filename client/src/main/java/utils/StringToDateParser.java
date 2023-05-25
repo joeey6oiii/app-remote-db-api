@@ -1,4 +1,4 @@
-package parsers;
+package utils;
 
 /**
  * A class with help parse method.

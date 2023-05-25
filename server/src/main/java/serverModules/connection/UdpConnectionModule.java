@@ -4,12 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import serverModules.callerBack.CallerBack;
 import serverModules.request.data.RequestData;
+import utility.UdpDataTransferUtilities;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
 
 /**
  * A class that represents the datagram connection module.
@@ -17,6 +15,7 @@ import java.net.SocketException;
 
 public class UdpConnectionModule implements ConnectionModule {
     private static final Logger logger = LogManager.getLogger("logger.ConnectionModule");
+    private final int PACKET_SIZE = UdpDataTransferUtilities.PACKET_SIZE.getPacketSizeValue();
     private final DatagramSocket socket;
 
     /**
@@ -39,10 +38,9 @@ public class UdpConnectionModule implements ConnectionModule {
 
     @Override
     public RequestData receiveData() {
-        int BYTE_SIZE = 4096;
-        byte[] bytes = new byte[BYTE_SIZE];
+        byte[] bytes = new byte[PACKET_SIZE];
         try {
-            DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+            DatagramPacket packet = new DatagramPacket(bytes, PACKET_SIZE);
             socket.receive(packet);
             logger.debug("Received data");
 
@@ -64,7 +62,13 @@ public class UdpConnectionModule implements ConnectionModule {
     @Override
     public void sendData(byte[] data, InetAddress address, int port) {
         try {
-            socket.send(new DatagramPacket(data, data.length, address, port));
+            if (data.length < PACKET_SIZE) {
+                socket.send(new DatagramPacket(data, data.length, address, port));
+            } else if (data.length == PACKET_SIZE) {
+                socket.send(new DatagramPacket(data, PACKET_SIZE, address, port));
+            } else {
+                throw new IOException("Unexpected error: byte[] size is larger than packet size");
+            }
             logger.debug("Data sent");
         } catch (IOException e) {
             logger.error("Something went wrong during data sending", e);

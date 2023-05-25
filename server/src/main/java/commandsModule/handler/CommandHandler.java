@@ -5,7 +5,7 @@ import commandsModule.commands.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import requests.CommandExecutionRequest;
-import responses.ExecutionResultResponse;
+import response.responses.ExecutionResultResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 import serverModules.response.sender.ExecutionResultResponseSender;
@@ -93,64 +93,33 @@ public class CommandHandler {
      */
 
     public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
-        StringBuilder response = new StringBuilder();
-        StringBuilder chunk = new StringBuilder();
-        ExecutionResultResponseSender sender = new ExecutionResultResponseSender();
+        String response;
         try {
             BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand());
             if (command instanceof ParameterizedCommand parameterizedCommand) {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();
-                response.append(parameterizedCommand.getResponse());
+                response = parameterizedCommand.getResponse();
             } else {
                 command.execute();
-                response.append(command.getResponse());
+                response = command.getResponse();
             }
             history.add(command);
         } catch (IllegalArgumentException | NullPointerException e) {
-            response.append("Command has invalid argument(s)");
-            logger.fatal(response.toString(), e);
+            response = "Command has invalid argument(s)";
+            logger.fatal(response, e);
         } catch (IndexOutOfBoundsException e) {
-            response.append("Command has invalid number of arguments");
-            logger.fatal(response.toString(), e);
+            response = "Command has invalid number of arguments";
+            logger.fatal(response, e);
         } catch (IOException e) {
-            response.append("Something went wrong during I/O operations");
-            logger.fatal(response.toString(), e);
+            response = "Something went wrong during I/O operations";
+            logger.fatal(response, e);
         } catch (Exception e) {
-            response.append("Unexpected error happened during command execution");
-            logger.fatal(response.toString(), e);
+            response = "Unexpected error happened during command execution";
+            logger.fatal(response, e);
         }
 
-        int maxPacketSize = 2048;
-        int chunkNumber = 1;
-        int totalChunks = (int) Math.ceil(response.length() / (double) maxPacketSize);
-        int currentResponseNumber = 1;
-        
-        while (response.length() > 0) {
-            if (response.length() <= maxPacketSize) {
-                chunk.append(response);
-                response.setLength(0);
-            } else {
-                chunk.append(response.substring(0, maxPacketSize));
-                response.delete(0, maxPacketSize);
-            }
-
-            ExecutionResultResponse resultResponse;
-            if (chunkNumber == 1 && totalChunks <= 1) {
-                resultResponse = new ExecutionResultResponse(new String(chunk));
-            } else if (chunkNumber == totalChunks) {
-                resultResponse = new ExecutionResultResponse(new String(chunk), -1, totalChunks);
-            } else {
-                resultResponse = new ExecutionResultResponse(new String(chunk), currentResponseNumber, totalChunks);
-            }
-            chunk.delete(0, chunk.length());
-
-            sender.sendResponse(module, callerBack, resultResponse);
-
-            chunkNumber++;
-            currentResponseNumber++;
-        }
-
+        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
     }
 
 }

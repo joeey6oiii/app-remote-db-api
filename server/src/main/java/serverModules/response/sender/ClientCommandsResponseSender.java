@@ -1,7 +1,7 @@
 package serverModules.response.sender;
 
-import responses.ClientCommandsResponse;
-import responses.Response;
+import response.responses.ClientCommandsResponse;
+import response.responses.Response;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 
@@ -23,4 +23,5 @@ public class ClientCommandsResponseSender implements ResponseAble<ClientCommands
     public void sendResponse(ConnectionModule module, CallerBack callerBack, ClientCommandsResponse response) {
         new ResponseSender().sendResponse(module, callerBack, response);
     }
+
 }

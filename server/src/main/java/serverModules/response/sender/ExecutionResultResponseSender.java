@@ -1,7 +1,7 @@
 package serverModules.response.sender;
 
-import responses.ExecutionResultResponse;
-import responses.Response;
+import response.responses.ExecutionResultResponse;
+import response.responses.Response;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 

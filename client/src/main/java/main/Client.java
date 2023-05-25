@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.nio.BufferOverflowException;
 import java.util.Scanner;
 
 /**
@@ -43,8 +44,7 @@ public class Client {
             while (!receivedCommands) {
                 System.out.println("Trying to receive commands...");
                 try {
-                    new CommandsReceiver().receiveCommands(module);
-                    receivedCommands = true;
+                    receivedCommands = new CommandsReceiver().receiveCommands(module);
                 } catch (ServerUnavailableException | ResponseTimeoutException | IOException e) {
                     Thread.sleep(timeout);
                 }
@@ -55,11 +55,12 @@ public class Client {
 
             System.out.println("Console input allowed");
             handler.startHandling();
-
         } catch (UnknownHostException e) {
             System.out.println("Could not find host");
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
+        } catch (BufferOverflowException e) {
+            System.out.println("Unexpected error: byte[] size is larger than allocated size in buffer");
         } catch (Exception e) {
             System.out.println("Unexpected error happened during client operations");
         }
