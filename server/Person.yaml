@@ -569,3 +569,14 @@
   passportID: "21345678"
   hairColor: "RED"
   location: null
+- id: 43
+  name: "test 3 "
+  coordinates:
+    x: 435
+    "y": 8767
+  creationDate: "2023-05-25T11:51:35.190+00:00"
+  height: 4
+  birthday: "2005-10-11T12:26:30.000+00:00"
+  passportID: "programming on java is fucking hell"
+  hairColor: "BLACK"
+  location: null

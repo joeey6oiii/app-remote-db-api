@@ -11,6 +11,7 @@ import requests.CommandExecutionRequest;
 import response.responses.ExecutionResultResponse;
 
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.util.Scanner;
 
 /**
@@ -50,10 +51,10 @@ public class ExitCommandReceiver implements CommandReceiver {
             new ExitCommandHandler().handleResponse(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
+        } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
+            CommandHandler.getMissedCommands().put(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-        } catch (ServerUnavailableException | ResponseTimeoutException e) {
-            CommandHandler.getMissedCommands().put(cmd, args);
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
         }

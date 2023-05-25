@@ -13,6 +13,7 @@ import requests.SingleArgumentCommandExecutionRequest;
 import response.responses.ExecutionResultResponse;
 
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 
 /**
  * A class that represents the person single argument command execution result receiver.
@@ -40,10 +41,10 @@ public class PersonCommandResultReceiver implements CommandReceiver {
             new ExecutionResultHandler().handleResponse(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
+        } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
+            CommandHandler.getMissedCommands().put(cmd, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
-        } catch (ServerUnavailableException | ResponseTimeoutException e) {
-            CommandHandler.getMissedCommands().put(cmd, args);
         } catch (NullPointerException e) {
             System.out.println("Unexpected error: Empty response received");
         }

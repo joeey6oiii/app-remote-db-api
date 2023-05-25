@@ -44,24 +44,21 @@ public class RequestSender implements RequestAble<Response, Request> {
         try {
             module.sendData(os.serialize(request));
 
-            while (true) {
+            do {
                 byte[] data = module.receiveData();
                 header = headerParser.parseHeader(data);
                 byte[] partOfResponseData = responseDataParser.extractResponseData(data);
 
                 chunks.put(header.getPacketIndex(), partOfResponseData);
 
-                if (data.length < UdpDataTransferUtilities.PACKET_SIZE.getPacketSizeValue()) {
-                    break;
-                }
-            }
+            } while (header.getPacketIndex() != -1);
 
             byte[] responseData = new ResponseAssembler().combineResponseParts(chunks);
             response = new ResponseReader().readResponse(responseData);
         } catch (IllegalArgumentException e) {
-            System.out.println("Unexpected error: Response part is missing");
+            System.out.println("Response part is missing");
         } catch (ClassNotFoundException e) {
-            System.out.println("Unexpected error: Could not find response class");
+            System.out.println("Could not find response class");
         }
 
         return response;

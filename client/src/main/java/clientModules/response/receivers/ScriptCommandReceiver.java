@@ -12,10 +12,7 @@ import org.apache.commons.io.IOUtils;
 import requests.CommandExecutionRequest;
 import response.responses.ExecutionResultResponse;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
@@ -59,7 +56,7 @@ public class ScriptCommandReceiver implements CommandReceiver {
             try {
                 new ExecutionResultHandler().handleResponse(new CommandExecutionRequestSender()
                         .sendRequest(module, new CommandExecutionRequest(cmd, args)));
-            } catch (ServerUnavailableException | ResponseTimeoutException e) {
+            } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
                 CommandHandler.getMissedCommands().put(cmd, args);
                 return;
             } catch (NullPointerException e) {
