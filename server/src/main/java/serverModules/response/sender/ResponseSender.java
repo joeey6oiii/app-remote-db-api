@@ -45,8 +45,9 @@ public class ResponseSender implements ResponseAble<Response> {
                     byte[] headerData = os.serialize(header);
                     int headerDataLength = headerData.length;
 
+                    int freeSpace = maxPacketSize - headerDataLength - 1;
                     int remainingData = data.length - offset;
-                    int length = Math.min(maxPacketSize - headerDataLength - 1, remainingData);
+                    int length = Math.min(freeSpace, remainingData);
 
                     byte[] packet = new byte[length + headerDataLength + 1];
                     packet[0] = (byte) headerDataLength;
