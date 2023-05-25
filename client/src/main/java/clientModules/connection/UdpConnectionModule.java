@@ -2,6 +2,7 @@ package clientModules.connection;
 
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
+import utility.UdpDataTransferUtilities;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 
 public class UdpConnectionModule implements DataTransferConnectionModule {
-    private final int PACKET_SIZE = 4096;
+    private final int PACKET_SIZE = UdpDataTransferUtilities.PACKET_SIZE.getPacketSizeValue();
     private DatagramChannel datagramChannel;
     private final SocketAddress socketAddress;
 
@@ -86,7 +87,7 @@ public class UdpConnectionModule implements DataTransferConnectionModule {
 
     @Override
     public void sendData(byte[] data) throws IOException, ServerUnavailableException {
-        ByteBuffer buffer = ByteBuffer.allocate(data.length);
+        ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
         buffer.put(data);
         buffer.flip();
 

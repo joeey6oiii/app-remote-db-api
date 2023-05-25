@@ -10,10 +10,9 @@ import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import generators.PersonGenerator;
 import requests.SingleArgumentCommandExecutionRequest;
-import responses.ExecutionResultResponse;
+import response.responses.ExecutionResultResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * A class that represents the person single argument command execution result receiver.
@@ -23,7 +22,7 @@ public class PersonCommandResultReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified uncommon argument command, sends request to a server, gets response
-     * and calls the {@link ExecutionResultHandler} method.
+     * and calls the {@link ExecutionResultHandler#handleResponse(ExecutionResultResponse)} method.
      *
      * @param cmd simplified command
      * @param args simplified command arguments
@@ -34,11 +33,11 @@ public class PersonCommandResultReceiver implements CommandReceiver {
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         Person p = new PersonGenerator().generate();
         SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
-        HashMap<Integer, ExecutionResultResponse> resultResponses;
+        ExecutionResultResponse resultResponses;
         try {
             resultResponses = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
 
-            new ExecutionResultHandler().handleResponses(resultResponses);
+            new ExecutionResultHandler().handleResponse(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {
@@ -49,4 +48,5 @@ public class PersonCommandResultReceiver implements CommandReceiver {
             System.out.println("Unexpected error: Empty response received");
         }
     }
+
 }

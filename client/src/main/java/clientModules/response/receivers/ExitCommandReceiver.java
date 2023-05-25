@@ -8,10 +8,9 @@ import commandsModule.handler.CommandHandler;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
-import responses.ExecutionResultResponse;
+import response.responses.ExecutionResultResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -22,7 +21,7 @@ public class ExitCommandReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified "exit" command, sends request to a server,
-     * gets responses and calls the {@link ExitCommandHandler#handleResponses(java.util.HashMap)} method.
+     * gets response and calls the {@link ExitCommandHandler#handleResponse(ExecutionResultResponse)})} method.
      *
      * @param cmd simplified command
      * @param args simplified command arguments
@@ -44,11 +43,11 @@ public class ExitCommandReceiver implements CommandReceiver {
             }
         }
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        HashMap<Integer, ExecutionResultResponse> resultResponses;
+        ExecutionResultResponse resultResponses;
         try {
             resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
 
-            new ExitCommandHandler().handleResponses(resultResponses);
+            new ExitCommandHandler().handleResponse(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {

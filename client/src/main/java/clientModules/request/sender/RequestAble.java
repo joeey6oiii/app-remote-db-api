@@ -3,6 +3,7 @@ package clientModules.request.sender;
 import clientModules.connection.DataTransferConnectionModule;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
+import response.responses.Response;
 
 import java.io.IOException;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
  * @param <T> concrete response
  */
 
-public interface RequestAble<T, V> {
+public interface RequestAble<T extends Response, V> {
 
     /**
      * A method that sends a request of a T type to the server.

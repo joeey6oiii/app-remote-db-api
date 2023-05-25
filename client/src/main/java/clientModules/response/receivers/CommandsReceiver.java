@@ -6,9 +6,9 @@ import clientModules.response.handlers.ClientCommandsHandler;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.ClientCommandsRequest;
+import response.responses.ClientCommandsResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * A class that represents the commands' receiver.
@@ -17,8 +17,8 @@ import java.util.HashMap;
 public class CommandsReceiver {
 
     /**
-     * A method that gets simplified commands responses and calls the
-     * {@link ClientCommandsHandler#handleResponses(HashMap)} method.
+     * A method that gets simplified commands response and calls the
+     * {@link ClientCommandsHandler#handleResponse(ClientCommandsResponse)})} method.
      *
      * @param module client core
      * @throws ServerUnavailableException if the server was unavailable during sending and receiving operations
@@ -26,8 +26,13 @@ public class CommandsReceiver {
      * @throws ResponseTimeoutException if client could not get response from the server during the given time
      */
 
-    public void receiveCommands(DataTransferConnectionModule module) throws ServerUnavailableException, IOException, ResponseTimeoutException {
-        new ClientCommandsHandler().handleResponses(new CommandsRequestSender().sendRequest(module, new ClientCommandsRequest()));
+    public boolean receiveCommands(DataTransferConnectionModule module) throws ServerUnavailableException, IOException, ResponseTimeoutException {
+        try {
+            new ClientCommandsHandler().handleResponse(new CommandsRequestSender().sendRequest(module, new ClientCommandsRequest()));
+            return true;
+        } catch (NullPointerException e) {
+            throw new IOException("Unexpected error: Empty response received");
+        }
     }
 
 }

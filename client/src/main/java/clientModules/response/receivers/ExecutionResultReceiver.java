@@ -8,10 +8,9 @@ import commandsModule.handler.CommandHandler;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
-import responses.ExecutionResultResponse;
+import response.responses.ExecutionResultResponse;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * A class that represents the command execution result receiver.
@@ -20,9 +19,8 @@ import java.util.HashMap;
 public class ExecutionResultReceiver implements CommandReceiver {
 
     /**
-     * A method
-     * that receives the simplified command, sends request to a server,
-     * gets response and calls the {@link ExecutionResultHandler#handleResponses(HashMap)} method.
+     * A method that receives the simplified command, sends request to a server, gets response and
+     * calls the {@link ExecutionResultHandler#handleResponse(ExecutionResultResponse)} method.
      *
      * @param cmd simplified command
      * @param args simplified command arguments
@@ -32,11 +30,11 @@ public class ExecutionResultReceiver implements CommandReceiver {
     @Override
     public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
         CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        HashMap<Integer, ExecutionResultResponse> resultResponses;
+        ExecutionResultResponse resultResponses;
         try {
             resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
 
-            new ExecutionResultHandler().handleResponses(resultResponses);
+            new ExecutionResultHandler().handleResponse(resultResponses);
 
             CommandHandler.getMissedCommands().remove(cmd, args);
         } catch (IOException e) {

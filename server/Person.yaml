@@ -544,3 +544,28 @@
   passportID: "sdfghjk"
   hairColor: "PURPLE"
   location: null
+- id: 41
+  name: "new test"
+  coordinates:
+    x: 1300
+    "y": 1148
+  creationDate: "2023-05-25T01:49:33.815+00:00"
+  height: 4
+  birthday: "2003-03-03T00:03:03.000+00:00"
+  passportID: "03030303"
+  hairColor: "GREEN"
+  location:
+    x: 122.0
+    "y": 32
+    name: null
+- id: 42
+  name: "tes2"
+  coordinates:
+    x: 3243
+    "y": 6453
+  creationDate: "2023-05-25T01:58:16.094+00:00"
+  height: 4
+  birthday: "2005-05-05T01:05:05.000+00:00"
+  passportID: "21345678"
+  hairColor: "RED"
+  location: null

@@ -3,6 +3,7 @@ package serverModules.connection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.BindException;
 import java.net.SocketException;
 
 /**

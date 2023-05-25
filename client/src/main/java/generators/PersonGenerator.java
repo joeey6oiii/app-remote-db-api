@@ -4,7 +4,7 @@ import defaultClasses.Color;
 import defaultClasses.Coordinates;
 import defaultClasses.Location;
 import defaultClasses.Person;
-import parsers.StringToDateParser;
+import utils.StringToDateParser;
 import validators.*;
 
 import java.util.Date;

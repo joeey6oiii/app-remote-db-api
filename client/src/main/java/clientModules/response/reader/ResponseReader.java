@@ -1,7 +1,7 @@
 package clientModules.response.reader;
 
 import exceptions.ServerUnavailableException;
-import responses.Response;
+import response.responses.Response;
 import serializer.ObjectSerializer;
 
 import java.io.IOException;

@@ -16,6 +16,7 @@ import serverModules.request.reader.RequestReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,13 @@ public class Server {
         }
 
         ConnectionModuleFactory factory = new UdpConnectionModuleFactory();
-        ConnectionModule module = factory.createConnectionModule(PORT);
+        ConnectionModule module = null;
+        try {
+            module = factory.createConnectionModule(PORT);
+        } catch (SocketException e) {
+            logger.fatal("There was a problem while creating the server core. Can not start new server", e);
+            System.exit(-99);
+        }
         logger.info("Server started");
 
         while (true) {
@@ -97,4 +104,5 @@ public class Server {
             }
         }
     }
+
 }
