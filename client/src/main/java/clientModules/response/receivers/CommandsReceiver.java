@@ -31,7 +31,7 @@ public class CommandsReceiver {
             new ClientCommandsHandler().handleResponse(new CommandsRequestSender().sendRequest(module, new ClientCommandsRequest()));
             return true;
         } catch (NullPointerException e) {
-            throw new IOException("Unexpected error: Empty response received");
+            throw new IOException("Empty response received");
         }
     }
 

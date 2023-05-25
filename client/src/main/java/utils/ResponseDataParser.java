@@ -1,5 +1,7 @@
 package utils;
 
+import utility.UdpDataTransferUtilities;
+
 /**
  * A class that represents response data parser.
  */
@@ -17,6 +19,11 @@ public class ResponseDataParser {
     public byte[] extractResponseData(byte[] data) {
         int headerSize = data[0];
         int responseDataSize = data.length - headerSize - 1;
+
+        if (responseDataSize <= 0) {
+            return new byte[0];
+        }
+
         byte[] responseData = new byte[responseDataSize];
         System.arraycopy(data, headerSize + 1, responseData, 0, responseDataSize);
 

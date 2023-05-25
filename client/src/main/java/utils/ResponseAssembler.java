@@ -25,14 +25,21 @@ public class ResponseAssembler {
         byte[] combinedResponse = new byte[totalSize];
 
         int offset = 0;
-        for (int i = 0; i < responseParts.size(); i++) {
-            byte[] part = responseParts.get(i);
-            if (part != null) {
-                System.arraycopy(part, 0, combinedResponse, offset, part.length);
-                offset += part.length;
-            } else {
-                throw new IllegalArgumentException("Response part is missing for index: " + i);
+        if (responseParts.size() > 1) {
+            for (int i = 0; i < responseParts.size() - 1; i++) {
+                byte[] part = responseParts.get(i);
+                if (part != null) {
+                    System.arraycopy(part, 0, combinedResponse, offset, part.length);
+                    offset += part.length;
+                } else {
+                    throw new IllegalArgumentException("Response part is missing for index " + i);
+                }
             }
+        }
+
+        byte[] lastPart = responseParts.get(-1);
+        if (lastPart != null) {
+            System.arraycopy(lastPart, 0, combinedResponse, offset, lastPart.length);
         }
 
         return combinedResponse;

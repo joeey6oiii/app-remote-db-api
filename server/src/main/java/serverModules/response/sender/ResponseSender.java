@@ -29,7 +29,7 @@ public class ResponseSender implements ResponseAble<Response> {
      */
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, Response response) {
+    public void sendResponse(ConnectionModule module, CallerBack callerBack, Response response) throws IllegalArgumentException {
         if (response != null) {
             ObjectSerializer os = new ObjectSerializer();
             final InetAddress address = callerBack.getAddress();
@@ -45,6 +45,10 @@ public class ResponseSender implements ResponseAble<Response> {
                     byte[] headerData = os.serialize(header);
                     int headerDataLength = headerData.length;
 
+                    if (headerDataLength >= maxPacketSize - 1) {
+                        throw new IllegalArgumentException("Header data size is larger than max packet size");
+                    }
+
                     int freeSpace = maxPacketSize - headerDataLength - 1;
                     int remainingData = data.length - offset;
                     int length = Math.min(freeSpace, remainingData);
@@ -59,6 +63,20 @@ public class ResponseSender implements ResponseAble<Response> {
                     packetIndex++;
                     offset += length;
                 }
+
+                FragmentHeader header = new FragmentHeader(-1);
+                byte[] headerData = os.serialize(header);
+                int headerDataLength = headerData.length;
+
+                if (headerDataLength >= maxPacketSize - 1) {
+                    throw new IllegalArgumentException("Header data size is larger than max packet size");
+                }
+
+                byte[] noDataNotification = new byte[headerDataLength + 1];
+                noDataNotification[0] = (byte) headerDataLength;
+                System.arraycopy(headerData, 0, noDataNotification, 1, headerDataLength);
+
+                module.sendData(noDataNotification, address, port);
             } catch (Exception e) {
                 logger.fatal("Something went wrong during I/O operations", e);
             }
