@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 
-public class LocationGenerator implements Generate {
+public class LocationGenerator implements GenerateAble {
 
     /**
      * Method that creates an object of class Location.
@@ -19,18 +19,18 @@ public class LocationGenerator implements Generate {
      */
 
     public Location generate() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner consoleInputReader = new Scanner(System.in);
         Location location = new Location();
-        String input;
+        String consoleInput;
 
         System.out.print("Enter X coordinate\n$ ");
         while (true) {
             try {
-                input = scanner.nextLine();
-                if (input.isEmpty()) {
+                consoleInput = consoleInputReader.nextLine();
+                if (consoleInput.isEmpty()) {
                     return null;
                 } else {
-                    Float x = Float.parseFloat(input);
+                    Float x = Float.parseFloat(consoleInput);
                     location.setX(x);
                     break;
                 }
@@ -42,11 +42,11 @@ public class LocationGenerator implements Generate {
         System.out.print("Enter Y coordinate\n$ ");
         while (true) {
             try {
-                input = scanner.nextLine();
-                if (input.isEmpty()) {
+                consoleInput = consoleInputReader.nextLine();
+                if (consoleInput.isEmpty()) {
                     return null;
                 } else {
-                    Integer y = Integer.parseInt(input);
+                    Integer y = Integer.parseInt(consoleInput);
                     location.setY(y);
                     break;
                 }
@@ -56,7 +56,7 @@ public class LocationGenerator implements Generate {
         }
 
         System.out.print("Enter name. Press \"ENTER\" to skip this operation\n$ ");
-        String name = scanner.nextLine();
+        String name = consoleInputReader.nextLine();
         if (name.isEmpty()) {
             location.setName(null);
         } else {

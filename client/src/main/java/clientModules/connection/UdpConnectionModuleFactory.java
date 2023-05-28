@@ -22,7 +22,7 @@ public class UdpConnectionModuleFactory implements DataTransferConnectionModuleF
         try {
             return new UdpConnectionModule(DatagramChannel.open(), address);
         } catch (IOException e) {
-            System.out.println("Unexpected event: Unable to create client connection core");
+            System.out.println("Unable to create client connection core");
             System.exit(-99);
         }
         return null;
@@ -44,7 +44,7 @@ public class UdpConnectionModuleFactory implements DataTransferConnectionModuleF
             datagramChannel.configureBlocking(isBlocking);
             return new UdpConnectionModule(datagramChannel, address);
         } catch (IOException e) {
-            System.out.println("Unexpected event: Unable to create client connection core");
+            System.out.println("Unable to create client connection core");
             System.exit(-99);
         }
         return null;
@@ -64,7 +64,7 @@ public class UdpConnectionModuleFactory implements DataTransferConnectionModuleF
                     module.getDatagramChannel().configureBlocking(isBlocking);
             }
         } catch (IOException e) {
-            System.out.println("Unexpected event: Unable to configure client connection core");
+            System.out.println("Unable to configure client connection core");
             System.exit(-99);
         }
     }

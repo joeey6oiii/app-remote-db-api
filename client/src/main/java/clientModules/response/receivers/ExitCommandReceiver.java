@@ -8,7 +8,7 @@ import commandsModule.handler.CommandHandler;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -22,41 +22,42 @@ public class ExitCommandReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified "exit" command, sends request to a server,
-     * gets response and calls the {@link ExitCommandHandler#handleResponse(ExecutionResultResponse)})} method.
+     * gets response and calls the {@link ExitCommandHandler#handleResponse(CommandExecutionResponse)})} method.
      *
-     * @param cmd simplified command
+     * @param command simplified command
      * @param args simplified command arguments
-     * @param module client core
+     * @param dataTransferConnectionModule client core
      */
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
-        System.out.println("Are you sure you want to exit? [Y/N]");
-        Scanner scanner = new Scanner(System.in);
-        String str = "";
-        while (!str.equalsIgnoreCase("Y")) {
-            System.out.print("$ ");
-            str = scanner.nextLine();
-            if (str.equalsIgnoreCase("N")) {
+    public void receiveCommand(CommandDescription command, String[] args, DataTransferConnectionModule dataTransferConnectionModule) {
+        System.out.print("Are you sure you want to exit? [Y/N]\n$ ");
+        Scanner consoleInputReader = new Scanner(System.in);
+        String consoleInput;
+
+        while (!(consoleInput = consoleInputReader.nextLine()).equalsIgnoreCase("Y")) {
+            if (consoleInput.equalsIgnoreCase("N")) {
                 System.out.println("Returning to the console input");
-                CommandHandler.getMissedCommands().remove(cmd, args);
+                CommandHandler.getMissedCommands().remove(command, args);
                 return;
             }
+            System.out.print("$ ");
         }
-        CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        ExecutionResultResponse resultResponses;
+
+        CommandExecutionRequest commandRequest = new CommandExecutionRequest(command, args);
+        CommandExecutionResponse executionResponse;
         try {
-            resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
+            executionResponse = new CommandExecutionRequestSender().sendRequest(dataTransferConnectionModule, commandRequest);
 
-            new ExitCommandHandler().handleResponse(resultResponses);
+            new ExitCommandHandler().handleResponse(executionResponse);
 
-            CommandHandler.getMissedCommands().remove(cmd, args);
+            CommandHandler.getMissedCommands().remove(command, args);
         } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
-            CommandHandler.getMissedCommands().put(cmd, args);
+            CommandHandler.getMissedCommands().put(command, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
         } catch (NullPointerException e) {
-            System.out.println("Unexpected error: Empty response received");
+            System.out.println("Empty response received");
         }
     }
 

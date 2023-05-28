@@ -5,7 +5,7 @@ import commandsModule.commands.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import requests.CommandExecutionRequest;
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 import serverModules.response.sender.ExecutionResultResponseSender;
@@ -119,7 +119,7 @@ public class CommandHandler {
             logger.fatal(response, e);
         }
 
-        new ExecutionResultResponseSender().sendResponse(module, callerBack, new ExecutionResultResponse(response));
+        new ExecutionResultResponseSender().sendResponse(module, callerBack, new CommandExecutionResponse(response));
     }
 
 }

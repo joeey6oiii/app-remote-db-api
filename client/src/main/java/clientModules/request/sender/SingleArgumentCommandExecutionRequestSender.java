@@ -5,7 +5,7 @@ import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.Request;
 import requests.SingleArgumentCommandExecutionRequest;
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import java.io.IOException;
  * A class that represents the single argument command execution request sender.
  */
 
-public class SingleArgumentCommandExecutionRequestSender implements RequestAble<ExecutionResultResponse, SingleArgumentCommandExecutionRequest<?>> {
+public class SingleArgumentCommandExecutionRequestSender implements RequestAble<CommandExecutionResponse, SingleArgumentCommandExecutionRequest<?>> {
 
     /**
      * A method that calls {@link RequestSender#sendRequest(DataTransferConnectionModule, Request)} method.
@@ -26,8 +26,8 @@ public class SingleArgumentCommandExecutionRequestSender implements RequestAble<
      */
 
     @Override
-    public ExecutionResultResponse sendRequest(DataTransferConnectionModule module, SingleArgumentCommandExecutionRequest<?> request) throws IOException, ServerUnavailableException, ResponseTimeoutException {
-        return (ExecutionResultResponse) new RequestSender().sendRequest(module, request);
+    public CommandExecutionResponse sendRequest(DataTransferConnectionModule module, SingleArgumentCommandExecutionRequest<?> request) throws IOException, ServerUnavailableException, ResponseTimeoutException {
+        return (CommandExecutionResponse) new RequestSender().sendRequest(module, request);
     }
 
 }

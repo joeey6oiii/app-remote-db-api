@@ -16,6 +16,7 @@ public class StringToDateParser {
 
     public static java.util.Date parse(String str) throws java.text.ParseException {
         java.text.DateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         return formatter.parse(str);
     }
 }

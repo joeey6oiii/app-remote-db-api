@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 
-public class CoordinatesGenerator implements Generate {
+public class CoordinatesGenerator implements GenerateAble {
 
     /**
      * Method that creates an object of class Coordinates.
@@ -19,19 +19,23 @@ public class CoordinatesGenerator implements Generate {
      */
 
     public Coordinates generate() {
+        Coordinates coordinates;
         try {
-            Coordinates coordinates = new Coordinates();
-            Scanner scanner = new Scanner(System.in);
+            coordinates = new Coordinates();
+            Scanner consoleInputReader = new Scanner(System.in);
+
             System.out.print("Enter X coordinate\n$ ");
-            long x = Long.parseLong(scanner.nextLine());
+            long x = Long.parseLong(consoleInputReader.nextLine());
             coordinates.setX(x);
+
             System.out.print("Enter Y coordinate\n$ ");
-            int y = Integer.parseInt(scanner.nextLine());
+            int y = Integer.parseInt(consoleInputReader.nextLine());
             coordinates.setY(y);
-            return coordinates;
         } catch (Exception e) {
             return null;
         }
+
+        return coordinates;
     }
 
 }

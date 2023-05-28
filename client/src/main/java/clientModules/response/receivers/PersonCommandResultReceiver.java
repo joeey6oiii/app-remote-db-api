@@ -10,7 +10,7 @@ import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import generators.PersonGenerator;
 import requests.SingleArgumentCommandExecutionRequest;
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -23,30 +23,31 @@ public class PersonCommandResultReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified uncommon argument command, sends request to a server, gets response
-     * and calls the {@link ExecutionResultHandler#handleResponse(ExecutionResultResponse)} method.
+     * and calls the {@link ExecutionResultHandler#handleResponse(CommandExecutionResponse)} method.
      *
-     * @param cmd simplified command
+     * @param command simplified command
      * @param args simplified command arguments
-     * @param module client core
+     * @param dataTransferConnectionModule client core
      */
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
-        Person p = new PersonGenerator().generate();
-        SingleArgumentCommandExecutionRequest<Person> request = new SingleArgumentCommandExecutionRequest<>(cmd, args, p);
-        ExecutionResultResponse resultResponses;
+    public void receiveCommand(CommandDescription command, String[] args, DataTransferConnectionModule dataTransferConnectionModule) {
+        Person generatedPerson = new PersonGenerator().generate();
+
+        SingleArgumentCommandExecutionRequest<Person> commandRequest = new SingleArgumentCommandExecutionRequest<>(command, args, generatedPerson);
+        CommandExecutionResponse executionResponse;
         try {
-            resultResponses = new SingleArgumentCommandExecutionRequestSender().sendRequest(module, request);
+            executionResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(dataTransferConnectionModule, commandRequest);
 
-            new ExecutionResultHandler().handleResponse(resultResponses);
+            new ExecutionResultHandler().handleResponse(executionResponse);
 
-            CommandHandler.getMissedCommands().remove(cmd, args);
+            CommandHandler.getMissedCommands().remove(command, args);
         } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
-            CommandHandler.getMissedCommands().put(cmd, args);
+            CommandHandler.getMissedCommands().put(command, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
         } catch (NullPointerException e) {
-            System.out.println("Unexpected error: Empty response received");
+            System.out.println("Empty response received");
         }
     }
 

@@ -1,12 +1,12 @@
 package clientModules.response.handlers;
 
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 /**
  * A class that works with the command execution result response.
  */
 
-public class ExecutionResultHandler implements ResponseHandler<ExecutionResultResponse> {
+public class ExecutionResultHandler implements ResponseHandler<CommandExecutionResponse> {
 
     /**
      * A method that handles the command execution result response and outputs the result.
@@ -15,7 +15,7 @@ public class ExecutionResultHandler implements ResponseHandler<ExecutionResultRe
      */
 
     @Override
-    public void handleResponse(ExecutionResultResponse response) {
+    public void handleResponse(CommandExecutionResponse response) {
         System.out.println(response.getResult());
     }
 

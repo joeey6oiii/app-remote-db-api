@@ -1,5 +1,6 @@
 package clientModules.response.handlers;
 
+import commands.CommandDescription;
 import commandsModule.ClientCommandsKeeper;
 import response.responses.ClientCommandsResponse;
 
@@ -20,7 +21,8 @@ public class ClientCommandsHandler implements ResponseHandler<ClientCommandsResp
 
     @Override
     public void handleResponse(ClientCommandsResponse response) {
-        ClientCommandsKeeper.setCommands(response.getCommands());
+        List<CommandDescription> commands = response.getCommands();
+        ClientCommandsKeeper.setCommands(commands);
     }
 
 }
