@@ -1,9 +1,14 @@
 package serverModules.request.handlers;
 
+import commands.CommandDescription;
 import commandsModule.ClientCommandsKeeper;
 import response.responses.ClientCommandsResponse;
+import serverModules.callerBack.CallerBack;
+import serverModules.connection.ConnectionModule;
 import serverModules.context.ServerContext;
 import serverModules.response.sender.ClientCommandsResponseSender;
+
+import java.util.List;
 
 /**
  * A class that works with the client commands request.
@@ -19,8 +24,12 @@ public class ClientCommandsHandler implements RequestHandler {
 
     @Override
     public void handleRequest(ServerContext context) {
-        new ClientCommandsResponseSender().sendResponse(context.getConnectionModule(), context.getCallerBack(),
-                new ClientCommandsResponse(ClientCommandsKeeper.getCommands()));
+        ConnectionModule connectionModule = context.getConnectionModule();
+        CallerBack client = context.getCallerBack();
+        List<CommandDescription> commands = ClientCommandsKeeper.getCommands();
+        ClientCommandsResponse commandsResponse = new ClientCommandsResponse(commands);
+
+        new ClientCommandsResponseSender().sendResponse(connectionModule, client, commandsResponse);
     }
 
 }

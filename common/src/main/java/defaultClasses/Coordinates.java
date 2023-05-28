@@ -9,7 +9,7 @@ import java.util.Objects;
  * Fields have no restrictions.
  */
 
-public class Coordinates implements Generated, Serializable {
+public class Coordinates implements isBuildable, Serializable {
     private long x;
     private int y;
 

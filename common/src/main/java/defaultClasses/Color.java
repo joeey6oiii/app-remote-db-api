@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * Contains getter and other methods.
  */
 
-public enum Color implements Generated, Serializable {
+public enum Color implements isBuildable, Serializable {
     RED("red"),
     ORANGE("orange"),
     BROWN("brown"),

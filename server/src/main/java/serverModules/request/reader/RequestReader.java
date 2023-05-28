@@ -22,8 +22,9 @@ public class RequestReader implements RequestReadAble<Request> {
 
     @Override
     public Request readRequest(byte[] data) throws IOException, ClassNotFoundException {
-        ObjectSerializer os = new ObjectSerializer();
-        return (Request) os.deserialize(data);
+        ObjectSerializer serializer = new ObjectSerializer();
+
+        return (Request) serializer.deserialize(data);
     }
 
 }

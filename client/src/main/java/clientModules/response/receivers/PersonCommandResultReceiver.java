@@ -8,7 +8,7 @@ import commandsModule.handler.CommandHandler;
 import defaultClasses.Person;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
-import generators.PersonGenerator;
+import objectBuilder.PersonBuilder;
 import requests.SingleArgumentCommandExecutionRequest;
 import response.responses.CommandExecutionResponse;
 
@@ -32,9 +32,9 @@ public class PersonCommandResultReceiver implements CommandReceiver {
 
     @Override
     public void receiveCommand(CommandDescription command, String[] args, DataTransferConnectionModule dataTransferConnectionModule) {
-        Person generatedPerson = new PersonGenerator().generate();
+        Person builtPerson = new PersonBuilder().buildObject();
 
-        SingleArgumentCommandExecutionRequest<Person> commandRequest = new SingleArgumentCommandExecutionRequest<>(command, args, generatedPerson);
+        SingleArgumentCommandExecutionRequest<Person> commandRequest = new SingleArgumentCommandExecutionRequest<>(command, args, builtPerson);
         CommandExecutionResponse executionResponse;
         try {
             executionResponse = new SingleArgumentCommandExecutionRequestSender().sendRequest(dataTransferConnectionModule, commandRequest);

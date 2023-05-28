@@ -75,6 +75,7 @@ public class Database {
 
     public void add(Person person) {
         this.database.add(person);
+
         this.sort();
     }
 

@@ -21,7 +21,10 @@ public class ClientCommandHandler implements RequestHandler {
 
     @Override
     public void handleRequest(ServerContext context) {
+        ConnectionModule connectionModule = context.getConnectionModule();
+        CallerBack client = context.getCallerBack();
         CommandExecutionRequest request = (CommandExecutionRequest) context.getRequest();
-        new CommandHandler().execute(context.getConnectionModule(), context.getCallerBack(), request);
+
+        new CommandHandler().execute(connectionModule, client, request);
     }
 }

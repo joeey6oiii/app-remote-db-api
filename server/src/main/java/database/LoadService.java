@@ -20,6 +20,7 @@ public class LoadService {
 
     public void loadToDatabase(List<Person> list, Database database) {
         list.forEach(database::add);
+
         Integer maxId = list.stream()
                 .map(Person::getId)
                 .max(Integer::compareTo)

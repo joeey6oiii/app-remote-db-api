@@ -101,7 +101,7 @@ public class Server {
             } catch (IOException e) {
                 logger.error("Something went wrong during I/O operations", e);
             } catch (ClassNotFoundException e) {
-                logger.error("Unexpected error: Could not find request class", e);
+                logger.error("Could not find request class", e);
             } catch (Exception e) {
                 logger.error("Unexpected error happened during server operations", e);
             }
