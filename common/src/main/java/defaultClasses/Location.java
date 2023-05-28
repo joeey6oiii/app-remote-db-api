@@ -9,7 +9,7 @@ import java.util.Objects;
  * Some fields have restrictions.
  */
 
-public class Location implements Generated, Serializable {
+public class Location implements isBuildable, Serializable {
     private Float x;
     private Integer y;
     private String name;

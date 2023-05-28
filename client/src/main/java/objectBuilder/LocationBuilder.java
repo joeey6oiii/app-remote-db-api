@@ -1,4 +1,4 @@
-package generators;
+package objectBuilder;
 
 import defaultClasses.Location;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 
-public class LocationGenerator implements GenerateAble {
+public class LocationBuilder implements BuildAble {
 
     /**
      * Method that creates an object of class Location.
@@ -18,7 +18,7 @@ public class LocationGenerator implements GenerateAble {
      * @return Location
      */
 
-    public Location generate() {
+    public Location buildObject() {
         Scanner consoleInputReader = new Scanner(System.in);
         Location location = new Location();
         String consoleInput;

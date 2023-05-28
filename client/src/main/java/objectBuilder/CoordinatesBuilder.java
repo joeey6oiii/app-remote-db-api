@@ -1,4 +1,4 @@
-package generators;
+package objectBuilder;
 
 import defaultClasses.Coordinates;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Dmitrii Chebanenko
  */
 
-public class CoordinatesGenerator implements GenerateAble {
+public class CoordinatesBuilder implements BuildAble {
 
     /**
      * Method that creates an object of class Coordinates.
@@ -18,7 +18,7 @@ public class CoordinatesGenerator implements GenerateAble {
      * @return coordinates
      */
 
-    public Coordinates generate() {
+    public Coordinates buildObject() {
         Coordinates coordinates;
         try {
             coordinates = new Coordinates();

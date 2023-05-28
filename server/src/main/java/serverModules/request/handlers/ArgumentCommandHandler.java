@@ -25,10 +25,13 @@ public class ArgumentCommandHandler<T> implements RequestHandler {
 
     @Override
     public void handleRequest(ServerContext context) {
-        SingleArgumentCommandExecutionRequest<T> request = (SingleArgumentCommandExecutionRequest<T>) context.getRequest();
-        CommandHandler handler = new CommandHandler();
-        SingleArgumentCommand<T> command = (SingleArgumentCommand<T>) handler.getCommandByDescription(request.getDescriptionCommand());
-        command.setSingleArgument(request.getArg());
-        handler.execute(context.getConnectionModule(), context.getCallerBack(), request);
+        CommandHandler commandHandler = new CommandHandler();
+
+        SingleArgumentCommandExecutionRequest<T> executionRequest = (SingleArgumentCommandExecutionRequest<T>) context.getRequest();
+
+        SingleArgumentCommand<T> command = (SingleArgumentCommand<T>) commandHandler.getCommandByDescription(executionRequest.getDescriptionCommand());
+        command.setSingleArgument(executionRequest.getArg());
+
+        commandHandler.execute(context.getConnectionModule(), context.getCallerBack(), executionRequest);
     }
 }

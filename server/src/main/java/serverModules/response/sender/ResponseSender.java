@@ -23,26 +23,27 @@ public class ResponseSender implements ResponseAble<Response> {
      * Sends <code>byte[]</code>, where header length placed on the first position, then from second position to length
      * of the header placed serialized header, and after placed the chunk (part of the data)
      *
-     * @param module server core
+     * @param connectionModule server core
      * @param callerBack client
      * @param response answer to the client
      */
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, Response response) throws IllegalArgumentException {
+    public void sendResponse(ConnectionModule connectionModule, CallerBack callerBack, Response response) throws IllegalArgumentException {
         if (response != null) {
-            ObjectSerializer os = new ObjectSerializer();
-            final InetAddress address = callerBack.getAddress();
-            final int port = callerBack.getPort();
+            ObjectSerializer serializer = new ObjectSerializer();
+
+            final InetAddress clientAddress = callerBack.getAddress();
+            final int clientPort = callerBack.getPort();
             try {
-                byte[] data = os.serialize(response);
+                byte[] data = serializer.serialize(response);
                 int maxPacketSize = UdpDataTransferUtilities.PACKET_SIZE.getPacketSizeValue();
                 int packetIndex = 0;
                 int offset = 0;
 
                 while (offset < data.length) {
                     FragmentHeader header = new FragmentHeader(packetIndex);
-                    byte[] headerData = os.serialize(header);
+                    byte[] headerData = serializer.serialize(header);
                     int headerDataLength = headerData.length;
 
                     if (headerDataLength >= maxPacketSize - 1) {
@@ -58,14 +59,14 @@ public class ResponseSender implements ResponseAble<Response> {
                     System.arraycopy(headerData, 0, packet, 1, headerDataLength);
                     System.arraycopy(data, offset, packet, headerDataLength + 1, length);
 
-                    module.sendData(packet, address, port);
+                    connectionModule.sendData(packet, clientAddress, clientPort);
 
                     packetIndex++;
                     offset += length;
                 }
 
                 FragmentHeader header = new FragmentHeader(-1);
-                byte[] headerData = os.serialize(header);
+                byte[] headerData = serializer.serialize(header);
                 int headerDataLength = headerData.length;
 
                 if (headerDataLength >= maxPacketSize - 1) {
@@ -76,7 +77,7 @@ public class ResponseSender implements ResponseAble<Response> {
                 noDataNotification[0] = (byte) headerDataLength;
                 System.arraycopy(headerData, 0, noDataNotification, 1, headerDataLength);
 
-                module.sendData(noDataNotification, address, port);
+                connectionModule.sendData(noDataNotification, clientAddress, clientPort);
             } catch (Exception e) {
                 logger.fatal("Something went wrong during I/O operations", e);
             }

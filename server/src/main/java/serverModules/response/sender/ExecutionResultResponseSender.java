@@ -14,14 +14,14 @@ public class ExecutionResultResponseSender implements ResponseAble<CommandExecut
     /**
      * A method that calls {@link ResponseSender#sendResponse(ConnectionModule, CallerBack, Response)} method.
      *
-     * @param module server core
+     * @param connectionModule server core
      * @param callerBack client
-     * @param response answer to the client
+     * @param executionResponse answer to the client
      */
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, CommandExecutionResponse response) {
-        new ResponseSender().sendResponse(module, callerBack, response);
+    public void sendResponse(ConnectionModule connectionModule, CallerBack callerBack, CommandExecutionResponse executionResponse) {
+        new ResponseSender().sendResponse(connectionModule, callerBack, executionResponse);
     }
 
 }

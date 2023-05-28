@@ -48,6 +48,7 @@ public class UdpConnectionModule implements ConnectionModule {
         } catch (IOException e) {
             logger.error("Something went wrong during receiving data", e);
         }
+
         return new RequestData();
     }
 
@@ -69,10 +70,10 @@ public class UdpConnectionModule implements ConnectionModule {
             } else {
                 throw new IOException("Unexpected error: byte[] size is larger than packet size");
             }
-            logger.debug("Data sent");
         } catch (IOException e) {
             logger.error("Something went wrong during data sending", e);
         }
+        logger.debug("Data sent");
     }
 
 }

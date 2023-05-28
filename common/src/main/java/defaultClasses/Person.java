@@ -10,7 +10,7 @@ import java.util.Objects;
  * Some fields have restrictions.
  */
 
-public class Person implements Generated, Comparable<Person>, Serializable {
+public class Person implements isBuildable, Comparable<Person>, Serializable {
     private static Integer identifier = 0;
     private Integer id;
     private String name;
@@ -235,11 +235,11 @@ public class Person implements Generated, Comparable<Person>, Serializable {
 
     /**
      * @param anotherPerson the object to be compared.
-     * @return
+     * @return difference between caller object id and compared object id
      */
 
-    public int compareTo (Person anotherPerson){
-        return this.id-anotherPerson.id;
+    public int compareTo(Person anotherPerson){
+        return this.id - anotherPerson.id;
     }
 
     @Override

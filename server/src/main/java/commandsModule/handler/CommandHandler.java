@@ -87,15 +87,17 @@ public class CommandHandler {
      * command with or without arguments. After, gets response from the command and adds command to the command history
      * list, then sends the response to the client.
      *
-     * @param module server core. Used to send data
+     * @param connectionModule server core. Used to send data
      * @param callerBack the client to whom to send response
      * @param request the request, received from the client
      */
 
-    public void execute(ConnectionModule module, CallerBack callerBack, CommandExecutionRequest request) {
+    public void execute(ConnectionModule connectionModule, CallerBack callerBack, CommandExecutionRequest request) {
         String response;
         try {
-            BaseCommand command = this.getCommandByDescription(request.getDescriptionCommand());
+            CommandDescription simplifiedCommand = request.getDescriptionCommand();
+            BaseCommand command = this.getCommandByDescription(simplifiedCommand);
+
             if (command instanceof ParameterizedCommand parameterizedCommand) {
                 parameterizedCommand.setArguments(request.getArgs());
                 parameterizedCommand.execute();
@@ -104,6 +106,7 @@ public class CommandHandler {
                 command.execute();
                 response = command.getResponse();
             }
+
             history.add(command);
         } catch (IllegalArgumentException | NullPointerException e) {
             response = "Command has invalid argument(s)";
@@ -119,7 +122,7 @@ public class CommandHandler {
             logger.fatal(response, e);
         }
 
-        new ExecutionResultResponseSender().sendResponse(module, callerBack, new CommandExecutionResponse(response));
+        new ExecutionResultResponseSender().sendResponse(connectionModule, callerBack, new CommandExecutionResponse(response));
     }
 
 }

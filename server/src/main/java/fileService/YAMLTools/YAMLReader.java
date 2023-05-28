@@ -51,7 +51,7 @@ public class YAMLReader {
         } catch (ClassNotFoundException ignored) {}
 
         long fileSize = Files.size(file.toPath());
-        if (fileSize == 0) {
+        if (fileSize == 0 || arrayClass == null) {
             return new ArrayList<>();
         }
 

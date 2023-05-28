@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.nio.BufferOverflowException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Program entry point class. Contains <code>main()</code> method.
@@ -41,14 +42,14 @@ public class Client {
             module.connect();
             System.out.println("Server connection established");
 
-            int timeout = 4999;
+            long timeout = 5;
             boolean initializedCommands = false;
             while (!initializedCommands) {
                 System.out.println("Trying to initialize commands...");
                 try {
                     initializedCommands = new CommandsReceiver().initCommands(module);
                 } catch (ServerUnavailableException | ResponseTimeoutException | IOException | NullPointerException e) {
-                    Thread.sleep(timeout);
+                    TimeUnit.SECONDS.sleep(timeout);
                 }
             }
             System.out.println("Commands initialized");
@@ -59,12 +60,13 @@ public class Client {
 
             System.out.println("Console input allowed");
             handler.startHandlingInput();
+
         } catch (UnknownHostException e) {
             System.out.println("Could not find host");
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
         } catch (BufferOverflowException e) {
-            System.out.println("Unexpected error: byte[] size is larger than allocated size in buffer");
+            System.out.println("byte[] size is larger than allocated size in buffer");
         } catch (Exception e) {
             System.out.println("Unexpected error happened during client operations");
         }

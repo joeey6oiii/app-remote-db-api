@@ -14,11 +14,11 @@ public interface ResponseAble<T> {
     /**
      * A method that sends response of a T type to the client.
      *
-     * @param module server core
+     * @param connectionModule server core
      * @param callerBack client
      * @param response answer to the client
      */
 
-    void sendResponse(ConnectionModule module, CallerBack callerBack, T response);
+    void sendResponse(ConnectionModule connectionModule, CallerBack callerBack, T response);
 
 }

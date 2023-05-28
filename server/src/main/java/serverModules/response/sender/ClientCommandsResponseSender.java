@@ -14,14 +14,14 @@ public class ClientCommandsResponseSender implements ResponseAble<ClientCommands
     /**
      * A method that calls {@link ResponseSender#sendResponse(ConnectionModule, CallerBack, Response)} method.
      *
-     * @param module server core
+     * @param connectionModule server core
      * @param callerBack client
-     * @param response answer to the client
+     * @param commandsResponse answer to the client
      */
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, ClientCommandsResponse response) {
-        new ResponseSender().sendResponse(module, callerBack, response);
+    public void sendResponse(ConnectionModule connectionModule, CallerBack callerBack, ClientCommandsResponse commandsResponse) {
+        new ResponseSender().sendResponse(connectionModule, callerBack, commandsResponse);
     }
 
 }

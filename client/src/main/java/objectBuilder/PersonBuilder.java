@@ -1,4 +1,4 @@
-package generators;
+package objectBuilder;
 
 import defaultClasses.Color;
 import defaultClasses.Coordinates;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  * A class that implements a generating ability.
  */
 
-public class PersonGenerator implements GenerateAble {
+public class PersonBuilder implements BuildAble {
 
     /**
      * Method that creates an object of class Person.
@@ -22,7 +22,7 @@ public class PersonGenerator implements GenerateAble {
      * @return Person object
      */
 
-    public Person generate() {
+    public Person buildObject() {
         Scanner consoleInputReader = new Scanner(System.in);
         Person person = new Person();
 
@@ -35,11 +35,11 @@ public class PersonGenerator implements GenerateAble {
         person.setName(name);
 
         System.out.println("Creating coordinates:");
-        CoordinatesGenerator coordinatesGenerator = new CoordinatesGenerator();
-        Coordinates coordinates = coordinatesGenerator.generate();
+        CoordinatesBuilder coordinatesBuilder = new CoordinatesBuilder();
+        Coordinates coordinates = coordinatesBuilder.buildObject();
         while (!new CoordinatesValidator().validate(coordinates)) {
             System.out.println("Invalid coordinates. Please enter valid coordinates:");
-            coordinates = coordinatesGenerator.generate();
+            coordinates = coordinatesBuilder.buildObject();
         }
         person.setCoordinates(coordinates);
 
@@ -90,10 +90,10 @@ public class PersonGenerator implements GenerateAble {
         person.setHairColor(hairColor);
 
         System.out.println("Creating Location. Press \"ENTER\" to skip this operation");
-        LocationGenerator locationGenerator = new LocationGenerator();
-        Location location = locationGenerator.generate();
+        LocationBuilder locationBuilder = new LocationBuilder();
+        Location location = locationBuilder.buildObject();
         while (!new LocationValidator().validate(location)) {
-            location = locationGenerator.generate();
+            location = locationBuilder.buildObject();
         }
         person.setLocation(location);
 

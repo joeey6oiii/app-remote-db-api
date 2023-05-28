@@ -18,6 +18,7 @@ public class IDService {
     public static Person recalculateId(Person person) {
         maxId += 1;
         person.setId(maxId);
+
         return person;
     }
 
