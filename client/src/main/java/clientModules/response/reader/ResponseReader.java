@@ -24,11 +24,13 @@ public class ResponseReader implements ResponseReadAble<Response> {
 
     @Override
     public Response readResponse(byte[] data) throws IOException, ClassNotFoundException, ServerUnavailableException {
-        ObjectSerializer os = new ObjectSerializer();
-        Response response = (Response) os.deserialize(data);
+        ObjectSerializer serializer = new ObjectSerializer();
+        Response response = (Response) serializer.deserialize(data);
+
         if (response == null) {
             throw new ServerUnavailableException("Server is currently unavailable");
         }
+
         return response;
     }
 

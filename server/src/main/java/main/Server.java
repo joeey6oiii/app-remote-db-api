@@ -1,5 +1,6 @@
 package main;
 
+import database.Database;
 import database.LoadService;
 import defaultClasses.Person;
 import fileService.FileService;
@@ -38,6 +39,8 @@ public class Server {
 
     public static void main(String[] args) {
 
+        Database database = Database.getInstance();
+
         File workPathAsFile = FileService.getWorkPathAsFile();
         String workDir = "server";
         if (FileService.isProgramRunningFromJar()) {
@@ -69,7 +72,7 @@ public class Server {
 
         if (!list.isEmpty()) {
             logger.info("Uploading data from file to database...");
-            new LoadService().loadToDatabase(list);
+            new LoadService().loadToDatabase(list, database);
         } else {
             logger.info("Continuing execution with an empty database");
         }

@@ -1,12 +1,12 @@
 package clientModules.response.handlers;
 
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 /**
  * A class that works with the "exit" command execution result response.
  */
 
-public class ExitCommandHandler implements ResponseHandler<ExecutionResultResponse> {
+public class ExitCommandHandler implements ResponseHandler<CommandExecutionResponse> {
 
     /**
      * A method that handles the "exit" command execution result response and ends the program.
@@ -15,8 +15,8 @@ public class ExitCommandHandler implements ResponseHandler<ExecutionResultRespon
      */
 
     @Override
-    public void handleResponse(ExecutionResultResponse response) {
-        System.out.println("Shutting down program...");
+    public void handleResponse(CommandExecutionResponse response) {
+        System.out.println("Shutdown...");
         System.exit(0);
     }
 

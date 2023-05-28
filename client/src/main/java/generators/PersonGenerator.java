@@ -14,7 +14,7 @@ import java.util.Scanner;
  * A class that implements a generating ability.
  */
 
-public class PersonGenerator implements Generate {
+public class PersonGenerator implements GenerateAble {
 
     /**
      * Method that creates an object of class Person.
@@ -23,14 +23,14 @@ public class PersonGenerator implements Generate {
      */
 
     public Person generate() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner consoleInputReader = new Scanner(System.in);
         Person person = new Person();
 
         System.out.print("Enter name\n$ ");
-        String name = scanner.nextLine();
+        String name = consoleInputReader.nextLine();
         while (!new NameValidator().validate(name)) {
             System.out.print("Invalid name. Please enter a valid name\n$ ");
-            name = scanner.nextLine();
+            name = consoleInputReader.nextLine();
         }
         person.setName(name);
 
@@ -44,27 +44,27 @@ public class PersonGenerator implements Generate {
         person.setCoordinates(coordinates);
 
         System.out.print("Enter height\n$ ");
-        int height = Integer.parseInt(scanner.next());
+        int height = Integer.parseInt(consoleInputReader.next());
         while (!new HeightValidator().validate(height)) {
             try {
                 System.out.print("Invalid height. Please enter a valid height\n$ ");
-                height = Integer.parseInt(scanner.next());
+                height = Integer.parseInt(consoleInputReader.next());
             } catch (Exception ignored) {
             }
         }
         person.setHeight(height);
 
         System.out.print("Enter birthday. Use <<yyyy-MM-dd HH:mm:ss>> pattern\n$ ");
-        scanner.nextLine();
+        consoleInputReader.nextLine();
         Date birthday;
-        String input;
+        String consoleInput;
         while (true) {
-            input = scanner.nextLine().trim();
+            consoleInput = consoleInputReader.nextLine().trim();
             try {
-                if (input.isEmpty()) {
+                if (consoleInput.isEmpty()) {
                     throw new IllegalArgumentException();
                 }
-                birthday = StringToDateParser.parse(input);
+                birthday = StringToDateParser.parse(consoleInput);
                 break;
             } catch (Exception e) {
                 System.out.print("Invalid date. Please enter a valid date. Use <<yyyy-MM-dd HH:mm:ss>> pattern\n$ ");
@@ -73,19 +73,19 @@ public class PersonGenerator implements Generate {
         person.setBirthday(birthday);
 
         System.out.print("Enter passportID of length 5 or more\n$ ");
-        String passportId = scanner.nextLine();
+        String passportId = consoleInputReader.nextLine();
         while (!new PassportIDValidator().validate(passportId)) {
             System.out.print("Invalid passportId. Please enter a valid passportId of length 5 or more\n$ ");
-            passportId = scanner.nextLine();
+            passportId = consoleInputReader.nextLine();
         }
         person.setPassportID(passportId);
 
         System.out.print("Choose hair color:\n" + Color.listValues() + "\n" +
                 "Enter anything except color name to skip this operation\n$ ");
-        String str = scanner.nextLine().trim();
+        consoleInput = consoleInputReader.nextLine().trim();
         Color hairColor = null;
-        if (!str.isEmpty()) {
-            hairColor = Color.getColorByName(str.toLowerCase());
+        if (!consoleInput.isEmpty()) {
+            hairColor = Color.getColorByName(consoleInput.toLowerCase());
         }
         person.setHairColor(hairColor);
 

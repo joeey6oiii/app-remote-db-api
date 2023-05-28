@@ -1,6 +1,6 @@
 package serverModules.response.sender;
 
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 import response.responses.Response;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
@@ -9,7 +9,7 @@ import serverModules.connection.ConnectionModule;
  * A class that represents the client command execution response sender.
  */
 
-public class ExecutionResultResponseSender implements ResponseAble<ExecutionResultResponse> {
+public class ExecutionResultResponseSender implements ResponseAble<CommandExecutionResponse> {
 
     /**
      * A method that calls {@link ResponseSender#sendResponse(ConnectionModule, CallerBack, Response)} method.
@@ -20,7 +20,7 @@ public class ExecutionResultResponseSender implements ResponseAble<ExecutionResu
      */
 
     @Override
-    public void sendResponse(ConnectionModule module, CallerBack callerBack, ExecutionResultResponse response) {
+    public void sendResponse(ConnectionModule module, CallerBack callerBack, CommandExecutionResponse response) {
         new ResponseSender().sendResponse(module, callerBack, response);
     }
 

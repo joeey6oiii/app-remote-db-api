@@ -12,11 +12,11 @@ public interface CommandReceiver {
     /**
      * A method that receives commands to continue sending and receiving operations.
      *
-     * @param cmd simplified command
+     * @param command simplified command
      * @param args simplified command arguments
      * @param module client core
      */
 
-    void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module);
+    void receiveCommand(CommandDescription command, String[] args, DataTransferConnectionModule module);
 
 }

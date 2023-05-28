@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class CommandHandler {
     private static Map<String, CommandDescription> commands;
     private static Map<CommandDescription, String[]> missedCommands;
-    private final CommandManager manager;
+    private final CommandManager commandManager;
     private final DataTransferConnectionModule module;
     private final Scanner scanner;
 
@@ -31,7 +31,7 @@ public class CommandHandler {
         missedCommands = new LinkedHashMap<>();
         this.scanner = scanner;
         this.module = module;
-        manager = new CommandManager();
+        commandManager = new CommandManager();
     }
 
     /**
@@ -47,7 +47,7 @@ public class CommandHandler {
         missedCommands = new LinkedHashMap<>();
         this.scanner = scanner;
         this.module = module;
-        manager = new CommandManager();
+        commandManager = new CommandManager();
     }
 
     /**
@@ -82,8 +82,8 @@ public class CommandHandler {
      * continue operations connected to sending and receiving.
      */
 
-    public void startHandling() {
-        String input;
+    public void startHandlingInput() {
+        String consoleInput;
         while (true) {
             if (!missedCommands.isEmpty()) {
                 System.out.println("Server failed to execute some commands (perhaps the" +
@@ -93,30 +93,30 @@ public class CommandHandler {
             System.out.print("$ ");
 
             if (!scanner.hasNextLine()) {
-                System.out.println("Unexpected event: scanner was closed. Unable to continue scanning input");
+                System.out.println("Scanner was closed. Unable to continue handling input");
                 break;
             }
 
-            input = scanner.nextLine().trim();
-            if (input.isEmpty()) { continue; }
-            String[] arr = input.toLowerCase().split(" ");
-            CommandDescription cmd = commands.get(arr[0]);
-            if (cmd == null) {
+            consoleInput = scanner.nextLine().trim();
+            if (consoleInput.isEmpty()) { continue; }
+            String[] tokens = consoleInput.toLowerCase().split(" ");
+            CommandDescription command = commands.get(tokens[0]);
+            if (command == null) {
                 System.out.println("Not Recognized as an Internal or External Command");
                 continue;
             }
             if (!missedCommands.isEmpty()) {
-                missedCommands.put(cmd, arr);
+                missedCommands.put(command, tokens);
                 System.out.println("Added command to the end of the missed commands collection due to its not emptiness");
             } else {
-                manager.manageCommand(cmd, arr, module);
+                commandManager.manageCommand(command, tokens, module);
                 continue;
             }
 
             if (!missedCommands.isEmpty()) {
                 System.out.println("Trying to send commands from missed commands collection...");
-                Map<CommandDescription, String[]> copyMissedCommands = new LinkedHashMap<>(missedCommands);
-                copyMissedCommands.forEach((key, value) -> manager.manageCommand(key, value, module));
+                Map<CommandDescription, String[]> copyOfMissedCommands = new LinkedHashMap<>(missedCommands);
+                copyOfMissedCommands.forEach((key, value) -> commandManager.manageCommand(key, value, module));
             }
         }
     }

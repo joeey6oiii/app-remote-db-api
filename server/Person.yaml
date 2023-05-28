@@ -580,3 +580,53 @@
   passportID: "programming on java is fucking hell"
   hairColor: "BLACK"
   location: null
+- id: 44
+  name: "test 4"
+  coordinates:
+    x: 1324556
+    "y": 56743
+  creationDate: "2023-05-25T12:15:25.022+00:00"
+  height: 5
+  birthday: "2014-12-10T01:08:12.000+00:00"
+  passportID: "12345657"
+  hairColor: null
+  location: null
+- id: 45
+  name: "pavetranqu"
+  coordinates:
+    x: -3485465
+    "y": -23454
+  creationDate: "2023-05-27T11:49:53.256+00:00"
+  height: 4
+  birthday: "2008-05-03T00:05:09.000+00:00"
+  passportID: "tranquuu"
+  hairColor: "BROWN"
+  location:
+    x: 34.0
+    "y": -13
+    name: "ITMO"
+- id: 46
+  name: "im home"
+  coordinates:
+    x: -34321
+    "y": 23345465
+  creationDate: "2023-05-28T08:33:08.988+00:00"
+  height: 5
+  birthday: "2014-05-07T13:18:19.000+00:00"
+  passportID: "optional ofnullable"
+  hairColor: "GRAY"
+  location: null
+- id: 47
+  name: "test again"
+  coordinates:
+    x: 3434
+    "y": -45
+  creationDate: "2023-05-28T09:25:02.956+00:00"
+  height: 4
+  birthday: "2000-02-03T13:39:32.000+00:00"
+  passportID: "123456789"
+  hairColor: null
+  location:
+    x: 2334.0
+    "y": -2323
+    name: "location name 1"

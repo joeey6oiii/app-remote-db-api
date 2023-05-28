@@ -3,6 +3,7 @@ package main;
 import clientModules.connection.DataTransferConnectionModule;
 import clientModules.connection.UdpConnectionModuleFactory;
 import clientModules.response.receivers.CommandsReceiver;
+import commands.CommandDescription;
 import commandsModule.ClientCommandsKeeper;
 import commandsModule.handler.CommandHandler;
 import exceptions.ResponseTimeoutException;
@@ -13,6 +14,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.BufferOverflowException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -40,21 +42,23 @@ public class Client {
             System.out.println("Server connection established");
 
             int timeout = 4999;
-            boolean receivedCommands = false;
-            while (!receivedCommands) {
-                System.out.println("Trying to receive commands...");
+            boolean initializedCommands = false;
+            while (!initializedCommands) {
+                System.out.println("Trying to initialize commands...");
                 try {
-                    receivedCommands = new CommandsReceiver().receiveCommands(module);
-                } catch (ServerUnavailableException | ResponseTimeoutException | IOException e) {
+                    initializedCommands = new CommandsReceiver().initCommands(module);
+                } catch (ServerUnavailableException | ResponseTimeoutException | IOException | NullPointerException e) {
                     Thread.sleep(timeout);
                 }
             }
-            System.out.println("Received commands");
+            System.out.println("Commands initialized");
 
-            CommandHandler handler = new CommandHandler(ClientCommandsKeeper.getCommands(), new Scanner(System.in), module);
+            List<CommandDescription> commands = ClientCommandsKeeper.getCommands();
+            Scanner consoleInputReader = new Scanner(System.in);
+            CommandHandler handler = new CommandHandler(commands, consoleInputReader, module);
 
             System.out.println("Console input allowed");
-            handler.startHandling();
+            handler.startHandlingInput();
         } catch (UnknownHostException e) {
             System.out.println("Could not find host");
         } catch (IOException e) {

@@ -9,7 +9,7 @@ import defaultClasses.Generated;
  */
 
 @FunctionalInterface
-public interface Generate {
+public interface GenerateAble {
 
     /**
      * Method to override.

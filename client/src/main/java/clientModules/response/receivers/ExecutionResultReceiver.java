@@ -8,7 +8,7 @@ import commandsModule.handler.CommandHandler;
 import exceptions.ResponseTimeoutException;
 import exceptions.ServerUnavailableException;
 import requests.CommandExecutionRequest;
-import response.responses.ExecutionResultResponse;
+import response.responses.CommandExecutionResponse;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -21,29 +21,29 @@ public class ExecutionResultReceiver implements CommandReceiver {
 
     /**
      * A method that receives the simplified command, sends request to a server, gets response and
-     * calls the {@link ExecutionResultHandler#handleResponse(ExecutionResultResponse)} method.
+     * calls the {@link ExecutionResultHandler#handleResponse(CommandExecutionResponse)} method.
      *
-     * @param cmd simplified command
+     * @param command simplified command
      * @param args simplified command arguments
-     * @param module client core
+     * @param dataTransferConnectionModule client core
      */
 
     @Override
-    public void receiveCommand(CommandDescription cmd, String[] args, DataTransferConnectionModule module) {
-        CommandExecutionRequest request = new CommandExecutionRequest(cmd, args);
-        ExecutionResultResponse resultResponses;
+    public void receiveCommand(CommandDescription command, String[] args, DataTransferConnectionModule dataTransferConnectionModule) {
+        CommandExecutionRequest commandRequest = new CommandExecutionRequest(command, args);
+        CommandExecutionResponse executionResponse;
         try {
-            resultResponses = new CommandExecutionRequestSender().sendRequest(module, request);
+            executionResponse = new CommandExecutionRequestSender().sendRequest(dataTransferConnectionModule, commandRequest);
 
-            new ExecutionResultHandler().handleResponse(resultResponses);
+            new ExecutionResultHandler().handleResponse(executionResponse);
 
-            CommandHandler.getMissedCommands().remove(cmd, args);
+            CommandHandler.getMissedCommands().remove(command, args);
         } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
-            CommandHandler.getMissedCommands().put(cmd, args);
+            CommandHandler.getMissedCommands().put(command, args);
         } catch (IOException e) {
             System.out.println("Something went wrong during I/O operations");
         } catch (NullPointerException e) {
-            System.out.println("Unexpected error: Empty response received");
+            System.out.println("Empty response received");
         }
     }
 

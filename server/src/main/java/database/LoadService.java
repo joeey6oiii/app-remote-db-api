@@ -15,10 +15,10 @@ public class LoadService {
      * Sets to the {@link IDService} max id found.
      *
      * @param list collection to load
+     * @param database where to load to
      */
 
-    public void loadToDatabase(List<Person> list) {
-        Database database = Database.getInstance();
+    public void loadToDatabase(List<Person> list, Database database) {
         list.forEach(database::add);
         Integer maxId = list.stream()
                 .map(Person::getId)
