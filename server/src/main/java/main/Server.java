@@ -37,7 +37,7 @@ public class Server {
      * @param args the command line arguments
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocketException {
 
         Database database = Database.getInstance();
 
@@ -78,12 +78,12 @@ public class Server {
         }
 
         ConnectionModuleFactory factory = new UdpConnectionModuleFactory();
-        ConnectionModule module = null;
+        ConnectionModule module;
         try {
             module = factory.createConnectionModule(PORT);
         } catch (SocketException e) {
-            logger.fatal("There was a problem while creating the server core. Can not start new server", e);
-            System.exit(-99);
+            logger.fatal("There was a problem while creating the server core. Can not start new server");
+            throw e;
         }
         logger.info("Server started");
 
