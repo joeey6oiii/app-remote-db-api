@@ -43,6 +43,11 @@ public class ScriptCommandReceiver implements CommandReceiver {
             historyOfDangerScript.clear();
             return;
         }
+        
+        if (args.length < 2) {
+            System.out.println("Not enough arguments. Returning to the console input");
+            return;
+        }
 
         File script = new File(args[1]);
         if (!script.exists()) {
