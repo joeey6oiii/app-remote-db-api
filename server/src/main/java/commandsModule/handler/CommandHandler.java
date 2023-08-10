@@ -65,7 +65,7 @@ public class CommandHandler {
      * @return history of used commands
      */
 
-    public static List<BaseCommand> getHistory() {
+    public static List<BaseCommand> getHistory() { // The problem is that there is one shared command history for all users. Fixed in lab7
         if (history == null) {
             history = new ArrayList<>();
         }
