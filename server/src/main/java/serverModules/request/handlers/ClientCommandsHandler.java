@@ -6,7 +6,7 @@ import response.responses.ClientCommandsResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
 import serverModules.context.ServerContext;
-import serverModules.response.sender.ClientCommandsResponseSender;
+import serverModules.response.sender.ResponseSender;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ClientCommandsHandler implements RequestHandler {
         List<CommandDescription> commands = ClientCommandsKeeper.getCommands();
         ClientCommandsResponse commandsResponse = new ClientCommandsResponse(commands);
 
-        new ClientCommandsResponseSender().sendResponse(connectionModule, client, commandsResponse);
+        new ResponseSender(connectionModule).sendResponse(client, commandsResponse);
     }
 
 }
