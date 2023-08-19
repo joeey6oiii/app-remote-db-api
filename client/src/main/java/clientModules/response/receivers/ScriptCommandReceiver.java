@@ -44,6 +44,11 @@ public class ScriptCommandReceiver implements CommandReceiver {
             return;
         }
 
+        if (args.length < 2) {
+            System.out.println("Invalid number of arguments. Returning to the console input");
+            return;
+        }
+
         File script = new File(args[1]);
         if (!script.exists()) {
             System.out.println("File not found. Returning to the console input");
@@ -57,11 +62,8 @@ public class ScriptCommandReceiver implements CommandReceiver {
                 CommandExecutionRequest commandRequest = new CommandExecutionRequest(scriptCommand, args);
                 CommandExecutionResponse executionResponse = requestSender.sendRequest(dataTransferConnectionModule, commandRequest);
                 new ExecutionResultHandler().handleResponse(executionResponse);
-            } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException e) {
+            } catch (StreamCorruptedException | ServerUnavailableException | ResponseTimeoutException | NullPointerException e) {
                 CommandHandler.getMissedCommands().put(scriptCommand, args);
-                return;
-            } catch (NullPointerException e) {
-                System.out.println("Empty response received");
                 return;
             }
 

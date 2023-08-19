@@ -8,7 +8,7 @@ import requests.CommandExecutionRequest;
 import response.responses.CommandExecutionResponse;
 import serverModules.callerBack.CallerBack;
 import serverModules.connection.ConnectionModule;
-import serverModules.response.sender.ExecutionResultResponseSender;
+import serverModules.response.sender.ResponseSender;
 
 import java.io.IOException;
 import java.util.*;
@@ -122,7 +122,7 @@ public class CommandHandler {
             logger.fatal(response, e);
         }
 
-        new ExecutionResultResponseSender().sendResponse(connectionModule, callerBack, new CommandExecutionResponse(response));
+        new ResponseSender(connectionModule).sendResponse(callerBack, new CommandExecutionResponse(response));
     }
 
 }
